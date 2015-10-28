@@ -14,6 +14,7 @@
 #include "Blocks.h"
 #include "Enviroment.h"
 #include "AssignFunctions.h"
+#include "LogicOperations.h"
 
 using namespace std;
 
@@ -77,6 +78,12 @@ LangFunction * getFunctionIfIndetifier(string s, Enviroment * enviroment) {
     
     if (s == "/=")
         return new AssignDivideFunction();
+    
+    if (s == "and")
+        return new AndOperation();
+
+    if (s == "or")
+        return new OrOperation();
 
     
     LangObject * userFunction = enviroment->get(s);
@@ -185,7 +192,7 @@ LangObject * Reader::getObject() {
     }
     
     if (isBoolean(s)) {
-        return s == "YES" ? LangBoolean::YES() : LangBoolean::NO();
+        return s == "yes" ? LangBoolean::YES() : LangBoolean::NO();
     }
     
     if (s == "[") {
@@ -297,7 +304,7 @@ bool isString(string str) {
 }
 
 bool isBoolean(string str) {
-    return str == "YES" || str == "NO";
+    return str == "yes" || str == "no";
 }
 
 int toNumber(string symbol) {

@@ -124,6 +124,3 @@ LangObject * EqualsOperation::eval(Enviroment * enviroment) {
     // compare pointers
     return LangBoolean::INSTANCE(l == r);
 }
-
-
-

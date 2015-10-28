@@ -76,7 +76,6 @@ bool IfFunction::readArgs(Reader * reader) {
 }
 
 LangObject * IfFunction::eval(Enviroment * enviroment) {
-    //condBlock->setPrintable(false);
     LangObject * condRes = condBlock->eval(enviroment);
     
     if (condRes == NULL || condRes->getTag() != TAG_BOOLEAN) {

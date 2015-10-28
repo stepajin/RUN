@@ -131,6 +131,10 @@ LangBoolean * LangBoolean::NO() {
     return NO_INSTANCE;
 }
 
+bool LangBoolean::getValue() {
+    return this == YES();
+}
+
 string LangBoolean::toString() {
     return value ? "#YES" : "#NO";
 }

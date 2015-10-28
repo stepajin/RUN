@@ -92,10 +92,13 @@ public:
     static LangBoolean * YES();
     static LangBoolean * NO();
     static LangBoolean * INSTANCE(bool value);
+    
+    bool getValue();
 };
 
 class LangList : public LangObject {
     vector<LangObject *> * list;
+    
 public:
     LangList();
     
