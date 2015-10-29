@@ -23,7 +23,7 @@ protected:
     virtual bool isEOF() = 0;
     
     LangObject * readBlock();
-    LangObject * readList();
+    LangObject * readList(Enviroment * enviroment);
     
     LangObject * readObject(string s);
 

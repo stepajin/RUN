@@ -137,7 +137,7 @@ LangObject * Reader::readObject(string s) {
     }
     
     if (s == "[") {
-        return readList();
+        return readList(enviroment);
     }
     
     if (s == "(") {
@@ -168,17 +168,38 @@ LangObject * Reader::getObject() {
 }
 
 
-LangObject * Reader::readList() {
+LangObject * Reader::readList(Enviroment * enviroment) {
     LangList * list = new LangList();
+    bool errorList = false;;
     
     while (true) {
         string s = readWord();
         if (s == "]")
             break;
         
+        if (errorList)
+            continue;
+        
         LangObject * obj = readObject(s);
+        if (obj->getTag() == TAG_IDENTIFIER) {
+            LangIdentifier * id = (LangIdentifier *)obj;
+            obj = enviroment->get(id->getValue());
+            
+            if (!obj) {
+                stringstream ss;
+                ss << "unset variable " << id->getValue() << " can't be pushed to list";
+                error(ss.str());
+                errorList = true;
+                
+                continue;
+            }
+        }
+        
         list->push(obj);
     }
+    
+    if (errorList)
+        return error("unvalid list");
     
     return list;
 }
