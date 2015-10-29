@@ -34,7 +34,8 @@ LangObject * AssignFunction::eval(Enviroment * enviroment) {
     LangObject * e = value->eval(enviroment);
     enviroment->set(key, e);
     
-    return e;
+    return LangVoid::VOID();
+//    return e;
 }
 
 LangObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
@@ -60,7 +61,8 @@ LangObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
     LangInteger * newValue = countNewValue(l, r);
     enviroment->set(key, newValue);
     
-    return newValue;
+    return LangVoid::VOID();
+//    return newValue;
 }
 
 LangInteger * AssignPlusFunction::countNewValue(LangInteger * l, LangInteger * r) {

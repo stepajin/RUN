@@ -24,8 +24,6 @@ bool isBoolean(string str);
 int toNumber(string str);
 bool validIdentifier(string str);
 
-string readWord();
-
 LangFunction * getFunctionIfIndetifier(string s, Enviroment * enviroment) {
     if (s == "+")
         return new PlusOperation();
