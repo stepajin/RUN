@@ -234,10 +234,6 @@ Reader::Reader(Enviroment * enviroment) {
     this->enviroment = enviroment;
 }
 
-string Reader::getIdentifier() {
-    return readWord();
-}
-
 LangObject * Reader::getBlock() {
     string s = readWord();
     if (s != "(")

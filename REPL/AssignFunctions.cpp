@@ -17,33 +17,36 @@
  **************/
 
 bool AssignFunction::readArgs(Reader * reader) {
-    string k = reader->getIdentifier();
-    key = k;
-    
-    LangObject * v = reader->getObject();
-    if (v == NULL) {
+    LangObject * obj = reader->getObject();
+    if (obj->getTag() != TAG_IDENTIFIER) {
+        error("assign : first argument must be identifier");
         return false;
     }
     
-    value = v;
+    this->identifier = (LangIdentifier *)obj;
     
+    obj = reader->getObject();
+    if (!obj)
+        return false;
+    
+    value = obj;
     return true;
 }
 
 LangObject * AssignFunction::eval(Enviroment * enviroment) {
     LangObject * e = value->eval(enviroment);
-    enviroment->set(key, e);
+    enviroment->set(identifier->getValue(), e);
     
     return LangVoid::VOID();
 //    return e;
 }
 
 LangObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
-    LangObject * obj = enviroment->get(key);
+    LangObject * obj = enviroment->get(identifier->getValue());
 
     if (!obj) {
         stringstream ss;
-        ss << "object " << key << " not found";
+        ss << "object " << identifier->getValue() << " not found";
         error(ss.str());
         return NULL;
     }
@@ -51,7 +54,7 @@ LangObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
     LangObject * e = value->eval(enviroment);
 
     if (e->getTag() != TAG_INTEGER || obj->getTag() != TAG_INTEGER) {
-        error("both operands mut be numbers");
+        error("both operands must be numbers");
         return NULL;
     }
     
@@ -59,7 +62,7 @@ LangObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
     LangInteger * r = (LangInteger *) e;
 
     LangInteger * newValue = countNewValue(l, r);
-    enviroment->set(key, newValue);
+    enviroment->set(identifier->getValue(), newValue);
     
     return LangVoid::VOID();
 //    return newValue;

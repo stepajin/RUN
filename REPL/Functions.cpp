@@ -180,37 +180,53 @@ bool LoopFunction::readArgs(Reader * reader) {
 AtFunction::AtFunction() : LangFunction("at") {}
 
 LangObject * AtFunction::eval(Enviroment * enviroment) {
-    LangObject * obj = enviroment->get(listKey);
-    
-    if (!obj) {
-        stringstream ss;
-        ss << "list " << listKey << " not found";
-        error(ss.str());
-        return NULL;
-    }
-    
-    if (obj->getTag() != TAG_LIST) {
-        stringstream ss;
-        ss << listKey << " is not a list";
-        error(ss.str());
-        return NULL;
-    }
+    stringstream outOfBounds;
+    outOfBounds << "index out of bounds: " << idx;
 
-    LangList * list = (LangList *)obj;
+    LangObject * obj = object;
     
-    if (idx >= list->size()) {
-        stringstream ss;
-        ss  << "index out of bounds: " << idx;
-        error(ss.str());
-        return NULL;
+    if (object->getTag() == TAG_IDENTIFIER) {
+        LangIdentifier * id = (LangIdentifier *) object;
+        obj = enviroment->get(id->getValue());
     }
     
-    return list->at(idx);
+    if (!obj)
+        return error("at: not valid object");
+    
+    if (obj->getTag() == TAG_STRING) {
+        LangString * str = (LangString *) obj;
+        
+        if (idx >= str->getValue().length())
+            return error(outOfBounds.str());
+    
+        string s = "";
+        s += str->getValue()[idx];
+        return new LangString(s);
+    }
+    
+    if (obj->getTag() == TAG_LIST) {
+        LangList * list = (LangList *)obj;
+        
+        if (idx >= list->size())
+            return error(outOfBounds.str());
+
+        return list->at(idx);
+    }
+    
+    return error("at: not valid object");
 }
 
 bool AtFunction::readArgs(Reader * reader) {
-    listKey = reader->getIdentifier();
     LangObject * obj = reader->getObject();
+    
+    if (obj->getTag() != TAG_IDENTIFIER && obj->getTag() != TAG_STRING && obj->getTag() != TAG_LIST) {
+        error("at: first argument must be a list, identifier or string");
+        return false;
+    }
+    
+    this->object = obj;
+    
+    obj = reader->getObject();
     
     if (obj == NULL || obj->getTag() != TAG_INTEGER) {
         error("index is not a number");

@@ -30,7 +30,7 @@ protected:
 public:
     LangObject * getObject();
     LangObject * getBlock();
-    string getIdentifier();
+//    string getIdentifier();
 };
 
 class ConsoleReader : public Reader {

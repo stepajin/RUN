@@ -13,7 +13,7 @@
 
 class AssignFunction : public LangFunction {
 protected:
-    string key;
+    LangIdentifier * identifier;
     LangObject * value;
     
 public:

@@ -76,7 +76,7 @@ public:
 };
 
 class AtFunction : public LangFunction {
-    string listKey;
+    LangObject * object;
     int idx;
     
 public:
