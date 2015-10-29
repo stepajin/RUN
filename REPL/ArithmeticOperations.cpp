@@ -42,7 +42,7 @@ LangObject * ArithmeticOperation::eval(Enviroment * enviroment) {
         return NULL;
     }
 
-    return evalOperation((LangInteger *) l, (LangInteger *) r);
+    return evalOperation((LangNumber *) l, (LangNumber *) r);
 }
 
 /******************
@@ -51,23 +51,23 @@ LangObject * ArithmeticOperation::eval(Enviroment * enviroment) {
  
  ******************/
 
-LangObject * PlusOperation::evalOperation(LangInteger * l, LangInteger * r) {
-    return new LangInteger(l->getValue() + r->getValue());
+LangObject * PlusOperation::evalOperation(LangNumber * l, LangNumber * r) {
+    return new LangNumber(l->getValue() + r->getValue());
 }
 
-LangObject * MinusOperation::evalOperation(LangInteger * l, LangInteger * r) {
-    return new LangInteger(l->getValue() - r->getValue());
+LangObject * MinusOperation::evalOperation(LangNumber * l, LangNumber * r) {
+    return new LangNumber(l->getValue() - r->getValue());
 }
 
-LangObject * MultiplyOperation::evalOperation(LangInteger * l, LangInteger * r) {
-    return new LangInteger(l->getValue() * r->getValue());
+LangObject * MultiplyOperation::evalOperation(LangNumber * l, LangNumber * r) {
+    return new LangNumber(l->getValue() * r->getValue());
 }
 
-LangObject * DivideOperation::evalOperation(LangInteger * l, LangInteger * r) {
+LangObject * DivideOperation::evalOperation(LangNumber * l, LangNumber * r) {
     if (r->getValue() == 0)
-        return new LangInteger(0);
+        return new LangNumber(0);
     
-    return new LangInteger(l->getValue() / r->getValue());
+    return new LangNumber(l->getValue() / r->getValue());
 }
 
 /***********************
@@ -76,19 +76,19 @@ LangObject * DivideOperation::evalOperation(LangInteger * l, LangInteger * r) {
 
  ************************/
 
-LangObject * EqualsMoreOperation::evalOperation(LangInteger * l, LangInteger * r) {
+LangObject * EqualsMoreOperation::evalOperation(LangNumber * l, LangNumber * r) {
     return LangBoolean::INSTANCE(l->getValue() >= r->getValue());
 }
 
-LangObject * MoreOperation::evalOperation(LangInteger * l, LangInteger * r) {
+LangObject * MoreOperation::evalOperation(LangNumber * l, LangNumber * r) {
     return LangBoolean::INSTANCE(l->getValue() > r->getValue());
 }
 
-LangObject * EqualsLessOperation::evalOperation(LangInteger * l, LangInteger * r) {
+LangObject * EqualsLessOperation::evalOperation(LangNumber * l, LangNumber * r) {
     return LangBoolean::INSTANCE(l->getValue() <= r->getValue());
 }
 
-LangObject * LessOperation::evalOperation(LangInteger * l, LangInteger * r) {
+LangObject * LessOperation::evalOperation(LangNumber * l, LangNumber * r) {
     return LangBoolean::INSTANCE(l->getValue() < r->getValue());
 }
 
@@ -112,7 +112,7 @@ LangObject * EqualsOperation::eval(Enviroment * enviroment) {
 
     
     if (l->getTag() == TAG_INTEGER && r->getTag() == TAG_INTEGER) {
-        bool b = ((LangInteger *)l)->getValue() == ((LangInteger *)r)->getValue();
+        bool b = ((LangNumber *)l)->getValue() == ((LangNumber *)r)->getValue();
         return LangBoolean::INSTANCE(b);
     }
     

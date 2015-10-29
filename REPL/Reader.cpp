@@ -18,10 +18,10 @@
 
 using namespace std;
 
-bool allDigits(string str);
+bool isNumber(string str);
 bool isString(string str);
 bool isBoolean(string str);
-int toNumber(string str);
+double toNumber(string str);
 bool validIdentifier(string str);
 
 LangFunction * getFunctionIfIdentifier(string s, Enviroment * enviroment) {
@@ -100,10 +100,8 @@ LangObject * Reader::readObject(string s) {
     if (s == "end")
         return LangObject::getEND();
     
-    if (allDigits(s)) {
-        int i = toNumber(s);
-        return new LangInteger(i);
-    }
+    if (isNumber(s))
+        return new LangNumber(toNumber(s));
     
     if (s == "func") {
         return readFunctionDef();
@@ -311,7 +309,7 @@ bool StringReader::isEOF() {
  
  *****************/
 
-bool allDigits(string str) {
+bool isNumber(string str) {
     if (str.length() == 0)
         return false;
     
@@ -319,8 +317,18 @@ bool allDigits(string str) {
     if (str[i] == '-' && str.length() > 1)
         i++;
     
+    if (str[i] == '.')
+        return false;
+
+    int dots = 0;
+    
     for (; i < str.length(); i++) {
         char c = str[i];
+        if (c == '.') {
+            if (++dots > 1 || i == str.length() - 1)
+                return false;
+            continue;
+        }
         
         if (c < '0' || c > '9')
             return false;
@@ -330,18 +338,19 @@ bool allDigits(string str) {
 }
 
 bool isString(string str) {
-    if (str.length() == 0)
+    if (str.length() < 2)
         return false;
     
-    return str[0] == '"' && str[str.length()-1] == '"';
+    return (str[0] == '"' && str[str.length()-1] == '"')
+        || (str[0] == '\'' && str[str.length()-1] == '\'');
 }
 
 bool isBoolean(string str) {
     return str == "yes" || str == "no";
 }
 
-int toNumber(string str) {
-    return atoi(str.c_str());
+double toNumber(string str) {
+    return stod(str);
 }
 
 bool validIdentifier(string str) {

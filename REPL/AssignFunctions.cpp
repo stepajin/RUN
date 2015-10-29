@@ -58,32 +58,32 @@ LangObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
         return NULL;
     }
     
-    LangInteger * l = (LangInteger *) obj;
-    LangInteger * r = (LangInteger *) e;
+    LangNumber * l = (LangNumber *) obj;
+    LangNumber * r = (LangNumber *) e;
 
-    LangInteger * newValue = countNewValue(l, r);
+    LangNumber * newValue = countNewValue(l, r);
     enviroment->set(identifier->getValue(), newValue);
     
     return LangVoid::VOID();
 //    return newValue;
 }
 
-LangInteger * AssignPlusFunction::countNewValue(LangInteger * l, LangInteger * r) {
-    return new LangInteger(l->getValue() + r->getValue());
+LangNumber * AssignPlusFunction::countNewValue(LangNumber * l, LangNumber * r) {
+    return new LangNumber(l->getValue() + r->getValue());
 }
 
-LangInteger * AssignMinusFunction::countNewValue(LangInteger * l, LangInteger * r) {
-    return new LangInteger(l->getValue() - r->getValue());
+LangNumber * AssignMinusFunction::countNewValue(LangNumber * l, LangNumber * r) {
+    return new LangNumber(l->getValue() - r->getValue());
 }
 
-LangInteger * AssignMultiplyFunction::countNewValue(LangInteger * l, LangInteger * r) {
-    return new LangInteger(l->getValue() * r->getValue());
+LangNumber * AssignMultiplyFunction::countNewValue(LangNumber * l, LangNumber * r) {
+    return new LangNumber(l->getValue() * r->getValue());
 }
 
-LangInteger * AssignDivideFunction::countNewValue(LangInteger * l, LangInteger * r) {
+LangNumber * AssignDivideFunction::countNewValue(LangNumber * l, LangNumber * r) {
     if (r->getValue() == 0) {
-        return new LangInteger(0);
+        return new LangNumber(0);
     }
     
-    return new LangInteger(l->getValue() / r->getValue());
+    return new LangNumber(l->getValue() / r->getValue());
 }

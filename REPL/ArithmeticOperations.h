@@ -19,7 +19,7 @@ protected:
     ArithmeticOperation();
     
     bool evalOperands(Enviroment * enviroment);
-    virtual LangObject * evalOperation(LangInteger * l, LangInteger * r) = 0;
+    virtual LangObject * evalOperation(LangNumber * l, LangNumber * r) = 0;
     
 public:
     virtual bool readArgs(Reader * reader);
@@ -29,25 +29,25 @@ public:
 class PlusOperation : public ArithmeticOperation {
     
 public:
-    virtual LangObject * evalOperation(LangInteger * l, LangInteger * r);
+    virtual LangObject * evalOperation(LangNumber * l, LangNumber * r);
 };
 
 class MinusOperation : public ArithmeticOperation {
     
 public:
-    virtual LangObject * evalOperation(LangInteger * l, LangInteger * r);
+    virtual LangObject * evalOperation(LangNumber * l, LangNumber * r);
 };
 
 class MultiplyOperation : public ArithmeticOperation {
     
 public:
-    virtual LangObject * evalOperation(LangInteger * l, LangInteger * r);
+    virtual LangObject * evalOperation(LangNumber * l, LangNumber * r);
 };
 
 class DivideOperation : public ArithmeticOperation {
     
 public:
-    virtual LangObject * evalOperation(LangInteger * l, LangInteger * r);
+    virtual LangObject * evalOperation(LangNumber * l, LangNumber * r);
 };
 
 /***********************
@@ -59,25 +59,25 @@ public:
 class EqualsMoreOperation : public ArithmeticOperation {
     
 public:
-    virtual LangObject * evalOperation(LangInteger * l, LangInteger * r);
+    virtual LangObject * evalOperation(LangNumber * l, LangNumber * r);
 };
 
 class MoreOperation : public ArithmeticOperation {
     
 public:
-    virtual LangObject * evalOperation(LangInteger * l, LangInteger * r);
+    virtual LangObject * evalOperation(LangNumber * l, LangNumber * r);
 };
 
 class EqualsLessOperation : public ArithmeticOperation {
     
 public:
-    virtual LangObject * evalOperation(LangInteger * l, LangInteger * r);
+    virtual LangObject * evalOperation(LangNumber * l, LangNumber * r);
 };
 
 class LessOperation : public ArithmeticOperation {
     
 public:
-    virtual LangObject * evalOperation(LangInteger * l, LangInteger * r);
+    virtual LangObject * evalOperation(LangNumber * l, LangNumber * r);
 };
 
 class EqualsOperation : public LangFunction {

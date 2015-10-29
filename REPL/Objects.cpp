@@ -88,21 +88,21 @@ string LangVoid::toString() {
     return "";
 }
 
-/* Integer */
+/* Number */
 
-LangInteger::LangInteger(int value) : LangObject(TAG_INTEGER) {
+LangNumber::LangNumber(double value) : LangObject(TAG_INTEGER) {
     this->value = value;
 }
 
-void LangInteger::setValue(int value) {
+void LangNumber::setValue(double value) {
     this->value = value;
 }
 
-int LangInteger::getValue() {
+double LangNumber::getValue() {
     return value;
 }
 
-string LangInteger::toString() {
+string LangNumber::toString() {
     stringstream ss;
     ss << value;
     return ss.str();

@@ -277,7 +277,7 @@ bool AtFunction::readArgs(Reader * reader) {
         return false;
     }
 
-    idx = ((LangInteger *) obj)->getValue();
+    idx = ((LangNumber *) obj)->getValue();
     return true;
 }
 

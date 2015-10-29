@@ -70,13 +70,13 @@ public:
     virtual string toString();
 };
 
-class LangInteger : public LangObject {
-    int value;
+class LangNumber : public LangObject {
+    double value;
 public:
-    LangInteger(int value);
+    LangNumber(double value);
     
-    void setValue(int value);
-    int getValue();
+    void setValue(double value);
+    double getValue();
     
     virtual string toString();
 };

@@ -22,25 +22,25 @@ public:
 };
 
 class AssignArithmeticFunction : public AssignFunction {
-    virtual LangInteger * countNewValue(LangInteger * l, LangInteger * r) = 0;
+    virtual LangNumber * countNewValue(LangNumber * l, LangNumber * r) = 0;
 
 public:
     virtual LangObject * eval(Enviroment * enviroment);
 };
 
 class AssignPlusFunction : public AssignArithmeticFunction {
-    virtual LangInteger * countNewValue(LangInteger * l, LangInteger * r);
+    virtual LangNumber * countNewValue(LangNumber * l, LangNumber * r);
 };
 
 class AssignMinusFunction : public AssignArithmeticFunction {
-    virtual LangInteger * countNewValue(LangInteger * l, LangInteger * r);
+    virtual LangNumber * countNewValue(LangNumber * l, LangNumber * r);
 };
 
 class AssignMultiplyFunction : public AssignArithmeticFunction {
-    virtual LangInteger * countNewValue(LangInteger * l, LangInteger * r);
+    virtual LangNumber * countNewValue(LangNumber * l, LangNumber * r);
 };
 
 class AssignDivideFunction : public AssignArithmeticFunction {
-    virtual LangInteger * countNewValue(LangInteger * l, LangInteger * r);
+    virtual LangNumber * countNewValue(LangNumber * l, LangNumber * r);
 };
 #endif /* defined(__REPL__AssignFunctions__) */
