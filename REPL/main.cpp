@@ -20,6 +20,9 @@ LangObject * error(string message) {
     return NULL;
 }
 
+// TODO error type
+// TODO identifiers singletons
+
 LangObject * repl(Reader * reader, Enviroment * enviroment, bool print) {
     LangObject * lastEval = NULL;
     LangObject * lastObject = NULL;

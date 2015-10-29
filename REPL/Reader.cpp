@@ -24,7 +24,7 @@ bool isBoolean(string str);
 int toNumber(string str);
 bool validIdentifier(string str);
 
-LangFunction * getFunctionIfIndetifier(string s, Enviroment * enviroment) {
+LangFunction * getFunctionIfIdentifier(string s, Enviroment * enviroment) {
     if (s == "+")
         return new PlusOperation();
     
@@ -106,23 +106,7 @@ LangObject * Reader::readObject(string s) {
     }
     
     if (s == "func") {
-        LangObject * obj = getObject();
-        if (!obj || obj->getTag() != TAG_IDENTIFIER)
-            return error("not valid function identifier");
-
-        LangIdentifier * id = (LangIdentifier *)obj;
-        LangFunction * function = new LangFunction(id->getValue());
-        
-        LangObject * b = getBlock();
-        
-        if (!b || b->getTag() != TAG_BLOCK)
-            return error("wrong function block");
-            
-        LangBlock * block = (LangBlock *)b;
-        function->setBlock(block);
-        
-        enviroment->set(id->getValue(), function);
-        return LangVoid::VOID();
+        return readFunctionDef();
     }
     
     if (isString(s)) {
@@ -135,14 +119,14 @@ LangObject * Reader::readObject(string s) {
     }
     
     if (s == "[") {
-        return readList(enviroment);
+        return readList();
     }
     
     if (s == "(") {
         return readBlock();
     }
     
-    LangFunction * func = getFunctionIfIndetifier(s, enviroment);
+    LangFunction * func = getFunctionIfIdentifier(s, enviroment);
     if (func) {
         bool argsOk = func->readArgs(this);
         if (!argsOk)
@@ -165,8 +149,39 @@ LangObject * Reader::getObject() {
     return readObject(s);
 }
 
+LangObject * Reader::readFunctionDef() {
+    LangObject * obj = getObject();
+    if (!obj || obj->getTag() != TAG_IDENTIFIER)
+        return error("not valid function identifier");
+    
+    LangIdentifier * id = (LangIdentifier *)obj;
+    LangFunction * function = new LangFunction(id->getValue());
+    
+    while (true) {
+        obj = getObject();
+        
+        if (!obj)
+            return error("not valid func arguments");
+        
+        if (obj->getTag() == TAG_BLOCK) {
+            LangBlock * block = (LangBlock *)obj;
+            function->setBlock(block);
+            
+            enviroment->set(id->getValue(), function);
+            return LangVoid::VOID();
+        }
+        
+        if (obj->getTag() == TAG_IDENTIFIER) {
+            LangIdentifier * arg = (LangIdentifier *)obj;
+            function->addArgIdentifier(arg);
+        } else {
+            return error("not valid func arguments");
+        }
+    }
 
-LangObject * Reader::readList(Enviroment * enviroment) {
+}
+
+LangObject * Reader::readList() {
     LangList * list = new LangList();
     bool errorList = false;;
     

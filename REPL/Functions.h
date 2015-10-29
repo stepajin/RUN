@@ -16,18 +16,23 @@
 class LangFunction : public LangObject {
 protected:
     string name;
-    
-    LangList * argKeysList;
-    LangList * argList;
+
+    vector<LangIdentifier *> * argIdentifiers;
+    //vector<LangObject *> * args;
+    LangList * args;
     
     LangBlock * block;
     
     LangFunction();
 
+    void addArgumentsToEnviroment(Enviroment * enviroments);
+    
 public:
     LangFunction(string name);
     
     void setBlock(LangBlock * block);
+    void addArgIdentifier(LangIdentifier * identifier);
+    
     string getName();
     bool hasBody();
     

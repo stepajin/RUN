@@ -11,19 +11,47 @@
 #include "main.h"
 
 LangFunction::LangFunction() : LangObject(TAG_FUNCTION) {
+    argIdentifiers = new vector<LangIdentifier *>;
+    //args = new vector<LangObject *>;
 }
 
-LangFunction::LangFunction(string name) : LangObject(TAG_FUNCTION) {
+LangFunction::LangFunction(string name) : LangFunction() {
     this->name = name;
 }
 
 bool LangFunction::readArgs(Reader * reader) {
-    // TODO: args
+    if (argIdentifiers->size() == 0)
+        return true;
+    
+    LangObject * obj = reader->getObject();
+    
+    if (!obj || obj->getTag() != TAG_LIST) {
+        stringstream ss;
+        ss << "function " << name << " requires arguments list";
+        error(ss.str());
+        return false;
+    }
+    
+    args = (LangList *) obj;
+    
+    if (args->size() != argIdentifiers->size()) {
+        stringstream ss;
+        ss << "function " << name << " arguments: given " << args->size();
+        ss << " expected " << argIdentifiers->size();
+        error(ss.str());
+        args = NULL;
+        return false;
+    }
+    
     return true;
 }
 
 void LangFunction::setBlock(LangBlock * block) {
     this->block = block;
+}
+
+void LangFunction::addArgIdentifier(LangIdentifier * identifier) {
+    argIdentifiers->push_back(identifier);
 }
 
 string LangFunction::getName() {
@@ -34,13 +62,29 @@ bool LangFunction::hasBody() {
     return block != NULL;
 }
 
+void LangFunction::addArgumentsToEnviroment(Enviroment * enviroment) {
+    if (!args)
+        return;
+    
+    for (int i = 0; i < args->size(); i++) {
+        LangIdentifier * id = argIdentifiers->at(i);
+        LangObject * arg = args->at(i);
+        enviroment->set(id->getValue(), arg);
+    }
+}
+
 LangObject * LangFunction::eval(Enviroment * enviroment) {
+    Enviroment * newEnviroment = new Enviroment(enviroment);
+    
+    addArgumentsToEnviroment(newEnviroment);
+
     if (!block) {
         error("function has no body");
         return NULL;
     }
     
-    LangObject * blockEval = block->eval(enviroment);
+    LangObject * blockEval = block->eval(newEnviroment);
+
     return blockEval;
 }
 
@@ -152,7 +196,7 @@ LangObject * LoopFunction::eval(Enviroment * enviroment) {
     for (int i = 0; ; i++) {
         LangObject * obj = block->eval(enviroment);
         
-        if (obj->getTag() == TAG_END) {
+        if (obj && obj->getTag() == TAG_END) {
             break;
         }
     }

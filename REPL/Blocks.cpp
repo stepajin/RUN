@@ -23,8 +23,10 @@ void LangBlock::setPrintable(bool printable) {
 }
 
 LangObject * LangBlock::eval(Enviroment * enviroment) {
-    StringReader * reader = new StringReader(block, enviroment);
-    LangObject * obj = repl(reader, enviroment, printable);
+    Enviroment * newEnviroment = new Enviroment(enviroment);
+
+    StringReader * reader = new StringReader(block, newEnviroment);
+    LangObject * obj = repl(reader, newEnviroment, printable);
 
     return obj;
 }

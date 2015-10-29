@@ -13,7 +13,12 @@
 #include <map>
 
 class Enviroment {
-    map<std::string, LangObject *> * store;    
+    Enviroment * parentEnviroment;
+    
+    map<std::string, LangObject *> * store;
+    
+    bool changeInParent(string key, LangObject * value);
+    bool isSetInThis(string key);
     
 public:
     Enviroment();

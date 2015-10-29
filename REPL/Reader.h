@@ -23,14 +23,14 @@ protected:
     virtual bool isEOF() = 0;
     
     LangObject * readBlock();
-    LangObject * readList(Enviroment * enviroment);
+    LangObject * readList();
+    LangObject * readFunctionDef();
     
     LangObject * readObject(string s);
 
 public:
     LangObject * getObject();
     LangObject * getBlock();
-//    string getIdentifier();
 };
 
 class ConsoleReader : public Reader {

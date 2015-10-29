@@ -12,19 +12,45 @@ Enviroment::Enviroment() {
     store = new map<string, LangObject *>;
 }
 
-Enviroment::Enviroment(Enviroment * parent) {
-    store = new map<string, LangObject *>(*(parent->store));
+Enviroment::Enviroment(Enviroment * parent) : Enviroment() {
+    this->parentEnviroment = parent;
+}
+
+bool Enviroment::changeInParent(string key, LangObject * value) {
+    if (isSetInThis(key)) {
+        (*store)[key] = value;
+        return true;
+    }
+    
+    if (!parentEnviroment)
+        return false;
+    
+    return parentEnviroment->changeInParent(key, value);
 }
 
 void Enviroment::set(string key, LangObject * value) {
+    if (changeInParent(key, value))
+        return;
+    
     (*store)[key] = value;
 }
 
 LangObject * Enviroment::get(string key) {
-    return (*store)[key];
+    LangObject * obj = (*store)[key];
+    if (obj)
+        return obj;
+    
+    if (parentEnviroment) {
+        return parentEnviroment->get(key);
+    }
+    
+    return NULL;
+}
+
+bool Enviroment::isSetInThis(string key) {
+    return (*store)[key] != NULL;
 }
 
 bool Enviroment::isSet(string key) {
-    LangObject * value = get(key);
-    return value != NULL;
+    return get(key) != NULL;
 }
