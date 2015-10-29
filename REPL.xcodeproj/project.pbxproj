@@ -15,6 +15,7 @@
 		AC41B1A91BDEC977004C105D /* Blocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1A81BDEC977004C105D /* Blocks.cpp */; };
 		AC41B1AC1BDEDBD0004C105D /* Enviroment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1AA1BDEDBD0004C105D /* Enviroment.cpp */; };
 		AC41B1B21BDFAFE8004C105D /* AssignFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1B01BDFAFE8004C105D /* AssignFunctions.cpp */; };
+		ACF41A321BE25C1700780EB5 /* LogicOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACF41A301BE25C1700780EB5 /* LogicOperations.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +48,8 @@
 		AC41B1AB1BDEDBD0004C105D /* Enviroment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enviroment.h; sourceTree = "<group>"; };
 		AC41B1B01BDFAFE8004C105D /* AssignFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssignFunctions.cpp; sourceTree = "<group>"; };
 		AC41B1B11BDFAFE8004C105D /* AssignFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignFunctions.h; sourceTree = "<group>"; };
+		ACF41A301BE25C1700780EB5 /* LogicOperations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogicOperations.cpp; sourceTree = "<group>"; };
+		ACF41A311BE25C1700780EB5 /* LogicOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogicOperations.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,8 @@
 				AC41B1AA1BDEDBD0004C105D /* Enviroment.cpp */,
 				AC41B1B11BDFAFE8004C105D /* AssignFunctions.h */,
 				AC41B1B01BDFAFE8004C105D /* AssignFunctions.cpp */,
+				ACF41A301BE25C1700780EB5 /* LogicOperations.cpp */,
+				ACF41A311BE25C1700780EB5 /* LogicOperations.h */,
 			);
 			path = REPL;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACF41A321BE25C1700780EB5 /* LogicOperations.cpp in Sources */,
 				AC41B1951BDE74D6004C105D /* Objects.cpp in Sources */,
 				AC41B19D1BDE8FF1004C105D /* Functions.cpp in Sources */,
 				AC41B1B21BDFAFE8004C105D /* AssignFunctions.cpp in Sources */,

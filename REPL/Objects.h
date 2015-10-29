@@ -26,6 +26,7 @@ enum LangObjectTag {
     TAG_VOID,
     TAG_LIST,
     TAG_END,
+    TAG_IDENTIFIER
 };
 
 class LangObject {
@@ -42,6 +43,18 @@ public:
     
     static LangObject * getEOF();
     static LangObject * getEND();
+
+    virtual LangObject * eval(Enviroment * enviroment);
+    virtual string toString();
+};
+
+class LangIdentifier : public LangObject {
+    string identifier;
+    
+public:
+    LangIdentifier(string identifier);
+    
+    string getValue();
 
     virtual LangObject * eval(Enviroment * enviroment);
     virtual string toString();

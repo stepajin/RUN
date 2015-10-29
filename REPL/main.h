@@ -13,6 +13,6 @@
 #include "Enviroment.h"
 
 LangObject * repl(Reader * reader, Enviroment * enviroment, bool print);
-void error(string message);
+LangObject * error(string message); // returns NULL
 
 #endif

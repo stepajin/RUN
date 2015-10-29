@@ -35,12 +35,39 @@ LangObjectTag LangObject::getTag() {
 }
 
 LangObject * LangObject::eval(Enviroment * enviroment) {
-    // default implementation
     return this;
 }
 
 string LangObject::toString() {
     return "unprintable object";
+}
+
+/* Identifier */
+
+LangIdentifier::LangIdentifier(string identifier) : LangObject(TAG_IDENTIFIER) {
+    this->identifier = identifier;
+}
+
+string LangIdentifier::getValue() {
+    return identifier;
+}
+
+string LangIdentifier::toString() {
+    string s = "#";
+    s += getValue();
+    return s;
+}
+
+LangObject * LangIdentifier::eval(Enviroment * enviroment) {
+    LangObject * obj = enviroment->get(identifier);
+    if (!obj) {
+        stringstream ss;
+        ss << "identifier " << identifier << " not set";
+        error(ss.str());
+        return NULL;
+    }
+
+    return obj->eval(enviroment);
 }
 
 /* Void */

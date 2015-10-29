@@ -15,8 +15,9 @@
 
 using namespace std;
 
-void error(string message) {
+LangObject * error(string message) {
     cout << "error: " << message << endl;
+    return NULL;
 }
 
 LangObject * repl(Reader * reader, Enviroment * enviroment, bool print) {
@@ -44,6 +45,10 @@ LangObject * repl(Reader * reader, Enviroment * enviroment, bool print) {
                 printEval = false;
         }
         
+        if (obj->getTag() == TAG_BLOCK) {
+            printEval = false;
+        }
+        
         /* if-else? */
         if (obj->getTag() == TAG_FUNCTION && lastObject && lastObject->getTag() == TAG_FUNCTION) {
             LangFunction * func = (LangFunction *)obj;
@@ -57,16 +62,14 @@ LangObject * repl(Reader * reader, Enviroment * enviroment, bool print) {
             }
         }
         
+        /* eval */
+        
         LangObject * eval = obj->eval(enviroment);
 
         if (eval && eval->getTag() == TAG_END) {
             return LangObject::getEND();
         }
 
-        /*if (eval && eval->getTag() == TAG_BLOCK) {
-            cout << "block??" << endl;
-        } */
-        
         if (eval && printEval) {
             string s = eval->toString();
             if (s != "")

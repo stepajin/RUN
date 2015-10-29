@@ -10,18 +10,23 @@
 #define REPL_Reader_h
 
 #include "Objects.h"
-#include <sstream> 
+#include <sstream>
 
 class Reader {
 protected:
     Enviroment * enviroment;
     
     Reader(Enviroment * enviroment);
-    virtual string readSymbol() = 0;
+
+    virtual string readWord() = 0;
     virtual char readChar() = 0;
-    
     virtual bool isEOF() = 0;
     
+    LangObject * readBlock();
+    LangObject * readList();
+    
+    LangObject * readObject(string s);
+
 public:
     LangObject * getObject();
     LangObject * getBlock();
@@ -29,7 +34,7 @@ public:
 };
 
 class ConsoleReader : public Reader {
-    virtual string readSymbol();
+    virtual string readWord();
     virtual char readChar();
     virtual bool isEOF();
 
@@ -40,7 +45,7 @@ public:
 class StringReader : public Reader {
     stringstream stream;
     
-    virtual string readSymbol();
+    virtual string readWord();
     virtual char readChar();
     virtual bool isEOF();
     
