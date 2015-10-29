@@ -10,7 +10,7 @@
 
 #include "Reader.h"
 #include "Functions.h"
-#include "ArithmeticOperations.h"
+#include "BinaryOperations.h"
 #include "Blocks.h"
 #include "Enviroment.h"
 #include "AssignFunctions.h"

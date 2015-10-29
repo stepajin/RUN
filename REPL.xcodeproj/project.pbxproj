@@ -11,7 +11,7 @@
 		AC41B1951BDE74D6004C105D /* Objects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1941BDE74D6004C105D /* Objects.cpp */; };
 		AC41B1991BDE7CB0004C105D /* Reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1971BDE7CB0004C105D /* Reader.cpp */; };
 		AC41B19D1BDE8FF1004C105D /* Functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B19C1BDE8FF1004C105D /* Functions.cpp */; };
-		AC41B1A31BDEB118004C105D /* ArithmeticOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1A11BDEB118004C105D /* ArithmeticOperations.cpp */; };
+		AC41B1A31BDEB118004C105D /* BinaryOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1A11BDEB118004C105D /* BinaryOperations.cpp */; };
 		AC41B1A91BDEC977004C105D /* Blocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1A81BDEC977004C105D /* Blocks.cpp */; };
 		AC41B1AC1BDEDBD0004C105D /* Enviroment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1AA1BDEDBD0004C105D /* Enviroment.cpp */; };
 		AC41B1B21BDFAFE8004C105D /* AssignFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC41B1B01BDFAFE8004C105D /* AssignFunctions.cpp */; };
@@ -40,8 +40,8 @@
 		AC41B19B1BDE8EA9004C105D /* Reader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reader.h; sourceTree = "<group>"; };
 		AC41B19C1BDE8FF1004C105D /* Functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Functions.cpp; sourceTree = "<group>"; };
 		AC41B19F1BDEAC4F004C105D /* Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Blocks.h; sourceTree = "<group>"; };
-		AC41B1A11BDEB118004C105D /* ArithmeticOperations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArithmeticOperations.cpp; sourceTree = "<group>"; };
-		AC41B1A21BDEB118004C105D /* ArithmeticOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArithmeticOperations.h; sourceTree = "<group>"; };
+		AC41B1A11BDEB118004C105D /* BinaryOperations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BinaryOperations.cpp; sourceTree = "<group>"; };
+		AC41B1A21BDEB118004C105D /* BinaryOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryOperations.h; sourceTree = "<group>"; };
 		AC41B1A71BDEC08F004C105D /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		AC41B1A81BDEC977004C105D /* Blocks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Blocks.cpp; sourceTree = "<group>"; };
 		AC41B1AA1BDEDBD0004C105D /* Enviroment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enviroment.cpp; sourceTree = "<group>"; };
@@ -92,8 +92,8 @@
 				AC41B19C1BDE8FF1004C105D /* Functions.cpp */,
 				AC41B19F1BDEAC4F004C105D /* Blocks.h */,
 				AC41B1A81BDEC977004C105D /* Blocks.cpp */,
-				AC41B1A21BDEB118004C105D /* ArithmeticOperations.h */,
-				AC41B1A11BDEB118004C105D /* ArithmeticOperations.cpp */,
+				AC41B1A21BDEB118004C105D /* BinaryOperations.h */,
+				AC41B1A11BDEB118004C105D /* BinaryOperations.cpp */,
 				AC41B1AB1BDEDBD0004C105D /* Enviroment.h */,
 				AC41B1AA1BDEDBD0004C105D /* Enviroment.cpp */,
 				AC41B1B11BDFAFE8004C105D /* AssignFunctions.h */,
@@ -166,7 +166,7 @@
 				AC41B1B21BDFAFE8004C105D /* AssignFunctions.cpp in Sources */,
 				AC41B1991BDE7CB0004C105D /* Reader.cpp in Sources */,
 				AC41B18E1BDE7245004C105D /* main.cpp in Sources */,
-				AC41B1A31BDEB118004C105D /* ArithmeticOperations.cpp in Sources */,
+				AC41B1A31BDEB118004C105D /* BinaryOperations.cpp in Sources */,
 				AC41B1A91BDEC977004C105D /* Blocks.cpp in Sources */,
 				AC41B1AC1BDEDBD0004C105D /* Enviroment.cpp in Sources */,
 			);
