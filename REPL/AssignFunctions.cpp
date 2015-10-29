@@ -53,7 +53,7 @@ LangObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
     
     LangObject * e = value->eval(enviroment);
 
-    if (e->getTag() != TAG_INTEGER || obj->getTag() != TAG_INTEGER) {
+    if (e->getTag() != TAG_NUMBER || obj->getTag() != TAG_NUMBER) {
         error("both operands must be numbers");
         return NULL;
     }

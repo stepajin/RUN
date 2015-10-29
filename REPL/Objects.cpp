@@ -90,7 +90,7 @@ string LangVoid::toString() {
 
 /* Number */
 
-LangNumber::LangNumber(double value) : LangObject(TAG_INTEGER) {
+LangNumber::LangNumber(double value) : LangObject(TAG_NUMBER) {
     this->value = value;
 }
 

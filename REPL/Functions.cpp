@@ -272,7 +272,7 @@ bool AtFunction::readArgs(Reader * reader) {
     
     obj = reader->getObject();
     
-    if (obj == NULL || obj->getTag() != TAG_INTEGER) {
+    if (obj == NULL || obj->getTag() != TAG_NUMBER) {
         error("index is not a number");
         return false;
     }

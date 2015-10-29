@@ -17,7 +17,7 @@ using namespace std;
 class Enviroment;
 
 enum LangObjectTag {
-    TAG_INTEGER,
+    TAG_NUMBER,
     TAG_STRING,
     TAG_BOOLEAN,
     TAG_FUNCTION,

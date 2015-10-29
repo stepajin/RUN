@@ -141,12 +141,6 @@ LangObject * Reader::readObject(string s) {
     return error(e.str());
 }
 
-LangObject * Reader::getObject() {
-    string s = readWord();
-    
-    return readObject(s);
-}
-
 LangObject * Reader::readFunctionDef() {
     LangObject * obj = getObject();
     if (!obj || obj->getTag() != TAG_IDENTIFIER)
@@ -245,6 +239,12 @@ LangObject * Reader::readBlock() {
 
 Reader::Reader(Enviroment * enviroment) {
     this->enviroment = enviroment;
+}
+
+LangObject * Reader::getObject() {
+    string s = readWord();
+    
+    return readObject(s);
 }
 
 LangObject * Reader::getBlock() {

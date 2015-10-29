@@ -29,7 +29,7 @@ bool ArithmeticOperation::evalOperands(Enviroment * enviroment) {
     l = l->eval(enviroment);
     r = r->eval(enviroment);
     
-    if (l->getTag() != TAG_INTEGER || l->getTag() != TAG_INTEGER) {
+    if (l->getTag() != TAG_NUMBER || l->getTag() != TAG_NUMBER) {
         return false;
     }
     
@@ -111,7 +111,7 @@ LangObject * EqualsOperation::eval(Enviroment * enviroment) {
     r = r->eval(enviroment);
 
     
-    if (l->getTag() == TAG_INTEGER && r->getTag() == TAG_INTEGER) {
+    if (l->getTag() == TAG_NUMBER && r->getTag() == TAG_NUMBER) {
         bool b = ((LangNumber *)l)->getValue() == ((LangNumber *)r)->getValue();
         return LangBoolean::INSTANCE(b);
     }
