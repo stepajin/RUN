@@ -25,6 +25,7 @@ protected:
     LangObject * readBlock();
     LangObject * readList();
     LangObject * readFunctionDef();
+    LangObject * readString(string str);
     
     LangObject * readObject(string s);
 

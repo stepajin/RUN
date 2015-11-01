@@ -10,6 +10,7 @@
 
 Enviroment::Enviroment() {
     store = new map<string, LangObject *>;
+    this->parentEnviroment = NULL;
 }
 
 Enviroment::Enviroment(Enviroment * parent) : Enviroment() {
@@ -37,8 +38,10 @@ void Enviroment::set(string key, LangObject * value) {
 
 LangObject * Enviroment::get(string key) {
     LangObject * obj = (*store)[key];
-    if (obj)
+
+    if (obj) {
         return obj;
+    }
     
     if (parentEnviroment) {
         return parentEnviroment->get(key);

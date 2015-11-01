@@ -188,6 +188,13 @@ void LangList::push(LangObject * obj) {
     list->push_back(obj);
 }
 
+LangObject * LangList::eval(Enviroment * enviroment) {
+    for (int i = 0; i < size(); i++)
+        (*list)[i] = (*list)[i]->eval(enviroment);
+    
+    return this;
+}
+
 string LangList::toString() {
     string s;
     

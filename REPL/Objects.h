@@ -38,7 +38,7 @@ protected:
     static LangObject * EOF_INSTANCE;
     static LangObject * END_INSTANCE;
 
-public:
+public:    
     LangObjectTag getTag();
     
     static LangObject * getEOF();
@@ -119,6 +119,7 @@ public:
     unsigned long size();
     void push(LangObject * obj);
     
+    LangObject * eval(Enviroment * enviroment);
     virtual string toString();
 };
 

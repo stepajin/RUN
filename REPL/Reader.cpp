@@ -19,7 +19,6 @@
 using namespace std;
 
 bool isNumber(string str);
-bool isString(string str);
 bool isBoolean(string str);
 double toNumber(string str);
 bool validIdentifier(string str);
@@ -86,6 +85,7 @@ LangFunction * getFunctionIfIdentifier(string s, Enviroment * enviroment) {
         return new OrOperation();
     
     LangObject * userFunction = enviroment->get(s);
+
     if (userFunction && userFunction->getTag() == TAG_FUNCTION) {
         return (LangFunction *)userFunction;
     }
@@ -97,6 +97,9 @@ LangObject * Reader::readObject(string s) {
     if (isEOF())
         return LangObject::getEOF();
     
+    if (s[0] == '"' || s[0] == '\'')
+        return readString(s);
+    
     if (s == "end")
         return LangObject::getEND();
     
@@ -105,11 +108,6 @@ LangObject * Reader::readObject(string s) {
     
     if (s == "func") {
         return readFunctionDef();
-    }
-    
-    if (isString(s)) {
-        string str = s.substr(1, s.length()-2);
-        return new LangString(str);
     }
     
     if (isBoolean(s)) {
@@ -125,9 +123,9 @@ LangObject * Reader::readObject(string s) {
     }
     
     LangFunction * func = getFunctionIfIdentifier(s, enviroment);
+    
     if (func) {
-        bool argsOk = func->readArgs(this);
-        if (!argsOk)
+        if (!func->readArgs(this))
             return error("wrong arguments");
             
         return func;
@@ -135,10 +133,19 @@ LangObject * Reader::readObject(string s) {
     
     if (validIdentifier(s))
         return new LangIdentifier(s);
-    
+
     stringstream e;
     e << "wrong command '" << s << "'";
     return error(e.str());
+}
+
+LangObject * Reader::readString(string str) {
+    while (str[str.length() - 1] != str[0] || str.length() == 1) {
+        str += " ";
+        str += readWord();
+    }
+    
+    return new LangString(str.substr(1, str.length() - 2));
 }
 
 LangObject * Reader::readFunctionDef() {
@@ -335,14 +342,6 @@ bool isNumber(string str) {
     }
     
     return true;
-}
-
-bool isString(string str) {
-    if (str.length() < 2)
-        return false;
-    
-    return (str[0] == '"' && str[str.length()-1] == '"')
-        || (str[0] == '\'' && str[str.length()-1] == '\'');
 }
 
 bool isBoolean(string str) {

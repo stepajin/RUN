@@ -18,8 +18,8 @@ protected:
     string name;
 
     vector<LangIdentifier *> * argIdentifiers;
-    //vector<LangObject *> * args;
-    LangList * args;
+    vector<LangObject *> * args;
+    //LangList * args;
     
     LangBlock * block;
     

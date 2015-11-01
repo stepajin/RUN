@@ -26,7 +26,7 @@ LangObject * LangBlock::eval(Enviroment * enviroment) {
     Enviroment * newEnviroment = new Enviroment(enviroment);
 
     StringReader * reader = new StringReader(block, newEnviroment);
-    LangObject * obj = repl(reader, newEnviroment, printable);
+    LangObject * obj = repl(reader, newEnviroment);
 
     return obj;
 }

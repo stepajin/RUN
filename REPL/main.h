@@ -12,7 +12,7 @@
 #include "Reader.h"
 #include "Enviroment.h"
 
-LangObject * repl(Reader * reader, Enviroment * enviroment, bool print);
+LangObject * repl(Reader * reader, Enviroment * enviroment);
 LangObject * error(string message); // returns NULL
 
 #endif

@@ -23,19 +23,20 @@ LangObject * error(string message) {
 // TODO error type
 // TODO identifiers singletons
 
-LangObject * repl(Reader * reader, Enviroment * enviroment, bool print) {
+LangObject * repl(Reader * reader, Enviroment * enviroment) {
     LangObject * lastEval = NULL;
     LangObject * lastObject = NULL;
     
     while (true) {
-        bool printEval = print;
+        bool printEval = true;
+        
         
         LangObject * obj = reader->getObject();
         
         if (!obj) {
             continue;
         }
-        
+                
         if (obj->getTag() == TAG_EOF) {
             break;
         }
@@ -75,8 +76,10 @@ LangObject * repl(Reader * reader, Enviroment * enviroment, bool print) {
 
         if (eval && printEval) {
             string s = eval->toString();
-            if (s != "")
+            
+            if (s != "") {
                 cout << s << endl;
+            }
         }
         
         lastObject = obj;
@@ -90,7 +93,7 @@ int main(int argc, const char * argv[]) {
     Enviroment * enviroment = new Enviroment();
     Reader * reader = new ConsoleReader(enviroment);
 
-    repl(reader, enviroment, true);
+    repl(reader, enviroment);
 
     return 0;
 }

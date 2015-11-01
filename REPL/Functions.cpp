@@ -12,7 +12,6 @@
 
 LangFunction::LangFunction() : LangObject(TAG_FUNCTION) {
     argIdentifiers = new vector<LangIdentifier *>;
-    //args = new vector<LangObject *>;
 }
 
 LangFunction::LangFunction(string name) : LangFunction() {
@@ -20,27 +19,17 @@ LangFunction::LangFunction(string name) : LangFunction() {
 }
 
 bool LangFunction::readArgs(Reader * reader) {
+    if (args)
+        delete args;
+    args = new vector<LangObject *>;
+
     if (argIdentifiers->size() == 0)
         return true;
     
-    LangObject * obj = reader->getObject();
-    
-    if (!obj || obj->getTag() != TAG_LIST) {
-        stringstream ss;
-        ss << "function " << name << " requires arguments list";
-        error(ss.str());
-        return false;
-    }
-    
-    args = (LangList *) obj;
-    
-    if (args->size() != argIdentifiers->size()) {
-        stringstream ss;
-        ss << "function " << name << " arguments: given " << args->size();
-        ss << " expected " << argIdentifiers->size();
-        error(ss.str());
-        args = NULL;
-        return false;
+    for (int i = 0; i < argIdentifiers->size(); i++) {
+      LangObject * obj = reader->getObject();
+        
+        args->push_back(obj);
     }
     
     return true;
@@ -63,13 +52,12 @@ bool LangFunction::hasBody() {
 }
 
 void LangFunction::addArgumentsToEnviroment(Enviroment * enviroment) {
-    if (!args)
-        return;
-    
     for (int i = 0; i < args->size(); i++) {
+        LangObject * obj = args->at(i);
         LangIdentifier * id = argIdentifiers->at(i);
-        LangObject * arg = args->at(i);
-        enviroment->set(id->getValue(), arg);
+        LangObject * eval = obj->eval(enviroment);
+
+        enviroment->set(id->getValue(), eval);
     }
 }
 
@@ -77,7 +65,7 @@ LangObject * LangFunction::eval(Enviroment * enviroment) {
     Enviroment * newEnviroment = new Enviroment(enviroment);
     
     addArgumentsToEnviroment(newEnviroment);
-
+    
     if (!block) {
         error("function has no body");
         return NULL;
