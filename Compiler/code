@@ -1,4 +1,2 @@
-func fce ( == 3 4 )
-fce
-func fff ( 42 )
-fff
+func a i o p ( print i print o print p 45 )
+a 1 "aaa" [ 2 "list" 1 ]

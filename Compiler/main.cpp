@@ -1,9 +1,17 @@
+//
+//  main.cpp
+//  Compiler
+//
+//  Created by Štěpánek Jindřich on 02/11/15.
+//  Copyright (c) 2015 stepajin. All rights reserved.
+//
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
 #include <stdio.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 
 #include <map>
 #include <vector>
@@ -30,7 +38,11 @@ enum BYTE {
     BC_SKIP = 14,
     BC_SKIP_IF_FALSE = 15,
     BC_FUNC_DEF = 16,
-    BC_FUNC_CALL = 17
+    BC_FUNC_CALL = 17,
+    BC_AND = 18,
+    BC_OR = 19,
+    BC_PRINT = 20,
+    BC_RETURN = 21
 };
 
 bool isNumber(string str);
@@ -58,18 +70,18 @@ void printVector(BYTECODE * v);
 
 BYTECODE * compileBlock(ifstream & in) {
     BYTECODE * bc = new BYTECODE;
-
+    
     string s;
     while (true) {
         s = readWord(in);
         if (s == ")") {
             return bc;
         }
-
+        
         BYTECODE * bc2 = compile(s, in);
         bc = append(bc, bc2);
     }
-
+    
     return bc;
 }
 
@@ -84,191 +96,263 @@ BYTECODE * compileList(ifstream & in, int & numberOfItemsReturn) {
             numberOfItemsReturn = items;
             return bc;
         }
-
+        
         BYTECODE * bc2 = compile(s, in);
         bc = append(bc, bc2);
         items++;
-    }   
+    }
     
-    return bc; 
+    return bc;
 }
 
 
 BYTECODE * compile(string s, ifstream & in) {
     BYTECODE * bc = new BYTECODE;
-
-     if (isNumber(s)) {
+    
+    if (isNumber(s)) {
         bc->push_back(BC_CONST);
         int number = atoi(s.c_str());
         unsigned char * bytes = toBytes(2, number);
-
+        
         bc->push_back(bytes[0]);
         bc->push_back(bytes[1]);
         return bc;
-     }
-
-     if (s[0] == '"') {
+    }
+    
+    if (s[0] == '"') {
         string str = readString(s, in);
+        
+        bc->push_back(BC_STRING);
+        unsigned char * bytes = toBytes(2, str.length());
+        bc->push_back(bytes[0]);
+        bc->push_back(bytes[1]);
 
         for (int i = 0; i < str.length(); i++) {
-            bc->push_back(BC_CHAR);
             bc->push_back(str[i]);
         }
-
-        bc->push_back(BC_STRING);
-        bc->push_back(str.length());
-        return bc;         
-     }
-
-     if (s == "yes") {
+        
+        return bc;
+    }
+    
+    if (s == "yes") {
         bc->push_back(BC_YES);
         return bc;
-     }
-
-     if (s == "no") {
+    }
+    
+    if (s == "no") {
         bc->push_back(BC_NO);
         return bc;
-     }
-
-     if (s == "==") {
+    }
+    
+    if (s == "==") {
         BYTECODE * bc1 = compile(readWord(in), in);
         BYTECODE * bc2 = compile(readWord(in), in);
         bc = append(bc1, bc2);
-       
+        
         bc->push_back(BC_EQ);
         return bc;
-     }
-
-     if (s == "=") {
+    }
+    
+    if (s == "=") {
         string id = readWord(in);
         if (!validIdentifier(id))
             exit(1);
-
+        int idCode = variableCode(id);
+        unsigned char * idBytes = toBytes(2, idCode);
+        
         BYTECODE * val = compile(readWord(in), in);
         bc = append(bc, val);
-        bc->push_back(/*id*/ 999);
         bc->push_back(BC_ASSIGN);
+        bc->push_back(idBytes[0]);
+        bc->push_back(idBytes[1]);
         return bc;
-     }
-
-     if (s == "+") {
+    }
+    
+    if (s == "+") {
         BYTECODE * bc1 = compile(readWord(in), in);
         BYTECODE * bc2 = compile(readWord(in), in);
         bc = append(bc1, bc2);
         bc->push_back(BC_PLUS);
         return bc;
-     }
-
-     if (s == "-") {
+    }
+    
+    if (s == "-") {
         BYTECODE * bc1 = compile(readWord(in), in);
         BYTECODE * bc2 = compile(readWord(in), in);
         bc = append(bc1, bc2);
         bc->push_back(BC_MINUS);
         return bc;
-     }
-
-     if (s == "/") {
+    }
+    
+    if (s == "/") {
         BYTECODE * bc1 = compile(readWord(in), in);
         BYTECODE * bc2 = compile(readWord(in), in);
         bc = append(bc1, bc2);
         bc->push_back(BC_DIVIDE);
         return bc;
-     }
-
-     if (s == "*") {
+    }
+    
+    if (s == "*") {
         BYTECODE * bc1 = compile(readWord(in), in);
         BYTECODE * bc2 = compile(readWord(in), in);
         bc = append(bc1, bc2);
         bc->push_back(BC_MULTIPLY);
         return bc;
-     }
+    }
+    
+    if (s == "and") {
+        BYTECODE * bc1 = compile(readWord(in), in);
+        BYTECODE * bc2 = compile(readWord(in), in);
+        bc = append(bc1, bc2);
+        bc->push_back(BC_AND);
+        return bc;
+    }
 
-     if (s == "(") {
-         return compileBlock(in);
-     } 
+    if (s == "or") {
+        BYTECODE * bc1 = compile(readWord(in), in);
+        BYTECODE * bc2 = compile(readWord(in), in);
+        bc = append(bc1, bc2);
+        bc->push_back(BC_OR);
+        return bc;
+    }
+    
+    if (s == "print") {
+        BYTECODE * bc1 = compile(readWord(in), in);
+        bc = bc1;
+        bc->push_back(BC_PRINT);
+        return bc;
+    }
+    
+    if (s == "return") {
+        bc = compile(readWord(in), in);
+        bc->push_back(BC_RETURN);
+        return bc;
+    }
 
-     if (s == "if") {
+    if (s == "(") {
+        return compileBlock(in);
+    }
+    
+    if (s == "if") {
         BYTECODE * cond = compile(readWord(in), in);
         BYTECODE * ifBlock = compile(readWord(in), in);
-
+        
         int elseBlockLength = 0;
         BYTECODE * elseBlock = NULL;
-
+        
         if (readWord(in) == "else") {
             elseBlock = compile(readWord(in), in);
             elseBlockLength = elseBlock->size();
         } else {
             rewind();
         }
-
+        
         if (elseBlockLength > 0) {
             ifBlock->push_back(BC_SKIP);
-            ifBlock->push_back(elseBlockLength);
+            unsigned char * lengthBytes = toBytes(2, elseBlockLength);
+            ifBlock->push_back(lengthBytes[0]);
+            ifBlock->push_back(lengthBytes[1]);
         }
-
+        
         int ifBlockLength = ifBlock->size();
-
+        
         bc = append(bc, cond);
         bc->push_back(BC_SKIP_IF_FALSE);
-
-        bc->push_back(ifBlockLength);
-
+        
+        unsigned char * lengthBytes = toBytes(2, ifBlockLength);
+        bc->push_back(lengthBytes[0]);
+        bc->push_back(lengthBytes[1]);
+        
         bc = append(bc, ifBlock);
         if (elseBlock)
             bc = append(bc, elseBlock);
         return bc;
-     }
-
-     if (s == "[") {
+    }
+    
+    if (s == "[") {
         int listLength;
         BYTECODE * list = compileList(in, listLength);
+        unsigned char * lengthBytes = toBytes(2, listLength);
+
         bc = list;
         bc->push_back(BC_LIST);
-        bc->push_back(listLength);
+        bc->push_back(lengthBytes[0]);
+        bc->push_back(lengthBytes[1]);
         return bc;
-     }
-
-     if (s == "func") {
+    }
+    
+    if (s == "func") {
         string name = readWord(in);
         if (!validIdentifier(name))
             exit(1);
-
+        
         string arg;
-        int argsCnt = 0;
+        
+        vector<int> args;
+        
         while(true) {
             arg = readWord(in);
             if (arg == "(")
                 break;
-            argsCnt++;
+            
+            if (!validIdentifier(arg)) {
+                cout << "wrong name to argument " << endl;
+                exit(1);
+            }
+            
+            int argCode = variableCode(arg);
+            args.push_back(argCode);
         }
+        
+        setNumberOfArguments(name, args.size());
 
         BYTECODE * block = compileBlock(in);
-        int blockSize = block->size();
-
+        
         int code = functionCode(name);
         unsigned char * codeBytes = toBytes(2, code);
+        unsigned char * blockSizeBytes = toBytes(2, block->size());
+        unsigned char * numberOfArgsBytes = toBytes(2, args.size());
 
         bc->push_back(BC_FUNC_DEF);
         bc->push_back(codeBytes[0]);
         bc->push_back(codeBytes[1]);
-
-        setNumberOfArguments(s, argsCnt);
-
-        bc->push_back(blockSize);
+        bc->push_back(numberOfArgsBytes[0]);
+        bc->push_back(numberOfArgsBytes[1]);
+        for (int i = 0; i < args.size(); i++) {
+            unsigned char * argBytes = toBytes(2, args.at(i));
+            bc->push_back(argBytes[0]);
+            bc->push_back(argBytes[1]);
+        }
+        bc->push_back(blockSizeBytes[0]);
+        bc->push_back(blockSizeBytes[1]);
         bc = append(bc, block);
         return bc;
-     }
-
-     if (isFunction(s)) {
+    }
+    
+    if (isFunction(s)) {
         int code = functionCode(s);
         unsigned char * codeBytes = toBytes(2, code);
-
+        
+        cout << "call fce s " << numberOfArguments(s) << " arg" << endl;
+        
+        for (int i = 0; i < numberOfArguments(s); i++) {
+            BYTECODE * bcArg = compile(readWord(in), in);
+            
+            if (!bcArg) {
+                cout << s << ": wrong number of args" << endl;
+                exit(1);
+            }
+            
+            bc = append(bc, bcArg);
+        }
+        
         bc->push_back(BC_FUNC_CALL);
         bc->push_back(codeBytes[0]);
         bc->push_back(codeBytes[1]);
+        
         return bc;
-     }
-
+    }
+    
     if (validIdentifier(s)) {
         bc->push_back(BC_LOAD);
         unsigned char * bytes = toBytes(2, variableCode(s));
@@ -276,7 +360,7 @@ BYTECODE * compile(string s, ifstream & in) {
         bc->push_back(bytes[1]);
         return bc;
     }
-
+    
     return NULL;
 }
 
@@ -284,52 +368,52 @@ BYTECODE * compile(string s, ifstream & in) {
 /********************
  
  
-    MAIN
+ MAIN
  
  
  ***********************/
 
 
 int main(int argc, char ** argv) {
-    if (argc < 2) {
-        cout << "wrong usage" << endl;
-        return 1;
+    string fileName = "/Users/stepanek/School/RUN/Compiler/code";
+    if (argc >= 2) {
+        fileName = argv[1];
     }
-
-    ifstream in(argv[1]);
-
-    ofstream out("bin", ios::out|ios::binary);
-
+    
+    ifstream in(fileName);
+    
+    ofstream out("/Users/stepanek/School/RUN/Compiler/BC.out", ios::out|ios::binary);
+    
     if (!in.is_open()) {
         cout << "blbej file" << endl;
         return 1;
     }
-
+    
     BYTECODE * v = NULL;
-
+    
     while (true) {
         if (in.eof()) {
             break;
         }
-
-
+        
+        
         BYTECODE * v2 = compile(readWord(in), in);
         //printVector(v2);
-
+        
         v = append(v, v2);
         //printVector(v);
     }
-
-
+    
+    
     printVector(v);
-
+    
     char buffer[1024];
     for (int i = 0; i < v->size(); i++) {
         buffer[i] = v->at(i);
     }
-
+    
     out.write(buffer, v->size());
-
+    
     return 0;
 }
 
@@ -338,7 +422,7 @@ int main(int argc, char ** argv) {
 /********************
  
  
-    SUPPORT FUNCTIONS
+ SUPPORT FUNCTIONS
  
  
  ***********************/
@@ -353,7 +437,7 @@ bool isNumber(string str) {
     
     if (str[i] == '.')
         return false;
-
+    
     int dots = 0;
     
     for (; i < str.length(); i++) {
@@ -405,7 +489,7 @@ bool validIdentifier(string str) {
         
         if (i > 0 && (c >= '0' && c <= '9'))
             continue;
-            
+        
         return false;
     }
     
@@ -421,20 +505,20 @@ void printVector(BYTECODE * v) {
 
 BYTECODE * append(BYTECODE * bc1, BYTECODE * bc2) {
     BYTECODE * vc = new BYTECODE;
-
+    
     if (!bc1)
         return bc2;
     if (!bc2)
         return bc1;
-
+    
     for (int i = 0; i < bc1->size(); i++) {
         vc->push_back(bc1->at(i));
     }
-
+    
     for (int i = 0; i < bc2->size(); i++) {
         vc->push_back(bc2->at(i));
     }
-
+    
     return vc;
 }
 
@@ -444,7 +528,6 @@ string readString(string str, ifstream & in) {
         str += readWord(in);
     }
     
-    cout << "string " << str.substr(1, str.length() - 2) << endl;
     return str.substr(1, str.length() - 2);
 }
 
@@ -452,14 +535,14 @@ unsigned char * toBytes(int length, int number) {
     unsigned char * bytes = new unsigned char[NUMBER_LENGTH];
     // for (int i = 0; i < 4; i++)
     //      arrayOfByte[3 - i] = (paramInt >> (i * 8));
-
+    
     for (int i = 0; i < length; i++)
         bytes[length - 1 - i] = (number >> (i * 8));
-     // bytes[1] = number;
-     // bytes[0] = number >> 8;
-//     cout << (int)bytes[0] << ", " << (int)bytes[1] << endl;
-
-     return bytes;
+    // bytes[1] = number;
+    // bytes[0] = number >> 8;
+    //     cout << (int)bytes[0] << ", " << (int)bytes[1] << endl;
+    
+    return bytes;
 }
 
 
@@ -500,24 +583,24 @@ string readWord(ifstream & in) {
         bufferPos = (bufferPos + 1) % BUFFER_SIZE;
         return s;
     }
-
+    
     string s;
     in >> s;
     
     buffer[bufferPos] = s;
     bufferPos = (bufferPos + 1) % BUFFER_SIZE;
     buffer[bufferPos] = "";
-
+    
     return s;
 }
 
 /**********************
-
-
-    VARIABLES
-
-
-*********************/
+ 
+ 
+ VARIABLES
+ 
+ 
+ *********************/
 
 map<string, int> VARIABLES;
 
@@ -525,7 +608,7 @@ int variableCode(string var) {
     int i = VARIABLES[var];
     if (i != 0)
         return i;
-
+    
     i = VARIABLES.size();
     VARIABLES[var] = i;
     return i;
@@ -535,21 +618,16 @@ map<string, int> FUNCTIONS;
 map<string, int> NUMBERS_OF_ARGUMENTS;
 
 int functionCode(string f) {
-    cout << "code pro " << f << endl;
-
     int i = FUNCTIONS[f];
     if (i != 0)
         return i;
-
+    
     i = FUNCTIONS.size();
     FUNCTIONS[f] = i;
-    cout << i << endl;
-    return i;    
+    return i;
 }
 
 bool isFunction(string f) {
-    cout << "isfUnc " << f << endl;
-    cout << (FUNCTIONS[f] != 0) << ".." << endl;
     return FUNCTIONS[f] != 0;
 }
 
@@ -560,7 +638,3 @@ int numberOfArguments(string f) {
 void setNumberOfArguments(string f, int i) {
     NUMBERS_OF_ARGUMENTS[f] = i;
 }
-
-
-
-
