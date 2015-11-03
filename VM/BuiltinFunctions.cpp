@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 stepajin. All rights reserved.
 //
 
-#include "Vm.h"
+#include "VM.h"
 #include "CallStack.h"
 #include "BuiltinFunctions.h"
 

@@ -8,7 +8,7 @@
 
 #include "BinaryOperations.h"
 #include "CallStack.h"
-#include "Vm.h"
+#include "VM.h"
 #include "Error.h"
 
 BinaryOperation::BinaryOperation() : BuiltinFunction("binary") {}

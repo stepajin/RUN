@@ -10,7 +10,7 @@
 
 #include "Objects.h"
 #include "CallStack.h"
-#include "Vm.h"
+#include "VM.h"
 #include "Error.h"
 
 

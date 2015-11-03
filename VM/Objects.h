@@ -12,7 +12,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Vm.h"
+#include "VM.h"
 #include "Reader.h"
 #include "Enviroment.h"
 

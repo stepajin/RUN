@@ -14,7 +14,7 @@
 #include "CallStack.h"
 #include "BuiltinFunctions.h"
 #include "Enviroment.h"
-#include "Vm.h"
+#include "VM.h"
 
 using namespace std;
 

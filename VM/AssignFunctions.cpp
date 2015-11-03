@@ -10,7 +10,7 @@
 
 #include "AssignFunctions.h"
 #include "Enviroment.h"
-#include "Vm.h"
+#include "VM.h"
 #include "CallStack.h"
 #include "Error.h"
 
