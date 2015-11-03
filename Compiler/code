@@ -1,7 +1,13 @@
-at "abcde" 3
-print < 1 2
-print > 1 2
-print <= 1 1
-print >= 1 2
-at "abc" 2121
-34
+func rekurze i (
+    print i
+
+    if > i 0
+       rekurze - i 1
+    else
+        print "konec"
+
+    print i
+)
+
+rekurze 10
+print "..."

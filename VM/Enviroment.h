@@ -19,18 +19,25 @@ class VmObject;
 class Enviroment {
     Enviroment * parentEnviroment;
     
-    map<int, VmObject *> * store;
-    
+    map<int, VmObject *> * variableStore;
+    map<int, VmObject *> * userFunctionStore;
+
     bool changeInParent(int key, VmObject * value);
-    bool isSetInThis(int key);
+    bool isVariableSetInThis(int key);
+    bool isUserFunctionSetInThis(int key);
     
 public:
     Enviroment();
     Enviroment(Enviroment * parent);
     
-    void set(int key, VmObject * value);
-    VmObject * get(int key);
-    bool isSet(int key);
+    void setVariable(int key, VmObject * value);
+    VmObject * getVariable(int key);
+    bool isVariableSet(int key);
+
+    void setUserFunction(int key, VmObject * func);
+    VmObject * getUserFunction(int key);
+    bool isUserFunctionSet(int key);
+
 };
 
 #endif /* defined(__Vm__Enviroment__) */

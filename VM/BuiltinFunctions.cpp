@@ -70,7 +70,7 @@ LoadFunction::LoadFunction() : BuiltinFunction("load") {
 }
 
 VmObject * LoadFunction::eval(Enviroment * enviroment) {
-    return enviroment->get(identifier);
+    return enviroment->getVariable(identifier);
 }
 
 void LoadFunction::readArguments(Reader * reader) {

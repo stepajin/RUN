@@ -37,7 +37,7 @@ VmObject * UserFunction::eval(Enviroment * enviroment) {
 
     for (int i = 0; i < numberOfArgs; i++) {
         VmObject * e = arguments[i]->eval(enviroment);
-        newEnviroment->set(argIdentifiers[i], e);
+        newEnviroment->setVariable(argIdentifiers[i], e);
     }
     
     int stackPointer = CallStack::INSTANCE()->getStackPointer();

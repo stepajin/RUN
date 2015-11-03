@@ -9,18 +9,26 @@
 #include "Enviroment.h"
 
 Enviroment::Enviroment() {
-    store = new map<int, VmObject *>;
+    variableStore = new map<int, VmObject *>;
+    userFunctionStore = new map<int, VmObject *>;
     this->parentEnviroment = NULL;
 }
 
 Enviroment::Enviroment(Enviroment * parent) {
-    store = new map<int, VmObject *>;
+    variableStore = new map<int, VmObject *>;
+    userFunctionStore = new map<int, VmObject *>;
     this->parentEnviroment = parent;
 }
 
+/*****************
+ 
+ Variable Store
+ 
+ ****************/
+
 bool Enviroment::changeInParent(int key, VmObject * value) {
-    if (isSetInThis(key)) {
-        (*store)[key] = value;
+    if (isVariableSetInThis(key)) {
+        (*variableStore)[key] = value;
         return true;
     }
     
@@ -30,32 +38,65 @@ bool Enviroment::changeInParent(int key, VmObject * value) {
     return parentEnviroment->changeInParent(key, value);
 }
 
-void Enviroment::set(int key, VmObject * value) {
+void Enviroment::setVariable(int key, VmObject * value) {
     if (changeInParent(key, value))
         return;
     
-    (*store)[key] = value;
+    (*variableStore)[key] = value;
 }
 
-VmObject * Enviroment::get(int key) {
-    VmObject * obj = (*store)[key];
+VmObject * Enviroment::getVariable(int key) {
+    VmObject * obj = (*variableStore)[key];
     
     if (obj) {
         return obj;
     }
     
     if (parentEnviroment) {
-        return parentEnviroment->get(key);
+        return parentEnviroment->getVariable(key);
     }
     
     return NULL;
 }
 
-bool Enviroment::isSetInThis(int key) {
-    return false;
-    return (*store)[key] != NULL;
+bool Enviroment::isVariableSetInThis(int key) {
+    //return false;
+    return (*variableStore)[key] != NULL;
 }
 
-bool Enviroment::isSet(int key) {
-    return get(key) != NULL;
+bool Enviroment::isVariableSet(int key) {
+    return getVariable(key) != NULL;
 }
+
+/*****************
+ 
+ User Functions Store
+ 
+ ****************/
+
+void Enviroment::setUserFunction(int key, VmObject * func) {
+    (*userFunctionStore)[key] = func;
+}
+
+VmObject * Enviroment::getUserFunction(int key) {
+    VmObject * func = (*userFunctionStore)[key];
+    
+    if (func) {
+        return func;
+    }
+    
+    if (parentEnviroment) {
+        return parentEnviroment->getUserFunction(key);
+    }
+    
+    return NULL;
+}
+
+bool Enviroment::isUserFunctionSetInThis(int key) {
+    return (*userFunctionStore)[key] != NULL;
+}
+
+bool Enviroment::isUserFunctionSet(int key) {
+    return getUserFunction(key) != NULL;
+}
+

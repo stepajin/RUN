@@ -183,15 +183,16 @@ VmObject * Reader::getObject() {
             bytecode[i] = getByte();
         
         UserFunction * func = new UserFunction(numberOfArgs, args, bcLength, bytecode);
-        enviroment->set(identifier, func);
+        enviroment->setUserFunction(identifier, func);
         
         return VmVoid::VOID();
     }
     
     if (byte == BC_FUNC_CALL) {
         int identifier = getShortInt();
-        VmObject * func = enviroment->get(identifier);
 
+        VmObject * func = enviroment->getUserFunction(identifier);
+        
         func->readArguments(this);
         return func;
     }

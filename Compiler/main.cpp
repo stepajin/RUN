@@ -347,6 +347,8 @@ BYTECODE * compile(string s, ifstream & in) {
         if (!validIdentifier(name))
             exit(1);
         
+        int code = functionCode(name);
+        
         string arg;
         
         vector<int> args;
@@ -369,7 +371,6 @@ BYTECODE * compile(string s, ifstream & in) {
 
         BYTECODE * block = compileBlock(in);
         
-        int code = functionCode(name);
         unsigned char * codeBytes = toBytes(2, code);
         unsigned char * blockSizeBytes = toBytes(2, block->size());
         unsigned char * numberOfArgsBytes = toBytes(2, args.size());
@@ -393,8 +394,6 @@ BYTECODE * compile(string s, ifstream & in) {
     if (isFunction(s)) {
         int code = functionCode(s);
         unsigned char * codeBytes = toBytes(2, code);
-        
-        cout << "call fce s " << numberOfArguments(s) << " arg" << endl;
         
         for (int i = 0; i < numberOfArguments(s); i++) {
             BYTECODE * bcArg = compile(readWord(in), in);

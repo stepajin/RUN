@@ -31,14 +31,14 @@ void AssignFunction::readArguments(Reader * reader) {
 
 VmObject * AssignFunction::eval(Enviroment * enviroment) {
     VmObject * e = value->eval(enviroment);
-    enviroment->set(identifier, e);
+    enviroment->setVariable(identifier, e);
     
     //return VmVoid::VOID();
     return e;
 }
 
 VmObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
-    VmObject * obj = enviroment->get(identifier);
+    VmObject * obj = enviroment->getVariable(identifier);
     
     if (!obj) {
         stringstream ss;
@@ -56,7 +56,7 @@ VmObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
     VmNumber * r = (VmNumber *) e;
     
     VmNumber * newValue = countNewValue(l, r);
-    enviroment->set(identifier, newValue);
+    enviroment->setVariable(identifier, newValue);
     
     //return VmVoid::VOID();
     return newValue;
