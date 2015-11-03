@@ -46,6 +46,18 @@ public:
     virtual void readArguments(Reader * reader);
 };
 
+class AtFunction : public BuiltinFunction {
+    VmObject * object;
+    int idx;
+    
+public:
+    AtFunction();
+    
+    virtual VmObject * eval(Enviroment * enviroment);
+    virtual void readArguments(Reader * reader);
+};
+
+
 
 
 #endif /* defined(__Vm__Functions__) */

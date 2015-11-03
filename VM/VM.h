@@ -34,7 +34,12 @@ enum BYTECODES {
     BC_AND = 18,
     BC_OR = 19,
     BC_PRINT = 20,
-    BC_RETURN = 21
+    BC_RETURN = 21,
+    BC_AT = 22,
+    BC_MORE = 23,
+    BC_EQ_MORE = 24,
+    BC_LESS = 25,
+    BC_EQ_LESS = 26
 };
 
 enum VmObjectTag {

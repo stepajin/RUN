@@ -42,7 +42,12 @@ enum BYTE {
     BC_AND = 18,
     BC_OR = 19,
     BC_PRINT = 20,
-    BC_RETURN = 21
+    BC_RETURN = 21,
+    BC_AT = 22,
+    BC_MORE = 23,
+    BC_EQ_MORE = 24,
+    BC_LESS = 25,
+    BC_EQ_LESS = 26
 };
 
 bool isNumber(string str);
@@ -152,7 +157,43 @@ BYTECODE * compile(string s, ifstream & in) {
         bc->push_back(BC_EQ);
         return bc;
     }
+
+    if (s == ">=") {
+        BYTECODE * bc1 = compile(readWord(in), in);
+        BYTECODE * bc2 = compile(readWord(in), in);
+        bc = append(bc1, bc2);
+        
+        bc->push_back(BC_EQ_MORE);
+        return bc;
+    }
     
+    if (s == ">") {
+        BYTECODE * bc1 = compile(readWord(in), in);
+        BYTECODE * bc2 = compile(readWord(in), in);
+        bc = append(bc1, bc2);
+        
+        bc->push_back(BC_MORE);
+        return bc;
+    }
+    
+    if (s == "<") {
+        BYTECODE * bc1 = compile(readWord(in), in);
+        BYTECODE * bc2 = compile(readWord(in), in);
+        bc = append(bc1, bc2);
+        
+        bc->push_back(BC_LESS);
+        return bc;
+    }
+
+    if (s == "<=") {
+        BYTECODE * bc1 = compile(readWord(in), in);
+        BYTECODE * bc2 = compile(readWord(in), in);
+        bc = append(bc1, bc2);
+        
+        bc->push_back(BC_EQ_LESS);
+        return bc;
+    }
+
     if (s == "=") {
         string id = readWord(in);
         if (!validIdentifier(id))
@@ -280,6 +321,26 @@ BYTECODE * compile(string s, ifstream & in) {
         bc->push_back(lengthBytes[1]);
         return bc;
     }
+    
+    if (s == "at") {
+        BYTECODE * obj = compile(readWord(in), in);
+        string idxStr = readWord(in);
+        
+        if (!isNumber(idxStr)) {
+            cout << "at: " << idxStr << ": index has to be a number" << endl;
+            exit(1);
+        }
+
+        int idx = atoi(idxStr.c_str());
+        unsigned char * idxBytes = toBytes(2, idx);
+        
+        bc = obj;
+        bc->push_back(BC_AT);
+        bc->push_back(idxBytes[0]);
+        bc->push_back(idxBytes[1]);
+        return bc;
+    }
+    
     
     if (s == "func") {
         string name = readWord(in);

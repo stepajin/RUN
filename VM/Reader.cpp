@@ -74,10 +74,40 @@ VmObject * Reader::getObject() {
         return list;
     }
     
+    if (byte == BC_AT) {
+        AtFunction * at = new AtFunction();
+        at->readArguments(this);
+        return at;
+    }
+    
     if (byte == BC_EQ) {
         EqualsOperation * eq = new EqualsOperation();
         eq->readArguments(this);
         return eq;
+    }
+
+    if (byte == BC_MORE) {
+        MoreOperation * more = new MoreOperation();
+        more->readArguments(this);
+        return more;
+    }
+
+    if (byte == BC_EQ_MORE) {
+        EqualsMoreOperation * eqMore = new EqualsMoreOperation();
+        eqMore->readArguments(this);
+        return eqMore;
+    }
+    
+    if (byte == BC_LESS) {
+        LessOperation * less = new LessOperation();
+        less->readArguments(this);
+        return less;
+    }
+    
+    if (byte == BC_EQ_LESS) {
+        EqualsLessOperation * eqLess = new EqualsLessOperation();
+        eqLess->readArguments(this);
+        return eqLess;
     }
     
     if (byte == BC_PLUS) {

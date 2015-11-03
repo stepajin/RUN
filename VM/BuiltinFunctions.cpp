@@ -6,9 +6,12 @@
 //  Copyright (c) 2015 stepajin. All rights reserved.
 //
 
+#include <sstream>
+
 #include "VM.h"
 #include "CallStack.h"
 #include "BuiltinFunctions.h"
+#include "Error.h"
 
 /*************
 
@@ -72,4 +75,50 @@ VmObject * LoadFunction::eval(Enviroment * enviroment) {
 
 void LoadFunction::readArguments(Reader * reader) {
     identifier = reader->getShortInt();
+}
+
+/*********
+ 
+ At
+ 
+ *********/
+
+AtFunction::AtFunction() : BuiltinFunction("at") {
+    object = NULL;
+    idx = 0;
+}
+
+VmObject * AtFunction::eval(Enviroment * enviroment) {
+    stringstream outOfBounds;
+    outOfBounds << "index out of bounds: " << idx;
+    
+    if (!object)
+        return error("at: not valid object");
+    
+    if (object->getTag() == TAG_STRING) {
+        VmString * str = (VmString *) object;
+        
+        if (idx >= str->getValue().length())
+            return error(outOfBounds.str());
+        
+        string s = "";
+        s += str->getValue()[idx];
+        return new VmString(s);
+    }
+    
+    if (object->getTag() == TAG_LIST) {
+        VmList * list = (VmList *)object;
+        
+        if (idx >= list->size())
+            return error(outOfBounds.str());
+        
+        return list->at(idx);
+    }
+    
+    return error("at: not valid object");
+}
+
+void AtFunction::readArguments(Reader * reader) {
+    idx = reader->getShortInt();
+    object = CallStack::INSTANCE()->pop();
 }

@@ -1,2 +1,7 @@
-func a i o p ( print i print o print p 45 )
-a 1 "aaa" [ 2 "list" 1 ]
+at "abcde" 3
+print < 1 2
+print > 1 2
+print <= 1 1
+print >= 1 2
+at "abc" 2121
+34
