@@ -1,5 +1,21 @@
-func a ( print "ahoooj" return void 56 43 54 )
-= i a
-print i
-return 777
-666
+func abc i y (
+    loop (
+        if <= i 0 end
+
+        print "---"
+        print i
+        print "..."
+
+        = b y
+        loop (
+            if <= b 0 end
+            print b
+            = b - b 1
+        )
+
+
+        = i - i 1
+    )
+)
+
+abc 5 3
