@@ -1,2 +1,5 @@
-func a ( print "ahoooj" 54 )
-a
+func a ( print "ahoooj" return void 56 43 54 )
+= i a
+print i
+return 777
+666

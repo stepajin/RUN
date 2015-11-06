@@ -59,6 +59,10 @@ VmObject * Reader::getObject() {
         return str;
     }
     
+    if (byte == BC_VOID) {
+        return VmVoid::VOID();
+    }
+    
     if (byte == BC_ASSIGN) {
         AssignFunction * assign = new AssignFunction();
         assign->readArguments(this);

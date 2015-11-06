@@ -50,6 +50,7 @@ enum BYTE {
     BC_REWIND = 231,
     BC_STACK_MARK = 230,
     BC_STACK_MARK_RETURN = 229,
+    BC_VOID = 228,
     
     FLAG_END = 999
 };
@@ -186,6 +187,11 @@ BYTECODE * compile(string s, ifstream & in) {
     
     if (s == "no") {
         bc->push_back(BC_NO);
+        return bc;
+    }
+    
+    if (s == "void") {
+        bc->push_back(BC_VOID);
         return bc;
     }
     
