@@ -122,21 +122,25 @@ public:
     virtual string toString();
 };
 
-
-class VmSkip : public VmObject {
+class VmMoveBuffer : public VmObject {
 protected:
     int steps;
+    DIRECTION direction;
     
 public:
-    VmSkip();
+    VmMoveBuffer();
     
     virtual VmObject * eval(Enviroment * enviroment);
     virtual void readArguments(Reader * reader);
     
+    void setDirection(DIRECTION direction);
+    DIRECTION getDirection();
+    
     int getSteps();
 };
 
-class VmSkipIfFalse : public VmSkip {
+
+class VmSkipIfFalse : public VmMoveBuffer {
     VmObject * arg;
     
 public:
@@ -145,6 +149,5 @@ public:
     virtual VmObject * eval(Enviroment * enviroment);
     virtual void readArguments(Reader * reader);
 };
-
 
 #endif /* defined(__Vm__Objects__) */

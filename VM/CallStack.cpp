@@ -17,11 +17,13 @@ CallStack * CallStack::INSTANCE() {
 }
 
 CallStack::CallStack() {
-    allocSize = 1000;
+    allocSize = 1000000;
     size = 0;
     stackPointer = -1;
     
     stack = new VmObject * [allocSize];
+    
+    markStack = new std::stack<int>;
 }
 
 void CallStack::resize() {
@@ -53,10 +55,14 @@ void CallStack::push(VmObject * obj) {
     
     stackPointer++;
     stack[stackPointer] = obj;
-    size++;
     
-//    cout << "push " << obj->toString() << endl;
-//    printStack();
+    if (stackPointer == size)
+        size++;
+    
+   // cout << "stack size " << size << endl;
+    //cout << "push " << obj->toString() << endl;
+    //printStack();
+    
 }
 
 VmObject * CallStack::pop() {
@@ -74,12 +80,19 @@ VmObject * CallStack::pop() {
     return obj;
 }
 
-void CallStack::setStackPointer(int stackPointer) {
-    this->stackPointer = stackPointer;
+void CallStack::addMark() {
+//    cout << "add " << stackPointer << endl;
+    markStack->push(stackPointer);
 }
 
-int CallStack::getStackPointer() {
-    return stackPointer;
+void CallStack::returnToLastMark() {
+    if (markStack->size() == 0)
+        return;
+    
+    stackPointer = markStack->top();
+    markStack->pop();
+    
+//    cout << "return to " << stackPointer << endl;
 }
 
 void CallStack::printStack() {

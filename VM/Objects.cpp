@@ -160,10 +160,12 @@ string VmString::getValue() {
 }
 
 string VmString::toString() {
-    string s = "'";
-    s += value;
-    s += "'";
-    return s;
+    return value;
+    
+//    string s = "'";
+//    s += value;
+//    s += "'";
+//    return s;
 }
 
 void VmString::readArguments(Reader * reader) {
@@ -280,24 +282,33 @@ string VmList::toString() {
 
 /***********
  
- Skip
+ Move buffer
  
  **********/
 
-VmSkip::VmSkip() : VmObject(TAG_SKIP) {
+VmMoveBuffer::VmMoveBuffer() : VmObject(TAG_MOVE_BUFFER) {
     steps = 0;
+    direction = FORWARD;
 }
 
-VmObject * VmSkip::eval(Enviroment * enviroment) {
+VmObject * VmMoveBuffer::eval(Enviroment * enviroment) {
     return this;
 }
 
-void VmSkip::readArguments(Reader * reader) {
+void VmMoveBuffer::readArguments(Reader * reader) {
     steps = reader->getShortInt();
 };
 
-int VmSkip::getSteps() {
+int VmMoveBuffer::getSteps() {
     return steps;
+}
+
+void VmMoveBuffer::setDirection(DIRECTION direction) {
+    this->direction = direction;
+}
+
+DIRECTION VmMoveBuffer::getDirection() {
+    return direction;
 }
 
 /***************
@@ -306,8 +317,9 @@ int VmSkip::getSteps() {
  
  ***************/
 
-VmSkipIfFalse::VmSkipIfFalse() : VmSkip() {
+VmSkipIfFalse::VmSkipIfFalse() : VmMoveBuffer() {
     arg = NULL;
+    direction = FORWARD;
 }
 
 VmObject * VmSkipIfFalse::eval(Enviroment * enviroment) {

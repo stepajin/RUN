@@ -14,32 +14,34 @@
 #include <iostream>
 
 enum BYTECODES {
-    BC_CONST = 1,
-    BC_CHAR = 2,
-    BC_STRING = 3,
-    BC_EQ = 4,
-    BC_ASSIGN = 5,
-    BC_PLUS = 6,
-    BC_MINUS = 7,
-    BC_DIVIDE = 8,
-    BC_MULTIPLY = 9,
-    BC_YES = 10,
-    BC_NO = 11,
-    BC_LIST = 12,
-    BC_LOAD = 13,
-    BC_SKIP = 14,
-    BC_SKIP_IF_FALSE = 15,
-    BC_FUNC_DEF = 16,
-    BC_FUNC_CALL = 17,
-    BC_AND = 18,
-    BC_OR = 19,
-    BC_PRINT = 20,
-    BC_RETURN = 21,
-    BC_AT = 22,
-    BC_MORE = 23,
-    BC_EQ_MORE = 24,
-    BC_LESS = 25,
-    BC_EQ_LESS = 26
+    BC_NUMBER = 255,
+    BC_STRING = 254,
+    BC_EQ = 253,
+    BC_ASSIGN = 252,
+    BC_PLUS = 251,
+    BC_MINUS = 251,
+    BC_DIVIDE = 250,
+    BC_MULTIPLY = 249,
+    BC_YES = 248,
+    BC_NO = 247,
+    BC_LIST = 246,
+    BC_LOAD = 245,
+    BC_SKIP = 244,
+    BC_SKIP_IF_FALSE = 243,
+    BC_FUNC_DEF = 242,
+    BC_FUNC_CALL = 241,
+    BC_AND = 240,
+    BC_OR = 239,
+    BC_PRINT = 238,
+    BC_RETURN = 237,
+    BC_AT = 236,
+    BC_MORE = 235,
+    BC_EQ_MORE = 234,
+    BC_LESS = 233,
+    BC_EQ_LESS = 232,
+    BC_REWIND = 231,
+    BC_STACK_MARK = 230,
+    BC_STACK_MARK_RETURN = 229
 };
 
 enum VmObjectTag {
@@ -53,8 +55,12 @@ enum VmObjectTag {
     TAG_VOID,
     TAG_LIST,
     TAG_RETURN,
-    TAG_SKIP
+    TAG_MOVE_BUFFER
 };
+
+#define FORWARD true
+#define BACK false
+#define DIRECTION bool
 
 #include "Objects.h"
 #include "Reader.h"

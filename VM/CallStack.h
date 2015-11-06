@@ -9,6 +9,8 @@
 #ifndef __Vm__CallStack__
 #define __Vm__CallStack__
 
+#include <stack>
+
 #include "Objects.h"
 
 class CallStack {
@@ -17,6 +19,8 @@ class CallStack {
     int allocSize;
     
     int stackPointer;
+    
+    std::stack<int> * markStack;
     
     void resize();
 
@@ -30,8 +34,11 @@ public:
     void push(VmObject * obj);
     VmObject * pop();
     
-    void setStackPointer(int stackPointer);
-    int getStackPointer();
+    void addMark();
+    void returnToLastMark();
+    
+    //void setStackPointer(int stackPointer);
+    //int getStackPointer();
     
     void printStack();
 };

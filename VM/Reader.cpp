@@ -14,6 +14,7 @@
 #include "LogicOperations.h"
 #include "AssignFunctions.h"
 #include "UserFunction.h"
+#include "CallStack.h"
 
 using namespace std;
 
@@ -36,7 +37,17 @@ VmObject * Reader::getObject() {
     if (dataSource->isEOF())
         return VmObject::getEOF();
     
-    if (byte == BC_CONST) {
+    if (byte == BC_STACK_MARK) {
+        CallStack::INSTANCE()->addMark();
+        return getObject();
+    }
+    
+    if (byte == BC_STACK_MARK_RETURN) {
+        CallStack::INSTANCE()->returnToLastMark();
+        return getObject();
+    }
+    
+    if (byte == BC_NUMBER) {
         VmNumber * number = new VmNumber();
         number->readArguments(this);
         return number;
@@ -153,15 +164,25 @@ VmObject * Reader::getObject() {
     }
     
     if (byte == BC_SKIP) {
-        VmSkip * skip = new VmSkip();
-        skip->readArguments(this);
-        return skip;
+        VmMoveBuffer * move = new VmMoveBuffer();
+        move->setDirection(FORWARD);
+        move->readArguments(this);
+        return move;
     }
 
     if (byte == BC_SKIP_IF_FALSE) {
-        VmSkipIfFalse * skip = new VmSkipIfFalse();
-        skip->readArguments(this);
-        return skip;
+        VmMoveBuffer * move = new VmSkipIfFalse();
+        move->setDirection(FORWARD);
+        move->readArguments(this);
+        return move;
+    }
+    
+    if (byte == BC_REWIND) {
+       // cout << "rewind" << endl;
+        VmMoveBuffer * move = new VmMoveBuffer();
+        move->setDirection(BACK);
+        move->readArguments(this);
+        return move;
     }
     
     if (byte == BC_RETURN) {

@@ -1,13 +1,2 @@
-func rekurze i (
-    print i
-
-    if > i 0
-       rekurze - i 1
-    else
-        print "konec"
-
-    print i
-)
-
-rekurze 10
-print "..."
+func a ( print "ahoooj" 54 )
+a

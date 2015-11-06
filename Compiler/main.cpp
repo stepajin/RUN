@@ -18,36 +18,40 @@
 
 using namespace std;
 
-#define BYTECODE vector<int>
+#define BYTECODE vector<short>
 #define NUMBER_LENGTH 2
 
 enum BYTE {
-    BC_CONST = 1,
-    BC_CHAR = 2,
-    BC_STRING = 3,
-    BC_EQ = 4,
-    BC_ASSIGN = 5,
-    BC_PLUS = 6,
-    BC_MINUS = 7,
-    BC_DIVIDE = 8,
-    BC_MULTIPLY = 9,
-    BC_YES = 10,
-    BC_NO = 11,
-    BC_LIST = 12,
-    BC_LOAD = 13,
-    BC_SKIP = 14,
-    BC_SKIP_IF_FALSE = 15,
-    BC_FUNC_DEF = 16,
-    BC_FUNC_CALL = 17,
-    BC_AND = 18,
-    BC_OR = 19,
-    BC_PRINT = 20,
-    BC_RETURN = 21,
-    BC_AT = 22,
-    BC_MORE = 23,
-    BC_EQ_MORE = 24,
-    BC_LESS = 25,
-    BC_EQ_LESS = 26
+    BC_NUMBER = 255,
+    BC_STRING = 254,
+    BC_EQ = 253,
+    BC_ASSIGN = 252,
+    BC_PLUS = 251,
+    BC_MINUS = 251,
+    BC_DIVIDE = 250,
+    BC_MULTIPLY = 249,
+    BC_YES = 248,
+    BC_NO = 247,
+    BC_LIST = 246,
+    BC_LOAD = 245,
+    BC_SKIP = 244,
+    BC_SKIP_IF_FALSE = 243,
+    BC_FUNC_DEF = 242,
+    BC_FUNC_CALL = 241,
+    BC_AND = 240,
+    BC_OR = 239,
+    BC_PRINT = 238,
+    BC_RETURN = 237,
+    BC_AT = 236,
+    BC_MORE = 235,
+    BC_EQ_MORE = 234,
+    BC_LESS = 233,
+    BC_EQ_LESS = 232,
+    BC_REWIND = 231,
+    BC_STACK_MARK = 230,
+    BC_STACK_MARK_RETURN = 229,
+    
+    FLAG_END = 999
 };
 
 bool isNumber(string str);
@@ -90,6 +94,42 @@ BYTECODE * compileBlock(ifstream & in) {
     return bc;
 }
 
+BYTECODE * compileLoop(ifstream & in) {
+    string s = readWord(in);
+    if (s != "(") {
+        cout << "loop has to be a block" << endl;
+        exit(1);
+    }
+    
+    BYTECODE * bc = new BYTECODE;
+    bc->push_back(BC_STACK_MARK);
+    BYTECODE * block = compileBlock(in);
+    bc = append(bc, block);
+    bc->push_back(BC_STACK_MARK_RETURN);
+    
+    int toRewind = bc->size() + 3;
+    unsigned char * toRewindBytes = toBytes(2, toRewind);
+    
+    bc->push_back(BC_REWIND);
+    bc->push_back(toRewindBytes[0]);
+    bc->push_back(toRewindBytes[1]);
+    
+    int loopLength = toRewind;
+    
+    for (int i = 0; i < loopLength; i++) {
+        if (bc->at(i) == FLAG_END) {
+            int toSkip = loopLength - i - 3;
+            unsigned char * toSkipBytes = toBytes(2, toSkip);
+            
+            bc->at(i) = BC_SKIP;
+            bc->at(i+1) = toSkipBytes[0];
+            bc->at(i+2) = toSkipBytes[1];
+        }
+    }
+ 
+    return bc;
+}
+
 BYTECODE * compileList(ifstream & in, int & numberOfItemsReturn) {
     BYTECODE * bc = new BYTECODE;
     
@@ -115,7 +155,7 @@ BYTECODE * compile(string s, ifstream & in) {
     BYTECODE * bc = new BYTECODE;
     
     if (isNumber(s)) {
-        bc->push_back(BC_CONST);
+        bc->push_back(BC_NUMBER);
         int number = atoi(s.c_str());
         unsigned char * bytes = toBytes(2, number);
         
@@ -370,6 +410,8 @@ BYTECODE * compile(string s, ifstream & in) {
         setNumberOfArguments(name, args.size());
 
         BYTECODE * block = compileBlock(in);
+        block->insert(block->begin(), BC_STACK_MARK);
+        block->push_back(BC_STACK_MARK_RETURN);
         
         unsigned char * codeBytes = toBytes(2, code);
         unsigned char * blockSizeBytes = toBytes(2, block->size());
@@ -388,6 +430,17 @@ BYTECODE * compile(string s, ifstream & in) {
         bc->push_back(blockSizeBytes[0]);
         bc->push_back(blockSizeBytes[1]);
         bc = append(bc, block);
+        return bc;
+    }
+    
+    if (s == "loop") {
+        return compileLoop(in);
+    }
+    
+    if (s == "end") {
+        bc->push_back(FLAG_END);
+        bc->push_back(0);
+        bc->push_back(0);
         return bc;
     }
     

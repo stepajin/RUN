@@ -48,9 +48,15 @@ VmObject * REPL(Reader * reader, Enviroment * enviroment) {
 //        if (eval->getTag() == TAG_VOID)
 //            continue;
         
-        if (eval->getTag() == TAG_SKIP) {
-            VmSkip * skip = (VmSkip *) eval;
-            reader->skip(skip->getSteps());
+        if (eval->getTag() == TAG_MOVE_BUFFER) {
+            VmMoveBuffer * move = (VmMoveBuffer *) eval;
+            
+            if (move->getDirection() == FORWARD) {
+                reader->skip(move->getSteps());
+            } else {
+                reader->rewind(move->getSteps());
+            }
+            
             continue;
         }
         

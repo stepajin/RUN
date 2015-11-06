@@ -40,11 +40,11 @@ VmObject * UserFunction::eval(Enviroment * enviroment) {
         newEnviroment->setVariable(argIdentifiers[i], e);
     }
     
-    int stackPointer = CallStack::INSTANCE()->getStackPointer();
+    //int stackPointer = CallStack::INSTANCE()->getStackPointer();
     
     VmObject * result = REPL(reader, newEnviroment);
 
-    CallStack::INSTANCE()->setStackPointer(stackPointer);
+//    CallStack::INSTANCE()->setStackPointer(stackPointer);
     
     return result;
 }
