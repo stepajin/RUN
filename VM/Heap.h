@@ -30,6 +30,8 @@ class Heap {
     void collect();
     
 public:
+    ~Heap();
+    
     static Heap * INSTANCE();
 
     void alloc(VmObject * obj);

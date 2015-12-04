@@ -101,5 +101,11 @@ int main(int argc, const char * argv[]) {
     if (result)
         cout << "result: " << result->toString() << endl;
     
+    delete dataSource;
+    delete enviroment;
+    delete reader;
+    delete Heap::INSTANCE();
+    delete CallStack::INSTANCE();
+    
     return 0;
 }

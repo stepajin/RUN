@@ -29,6 +29,8 @@ class CallStack {
     static CallStack * INST;
 
 public:
+    ~CallStack();
+
     static CallStack * INSTANCE();
     
     void push(VmObject * obj);

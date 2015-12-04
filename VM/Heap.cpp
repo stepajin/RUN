@@ -26,6 +26,11 @@ Heap::Heap() {
     heap = new vector<VmObject *>();
 }
 
+Heap::~Heap() {
+    delete rootSet;
+    delete heap;
+}
+
 void Heap::alloc(VmObject * obj) {
     heap->push_back(obj);
 }

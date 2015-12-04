@@ -26,6 +26,12 @@ CallStack::CallStack() {
     markStack = new std::stack<int>;
 }
 
+CallStack::~CallStack() {
+    delete markStack;
+    delete stack;
+}
+
+
 void CallStack::resize() {
 //    cout << "resize size: " << size << " alloced: " << allocSize << endl;
 //    
