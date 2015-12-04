@@ -23,18 +23,13 @@ class Enviroment;
 
 class VmObject {
     VmObjectTag tag;
-    
-    int referenceCnt;
-    
+        
 protected:
     VmObject(VmObjectTag tag);
     
     static VmObject * EOF_INSTANCE;
     
 public:
-    void retain();
-    void release();
-    
     VmObjectTag getTag();
     
     virtual void readArguments(Reader * reader);

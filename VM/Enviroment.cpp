@@ -29,14 +29,6 @@ Enviroment::Enviroment(Enviroment * parent) {
 void Enviroment::assignValue(int key, VmObject * value) {
     VmObject * obj = (*variableStore)[key];
 
-    if (obj != NULL && obj != value) {
-        obj->release();
-    }
-    
-    if (obj != value) {
-        value->retain();
-    }
-    
     (*variableStore)[key] = value;
 }
 
