@@ -22,7 +22,6 @@ print c
 
 return 0
 
-
 func abc i y (
     loop (
         if <= i 0 end

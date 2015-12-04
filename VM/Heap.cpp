@@ -66,10 +66,14 @@ void Heap::collectIfNeeded() {
 }
 
 void Heap::collect() {
-    cout << endl<< "COLLECT" << endl;
-    printHeap();
-    if (CallStack::INSTANCE()->getSize() > 0)
-        CallStack::INSTANCE()->printStack();
+    bool print = true;
+    
+    if (print) {
+        cout << endl<< "COLLECT" << endl;
+        printHeap();
+        if (CallStack::INSTANCE()->getSize() > 0)
+            CallStack::INSTANCE()->printStack();
+    }
     
     // Mark
     for (set<Enviroment *>::iterator it = rootSet->begin(); it != rootSet->end(); ++it) {
@@ -80,7 +84,8 @@ void Heap::collect() {
     
     CallStack::INSTANCE()->markChildren();
     
-    printHeap();
+    if (print)
+        printHeap();
     
     // Sweep
     vector<VmObject *>::iterator it = heap->begin();
@@ -97,6 +102,6 @@ void Heap::collect() {
             ++it;
         }
     }
-    
-    printHeap();
+    if (print)
+        printHeap();
 }

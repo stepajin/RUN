@@ -132,6 +132,8 @@ public:
 
     virtual VmObject * eval(Enviroment * enviroment);
     virtual string toString();
+    
+    virtual void markChildren();
 };
 
 class VmMoveBuffer : public VmObject {

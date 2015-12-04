@@ -301,6 +301,15 @@ VmObject * VmList::eval(Enviroment * enviroment) {
     return this;
 }
 
+void VmList::markChildren() {
+    for (vector<VmObject *>::iterator it = list->begin() ; it != list->end(); ++it) {
+        VmObject * obj = *it;
+        if (!obj->isMarked()) {
+            obj->mark();
+        }
+    }
+}
+
 string VmList::toString() {
     string s;
     
