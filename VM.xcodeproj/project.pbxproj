@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ACAE77CE1C11ED6D00857F49 /* Heap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACAE77CD1C11ED6D00857F49 /* Heap.cpp */; };
 		ACE8089C1BE7DAAE00A2D21C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE8089B1BE7DAAE00A2D21C /* main.cpp */; };
 		ACE808C21BE7E09B00A2D21C /* Reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808C01BE7E09B00A2D21C /* Reader.cpp */; };
 		ACE808C61BE7E4DD00A2D21C /* Objects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808C41BE7E4DD00A2D21C /* Objects.cpp */; };
@@ -33,6 +34,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		ACAE77CC1C11ECCE00857F49 /* Heap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Heap.h; sourceTree = "<group>"; };
+		ACAE77CD1C11ED6D00857F49 /* Heap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Heap.cpp; sourceTree = "<group>"; };
 		ACE808981BE7DAAE00A2D21C /* VM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = VM; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE8089B1BE7DAAE00A2D21C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		ACE808C01BE7E09B00A2D21C /* Reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Reader.cpp; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 				ACE808DA1BE8298000A2D21C /* AssignFunctions.cpp */,
 				ACE808E11BE8CB8C00A2D21C /* Error.h */,
 				ACE808E01BE8CB8C00A2D21C /* Error.cpp */,
+				ACAE77CC1C11ECCE00857F49 /* Heap.h */,
+				ACAE77CD1C11ED6D00857F49 /* Heap.cpp */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 				ACE808DF1BE8C8EA00A2D21C /* UserFunction.cpp in Sources */,
 				ACE808E21BE8CB8C00A2D21C /* Error.cpp in Sources */,
 				ACE808D61BE80E3700A2D21C /* LogicOperations.cpp in Sources */,
+				ACAE77CE1C11ED6D00857F49 /* Heap.cpp in Sources */,
 				ACE808CC1BE7FBC800A2D21C /* CallStack.cpp in Sources */,
 				ACE808CF1BE808EA00A2D21C /* BuiltinFunctions.cpp in Sources */,
 				ACE808DC1BE8298000A2D21C /* AssignFunctions.cpp in Sources */,

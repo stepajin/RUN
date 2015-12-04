@@ -27,8 +27,6 @@ Enviroment::Enviroment(Enviroment * parent) {
  ****************/
 
 void Enviroment::assignValue(int key, VmObject * value) {
-    VmObject * obj = (*variableStore)[key];
-
     (*variableStore)[key] = value;
 }
 
