@@ -65,6 +65,9 @@ void VmObject::unmark() {
     markFlag = false;
 }
 
+bool VmObject::isMarked() {
+    return markFlag;
+}
 
 /************
  

@@ -104,3 +104,20 @@ bool Enviroment::isUserFunctionSet(int key) {
     return getUserFunction(key) != NULL;
 }
 
+/********************
+ 
+ Garbage Collection
+ 
+ *******************/
+
+void Enviroment::markChildren() {
+    map<int, VmObject *>::iterator it;
+    for (it = variableStore->begin(); it != variableStore->end(); it++) {
+        
+        VmObject * obj = it->second;
+        
+        if (!obj->isMarked()) {
+            obj->mark();
+        }
+    }
+}

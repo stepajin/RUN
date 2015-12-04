@@ -2,9 +2,18 @@ print "zacatek"
 
 = a 5
 
-= a 10
+= b 10
 
-= a "abc"
+= c "a"
+
+= a "b"
+
+= b "c"
+
+= a "d"
+
+= a "e"
+
 
 return 0
 

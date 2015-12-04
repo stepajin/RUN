@@ -20,8 +20,20 @@ Heap * Heap::INSTANCE() {
 
 Heap::Heap() {
     size = 0;
+    
+    rootSet = new set<Enviroment *>();
 }
 
 void Heap::alloc(VmObject * obj) {
 
+
 }
+
+void Heap::addEnviroment(Enviroment * enviroment) {
+    rootSet->insert(enviroment);
+}
+
+void Heap::removeEnviroment(Enviroment * enviroment) {
+    rootSet->erase(enviroment);
+}
+

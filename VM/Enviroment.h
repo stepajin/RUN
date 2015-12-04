@@ -38,6 +38,8 @@ public:
     void setUserFunction(int key, VmObject * func);
     VmObject * getUserFunction(int key);
     bool isUserFunctionSet(int key);
+    
+    void markChildren();
 
 };
 

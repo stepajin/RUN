@@ -44,6 +44,7 @@ public:
     
     void mark();
     void unmark();
+    bool isMarked();
 };
 
 class VmReturn : public VmObject {
