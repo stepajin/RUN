@@ -26,9 +26,12 @@ Reader::Reader(ReaderDataSource * dataSource, Environment * environment) {
     bufferRewinded = 0;
     buffer = new BYTE[bufferSize];
     
-    
     this->dataSource = dataSource;
     this->environment = environment;
+}
+
+Reader::~Reader() {
+    delete [] buffer;
 }
 
 VmObject * Reader::getObject() {

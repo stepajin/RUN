@@ -38,7 +38,8 @@ class Reader {
     
 public:
     Reader(ReaderDataSource * dataSource, Environment * environment);
-
+    ~Reader();
+    
     BYTE getByte();
     int getShortInt();
     

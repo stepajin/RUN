@@ -285,6 +285,10 @@ VmList::VmList() : VmObject(TAG_LIST) {
     list = new vector<VmObject *>;
 }
 
+VmList::~VmList() {
+    delete list;
+}
+
 VmObject * VmList::at(int idx) {
     if (idx >= size()) {
         return NULL;

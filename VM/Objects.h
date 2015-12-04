@@ -132,6 +132,7 @@ class VmList : public VmObject {
     
 public:
     VmList();
+    virtual ~VmList();
     
     VmObject * at(int idx);
     unsigned long size();
