@@ -97,6 +97,8 @@ void CallStack::returnToLastMark() {
 
 void CallStack::printStack() {
     //cout << "stack size " << size << " alloced: " << allocSize << endl;
+    
+    cout << "----- stack" << endl;
     for (int i = 0; i <= stackPointer; i++) {
         if (stack[i] == NULL) {
             cout << "wtf" << endl; continue;
@@ -104,9 +106,26 @@ void CallStack::printStack() {
         
         cout << i << ": " << stack[i]->toString() << endl;
     }
-    cout << "---" << endl;
+    cout << "-----" << endl;
 }
 
+int CallStack::getSize() {
+    return size;
+}
+
+/********************
+ 
+ Garbage Collection
+ 
+ *******************/
+
 void CallStack::markChildren() {
+    for (int i = 0; i <= stackPointer; i++) {
+        VmObject * obj = stack[i];
+        
+        if (!obj->isMarked()) {
+            obj->mark();
+        }
+    }
 
 }

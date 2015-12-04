@@ -17,7 +17,7 @@
 
 class Heap {
     int size;
-    const int maxSize = 4;
+    const int maxSize = 17;
     
     Heap();
     
@@ -38,6 +38,8 @@ public:
     void removeEnviroment(Enviroment * enviroment);
     
     void collectIfNeeded();
+    
+    void printHeap(bool printMark);
 };
 
 #endif /* VmHeap_h */

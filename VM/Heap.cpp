@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "Heap.h"
+#include "CallStack.h"
 
 Heap * Heap::INST;
 Heap * Heap::INSTANCE() {
@@ -40,8 +41,20 @@ void Heap::removeEnviroment(Enviroment * enviroment) {
     rootSet->erase(enviroment);
 }
 
-void Heap::collect() {
-    cout << "tralala" << endl;
+void Heap::printHeap(bool printMark) {
+    vector<VmObject *>::iterator it;
+    
+    cout << "----- heap" << endl;
+    //cout << "size: " << heap->size() << endl;
+    for (it = heap->begin(); it != heap->end(); it++) {
+        VmObject * obj = *it;
+        
+        cout << obj->toString();
+        if (printMark && obj->isMarked())
+            cout << "(x)";
+        cout << ", ";
+    }
+    cout << endl << "-----" << endl;
 }
 
 void Heap::collectIfNeeded() {
@@ -49,6 +62,41 @@ void Heap::collectIfNeeded() {
         collect();
     }
 }
+
+void Heap::collect() {
+    cout << endl<< "COLLECT" << endl;
+    printHeap(true);
+    if (CallStack::INSTANCE()->getSize() > 0)
+        CallStack::INSTANCE()->printStack();
+    
+    // Mark
+    for (set<Enviroment *>::iterator it = rootSet->begin(); it != rootSet->end(); ++it) {
+        Enviroment * env = *it;
+        
+        env->markChildren();
+    }
+    
+    CallStack::INSTANCE()->markChildren();
+    
+    printHeap(true);
+
+    
+    // Sweep
+    vector<VmObject *>::iterator it = heap->begin();
+
+    while(it != heap->end()) {
+        VmObject * obj = *it;
+        
+        if(!obj->isMarked()) {
+            it = heap->erase(it);
+        } else {
+            ++it;
+        }
+    }
+    
+    printHeap(true);
+}
+
 
 
 

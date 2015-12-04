@@ -69,11 +69,13 @@ VmObject * REPL(Reader * reader, Enviroment * enviroment) {
             CallStack::INSTANCE()->push(eval);
         }
     
+        Heap::INSTANCE()->collectIfNeeded();
+
         result = eval;
     }
     
     Heap::INSTANCE()->removeEnviroment(enviroment);
-        
+    
     return result;
 }
 

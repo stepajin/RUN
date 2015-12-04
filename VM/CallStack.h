@@ -40,6 +40,7 @@ public:
     void markChildren();
     
     void printStack();
+    int getSize();
 };
 
 #endif /* defined(__Vm__CallStack__) */
