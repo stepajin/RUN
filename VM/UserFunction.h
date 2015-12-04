@@ -23,7 +23,7 @@ class UserFunction : public VmObject {
     
 public:
     UserFunction(int numberOfArgs, int * argIdentifiers, int length, BYTE * bytecode);
-
+    virtual ~UserFunction();
 
     virtual void readArguments(Reader * reader);
     virtual VmObject * eval(Enviroment * enviroment);

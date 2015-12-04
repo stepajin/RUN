@@ -32,6 +32,8 @@ protected:
     bool retainFlag;
     
 public:
+    virtual ~VmObject();
+    
     VmObjectTag getTag();
     
     virtual void readArguments(Reader * reader);

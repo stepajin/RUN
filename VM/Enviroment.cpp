@@ -32,6 +32,11 @@ Enviroment::Enviroment(Enviroment * parent) {
     this->parentEnviroment = parent;
 }
 
+Enviroment::~Enviroment() {
+    delete variableStore;
+    delete userFunctionStore;
+}
+
 /*****************
  
  Variable Store

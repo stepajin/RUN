@@ -33,6 +33,7 @@ public:
 
     Enviroment();
     Enviroment(Enviroment * parent);
+    ~Enviroment();
     
     void setVariable(int key, VmObject * value);
     VmObject * getVariable(int key);

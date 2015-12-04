@@ -28,6 +28,7 @@ Heap::Heap() {
 
 Heap::~Heap() {
     vector<VmObject *>::iterator it = heap->begin();
+    printHeap();
     while(it != heap->end()) {
         VmObject * obj = *it;
         it = heap->erase(it);

@@ -33,6 +33,10 @@ VmObject::VmObject(VmObjectTag tag) {
     Heap::INSTANCE()->alloc(this);
 }
 
+VmObject::~VmObject() {
+
+}
+
 void VmObject::readArguments(Reader * reader) {
     return;
 }

@@ -20,6 +20,12 @@ UserFunction::UserFunction(int numberOfArgs, int * argIdentifiers, int length, B
     this->bytecode = bytecode;
 }
 
+UserFunction::~UserFunction() {
+    delete [] argIdentifiers;
+    delete arguments;
+    delete [] bytecode;
+}
+
 void UserFunction::readArguments(Reader * reader) {
     for (int i = numberOfArgs - 1; i >= 0; i--) {
         arguments[i] = CallStack::INSTANCE()->pop();
