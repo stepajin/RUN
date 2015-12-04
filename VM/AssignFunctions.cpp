@@ -34,8 +34,8 @@ VmObject * AssignFunction::eval(Enviroment * enviroment) {
     VmObject * e = value->eval(enviroment);
     enviroment->setVariable(identifier, e);
     
-    //return VmVoid::VOID();
-    return e;
+    return VmVoid::VOID();
+    //return e;
 }
 
 VmObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {

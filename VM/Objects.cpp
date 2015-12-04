@@ -51,7 +51,7 @@ void VmObject:: release() {
     referenceCnt--;
     cout << toString() << " -> " << referenceCnt << endl;
     
-    if (referenceCnt == 0) {
+    if (referenceCnt <= 0) {
         cout << "deleting " << toString() << endl;
         delete this;
     }

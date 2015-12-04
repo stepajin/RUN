@@ -60,7 +60,9 @@ VmObject * REPL(Reader * reader, Enviroment * enviroment) {
             continue;
         }
         
-        CallStack::INSTANCE()->push(eval);
+        if (eval != VmVoid::VOID()) {
+            CallStack::INSTANCE()->push(eval);
+        }
     
         result = eval;
     }
