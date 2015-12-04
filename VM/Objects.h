@@ -23,7 +23,9 @@ class Enviroment;
 
 class VmObject {
     VmObjectTag tag;
-        
+    
+    int markFlag;
+    
 protected:
     VmObject(VmObjectTag tag);
     
@@ -39,6 +41,9 @@ public:
     virtual string toString();
     
     virtual VmObject * eval(Enviroment * enviroment);
+    
+    void mark();
+    void unmark();
 };
 
 class VmReturn : public VmObject {

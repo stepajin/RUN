@@ -37,7 +37,8 @@ VmObject * VmObject::getEOF() {
 
 VmObject::VmObject(VmObjectTag tag) {
     this->tag = tag;
-
+    
+    this->markFlag = false;
 }
 
 void VmObject::readArguments(Reader * reader) {
@@ -55,6 +56,15 @@ string VmObject::toString() {
 VmObject * VmObject::eval(Enviroment * enviroment) {
     return this;
 }
+
+void VmObject::mark() {
+    markFlag = true;
+}
+
+void VmObject::unmark() {
+    markFlag = false;
+}
+
 
 /************
  
