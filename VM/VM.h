@@ -65,12 +65,12 @@ enum VmObjectTag {
 
 #include "Objects.h"
 #include "Reader.h"
-#include "Enviroment.h"
+#include "Environment.h"
 
 class VmObject;
 class Reader;
-class Enviroment;
+class Environment;
 
-VmObject * REPL(Reader * reader, Enviroment * enviroment);
+VmObject * REPL(Reader * reader, Environment * environment);
 
 #endif

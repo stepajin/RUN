@@ -31,9 +31,9 @@ void BinaryOperation::readArguments(Reader * reader) {
  
  ******************************/
 
-VmObject * EqualsOperation::eval(Enviroment * enviroment) {
-    VmObject * arg1 = l->eval(enviroment);
-    VmObject * arg2 = r->eval(enviroment);
+VmObject * EqualsOperation::eval(Environment * environment) {
+    VmObject * arg1 = l->eval(environment);
+    VmObject * arg2 = r->eval(environment);
     
     if (arg1->getTag() == TAG_NUMBER && arg2->getTag() == TAG_NUMBER) {
         bool b = ((VmNumber *)arg1)->getValue() == ((VmNumber *)arg2)->getValue();
@@ -56,9 +56,9 @@ VmObject * EqualsOperation::eval(Enviroment * enviroment) {
  ******************************/
 
 
-VmObject * PlusOperation::eval(Enviroment * enviroment) {
-    VmObject * arg1 = l->eval(enviroment);
-    VmObject * arg2 = r->eval(enviroment);
+VmObject * PlusOperation::eval(Environment * environment) {
+    VmObject * arg1 = l->eval(environment);
+    VmObject * arg2 = r->eval(environment);
     
     if (arg1->getTag() == TAG_NUMBER && arg2->getTag() == TAG_NUMBER) {
         double d = ((VmNumber *)arg1)->getValue() + ((VmNumber *)arg2)->getValue();
@@ -97,9 +97,9 @@ VmObject * PlusOperation::eval(Enviroment * enviroment) {
  ******************************/
 
 
-bool NumbersBinaryOperation::evalOperands(Enviroment * enviroment) {
-    l = l->eval(enviroment);
-    r = r->eval(enviroment);
+bool NumbersBinaryOperation::evalOperands(Environment * environment) {
+    l = l->eval(environment);
+    r = r->eval(environment);
     
     if (l->getTag() != TAG_NUMBER || l->getTag() != TAG_NUMBER) {
         return false;
@@ -108,8 +108,8 @@ bool NumbersBinaryOperation::evalOperands(Enviroment * enviroment) {
     return true;
 }
 
-VmObject * NumbersBinaryOperation::eval(Enviroment * enviroment) {
-    if (!evalOperands(enviroment)) {
+VmObject * NumbersBinaryOperation::eval(Environment * environment) {
+    if (!evalOperands(environment)) {
         return error("one of the operands is not a number");
     }
     

@@ -41,13 +41,13 @@ PrintFunction::PrintFunction() : BuiltinFunction("print") {
     arg = NULL;
 }
 
-VmObject * PrintFunction::eval(Enviroment * enviroment) {
+VmObject * PrintFunction::eval(Environment * environment) {
     if (arg == NULL) {
         cout << "NULL" << endl;
         return this;
     }
     
-    VmObject * e = arg->eval(enviroment);
+    VmObject * e = arg->eval(environment);
 
     if (!e) {
         cout << "NULL" << endl;
@@ -73,8 +73,8 @@ void PrintFunction::readArguments(Reader * reader) {
 LoadFunction::LoadFunction() : BuiltinFunction("load") {
 }
 
-VmObject * LoadFunction::eval(Enviroment * enviroment) {
-    return enviroment->getVariable(identifier);
+VmObject * LoadFunction::eval(Environment * environment) {
+    return environment->getVariable(identifier);
 }
 
 void LoadFunction::readArguments(Reader * reader) {
@@ -92,7 +92,7 @@ AtFunction::AtFunction() : BuiltinFunction("at") {
     idx = 0;
 }
 
-VmObject * AtFunction::eval(Enviroment * enviroment) {
+VmObject * AtFunction::eval(Environment * environment) {
     stringstream outOfBounds;
     outOfBounds << "index out of bounds: " << idx;
     

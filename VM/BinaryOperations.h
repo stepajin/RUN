@@ -25,13 +25,13 @@ public:
 class EqualsOperation : public BinaryOperation {
     
 public:
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
 };
 
 class PlusOperation : public BinaryOperation {
     
 public:
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
 };
 
 
@@ -42,10 +42,10 @@ public:
  ******************************/
 
 class NumbersBinaryOperation : public BinaryOperation {
-    bool evalOperands(Enviroment * enviroment);
+    bool evalOperands(Environment * environment);
     virtual VmObject * evalOperation(VmNumber * l, VmNumber * r) = 0;
 public:
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
 };
 
 

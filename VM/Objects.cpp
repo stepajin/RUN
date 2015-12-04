@@ -50,7 +50,7 @@ string VmObject::toString() {
 //    return "unprintable object";
 }
 
-VmObject * VmObject::eval(Enviroment * enviroment) {
+VmObject * VmObject::eval(Environment * environment) {
     return this;
 }
 
@@ -93,11 +93,11 @@ void VmReturn::readArguments(Reader * reader) {
     value = CallStack::INSTANCE()->pop();
 }
 
-VmObject * VmReturn::eval(Enviroment * enviroment) {
+VmObject * VmReturn::eval(Environment * environment) {
     if (!value)
         return NULL;
     
-    return value->eval(enviroment);
+    return value->eval(environment);
 }
 
 string VmReturn::toString() {
@@ -187,7 +187,7 @@ void VmNumber::readArguments(Reader * reader) {
     return;
 }
 
-VmObject * VmNumber::eval(Enviroment * enviroment) {
+VmObject * VmNumber::eval(Environment * environment) {
 
     return this;
 }
@@ -316,9 +316,9 @@ void VmList::readArguments(Reader * reader) {
         push(args[i]);
 }
 
-VmObject * VmList::eval(Enviroment * enviroment) {
+VmObject * VmList::eval(Environment * environment) {
     for (int i = 0; i < size(); i++)
-        (*list)[i] = (*list)[i]->eval(enviroment);
+        (*list)[i] = (*list)[i]->eval(environment);
     
     return this;
 }
@@ -356,7 +356,7 @@ VmMoveBuffer::VmMoveBuffer() : VmObject(TAG_MOVE_BUFFER) {
     direction = FORWARD;
 }
 
-VmObject * VmMoveBuffer::eval(Enviroment * enviroment) {
+VmObject * VmMoveBuffer::eval(Environment * environment) {
     return this;
 }
 
@@ -387,8 +387,8 @@ VmSkipIfFalse::VmSkipIfFalse() : VmMoveBuffer() {
     direction = FORWARD;
 }
 
-VmObject * VmSkipIfFalse::eval(Enviroment * enviroment) {
-    VmObject * e = arg->eval(enviroment);
+VmObject * VmSkipIfFalse::eval(Environment * environment) {
+    VmObject * e = arg->eval(environment);
     
     if (!e || e->getTag() != TAG_BOOLEAN) {
         return error("SkipIfFalse: argument has to be logic value");

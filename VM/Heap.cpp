@@ -22,13 +22,12 @@ Heap * Heap::INSTANCE() {
 Heap::Heap() {
     countdown = COUNTDOWN_BEGIN;
     
-    rootSet = new set<Enviroment *>();
+    rootSet = new set<Environment *>();
     heap = new vector<VmObject *>();
 }
 
 Heap::~Heap() {
     vector<VmObject *>::iterator it = heap->begin();
-    printHeap();
     while(it != heap->end()) {
         VmObject * obj = *it;
         it = heap->erase(it);
@@ -43,12 +42,12 @@ void Heap::alloc(VmObject * obj) {
     heap->push_back(obj);
 }
 
-void Heap::addEnviroment(Enviroment * enviroment) {
-    rootSet->insert(enviroment);
+void Heap::addEnvironment(Environment * environment) {
+    rootSet->insert(environment);
 }
 
-void Heap::removeEnviroment(Enviroment * enviroment) {
-    rootSet->erase(enviroment);
+void Heap::removeEnvironment(Environment * environment) {
+    rootSet->erase(environment);
 }
 
 void Heap::printHeap() {
@@ -91,9 +90,9 @@ void Heap::collect() {
     }
     
     // Mark
-    for (set<Enviroment *>::iterator it = rootSet->begin(); it != rootSet->end(); ++it) {
+    for (set<Environment *>::iterator it = rootSet->begin(); it != rootSet->end(); ++it) {
         
-        Enviroment * env = *it;
+        Environment * env = *it;
 
         env->markChildren();
     }

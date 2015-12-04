@@ -21,7 +21,7 @@ protected:
 public:
     string getName();
     
-    virtual VmObject * eval(Enviroment * enviroment) = 0;
+    virtual VmObject * eval(Environment * environment) = 0;
     virtual void readArguments(Reader * reader) = 0;
     virtual string toString();
 };
@@ -32,7 +32,7 @@ class PrintFunction : public BuiltinFunction {
 public:
     PrintFunction();
 
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     virtual void readArguments(Reader * reader);
 };
 
@@ -43,7 +43,7 @@ protected:
 public:
     LoadFunction();
     
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     virtual void readArguments(Reader * reader);
 };
 
@@ -54,7 +54,7 @@ class AtFunction : public BuiltinFunction {
 public:
     AtFunction();
     
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     virtual void readArguments(Reader * reader);
 };
 

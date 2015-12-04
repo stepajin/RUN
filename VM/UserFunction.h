@@ -26,7 +26,7 @@ public:
     virtual ~UserFunction();
 
     virtual void readArguments(Reader * reader);
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     
     virtual string toString();
 };

@@ -19,7 +19,7 @@ class LogicOperation : public BuiltinFunction {
 public:
     LogicOperation();
     
-    virtual VmObject * eval(Enviroment * e);
+    virtual VmObject * eval(Environment * e);
     virtual bool evalBool(VmBoolean * l, VmBoolean * r) = 0;
     virtual void readArguments(Reader * reader);
 };

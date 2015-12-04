@@ -14,12 +14,12 @@
 
 #include "VM.h"
 #include "Reader.h"
-#include "Enviroment.h"
+#include "Environment.h"
 
 using namespace std;
 
 class Reader;
-class Enviroment;
+class Environment;
 
 class VmObject {
     VmObjectTag tag;
@@ -40,7 +40,7 @@ public:
 
     virtual string toString();
     
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     
     virtual void markChildren();
     
@@ -57,7 +57,7 @@ public:
     VmReturn();
     
     virtual void readArguments(Reader * reader);
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     virtual string toString();
 };
 
@@ -93,7 +93,7 @@ public:
     
     virtual void readArguments(Reader * reader);
     
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     virtual string toString();
 };
 
@@ -139,7 +139,7 @@ public:
     
     virtual void readArguments(Reader * reader);
 
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     virtual string toString();
     
     virtual void markChildren();
@@ -153,7 +153,7 @@ protected:
 public:
     VmMoveBuffer();
     
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     virtual void readArguments(Reader * reader);
     
     void setDirection(DIRECTION direction);
@@ -169,7 +169,7 @@ class VmSkipIfFalse : public VmMoveBuffer {
 public:
     VmSkipIfFalse();
     
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
     virtual void readArguments(Reader * reader);
 };
 

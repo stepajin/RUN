@@ -13,10 +13,10 @@
 #include <fstream>
 
 #include "Objects.h"
-#include "Enviroment.h"
+#include "Environment.h"
 
 class VmObject;
-class Enviroment;
+class Environment;
 
 class ReaderDataSource {
 
@@ -27,7 +27,7 @@ public:
 
 class Reader {
     ReaderDataSource * dataSource;
-    Enviroment * enviroment;
+    Environment * environment;
     
     BYTE * buffer;
     int bufferSize;
@@ -37,7 +37,7 @@ class Reader {
     //void readObject();
     
 public:
-    Reader(ReaderDataSource * dataSource, Enviroment * enviroment);
+    Reader(ReaderDataSource * dataSource, Environment * environment);
 
     BYTE getByte();
     int getShortInt();

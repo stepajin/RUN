@@ -10,7 +10,7 @@
 #define VmHeap_h
 
 #include "Objects.h"
-#include "Enviroment.h"
+#include "Environment.h"
 
 #include <set>
 #include <vector>
@@ -23,7 +23,7 @@ class Heap {
     
     static Heap * INST;
     
-    set<Enviroment *> * rootSet;
+    set<Environment *> * rootSet;
     
     vector<VmObject *> * heap;
     
@@ -36,8 +36,8 @@ public:
 
     void alloc(VmObject * obj);
 
-    void addEnviroment(Enviroment * enviroment);
-    void removeEnviroment(Enviroment * enviroment);
+    void addEnvironment(Environment * environment);
+    void removeEnvironment(Environment * environment);
     
     void collectIfNeeded();
     void forceCollect();

@@ -13,14 +13,14 @@
 #include "Reader.h"
 #include "CallStack.h"
 #include "BuiltinFunctions.h"
-#include "Enviroment.h"
+#include "Environment.h"
 #include "VM.h"
 #include "Heap.h"
 
 using namespace std;
 
-VmObject * REPL(Reader * reader, Enviroment * enviroment) {
-    Heap::INSTANCE()->addEnviroment(enviroment);
+VmObject * REPL(Reader * reader, Environment * environment) {
+    Heap::INSTANCE()->addEnvironment(environment);
     
     VmObject * result = VmVoid::VOID();
     
@@ -37,7 +37,7 @@ VmObject * REPL(Reader * reader, Enviroment * enviroment) {
         }
         
         // EVAL
-        VmObject * eval = obj->eval(enviroment);
+        VmObject * eval = obj->eval(environment);
         
         if (!eval) {
             cout << "error repl - eval" << endl;
@@ -70,7 +70,7 @@ VmObject * REPL(Reader * reader, Enviroment * enviroment) {
         result = eval;
     }
     
-    Heap::INSTANCE()->removeEnviroment(enviroment);
+    Heap::INSTANCE()->removeEnvironment(environment);
     
     return result;
 }
@@ -92,17 +92,17 @@ int main(int argc, const char * argv[]) {
     
     FileDataSource * dataSource = new FileDataSource(&input);
     
-    Enviroment * enviroment = new Enviroment();
+    Environment * environment = new Environment();
 
-    Reader * reader = new Reader(dataSource, enviroment);
+    Reader * reader = new Reader(dataSource, environment);
     
-    VmObject * result = REPL(reader, enviroment);
+    VmObject * result = REPL(reader, environment);
     
     if (result)
         cout << "result: " << result->toString() << endl;
     
     delete dataSource;
-    delete enviroment;
+    delete environment;
     delete reader;
     delete Heap::INSTANCE();
     delete CallStack::INSTANCE();

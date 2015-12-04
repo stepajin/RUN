@@ -20,7 +20,7 @@ using namespace std;
 
 #define EMPTY 99999
 
-Reader::Reader(ReaderDataSource * dataSource, Enviroment * enviroment) {
+Reader::Reader(ReaderDataSource * dataSource, Environment * environment) {
     bufferSize = 10000;
     bufferPos = 0;
     bufferRewinded = 0;
@@ -28,7 +28,7 @@ Reader::Reader(ReaderDataSource * dataSource, Enviroment * enviroment) {
     
     
     this->dataSource = dataSource;
-    this->enviroment = enviroment;
+    this->environment = environment;
 }
 
 VmObject * Reader::getObject() {
@@ -207,7 +207,7 @@ VmObject * Reader::getObject() {
             bytecode[i] = getByte();
         
         UserFunction * func = new UserFunction(numberOfArgs, args, bcLength, bytecode);
-        enviroment->setUserFunction(identifier, func);
+        environment->setUserFunction(identifier, func);
         
         return VmVoid::VOID();
     }
@@ -215,7 +215,7 @@ VmObject * Reader::getObject() {
     if (byte == BC_FUNC_CALL) {
         int identifier = getShortInt();
 
-        VmObject * func = enviroment->getUserFunction(identifier);        
+        VmObject * func = environment->getUserFunction(identifier);        
         func->readArguments(this);
         return func;
     }

@@ -34,21 +34,21 @@ void UserFunction::readArguments(Reader * reader) {
     return;
 }
 
-VmObject * UserFunction::eval(Enviroment * enviroment) {
+VmObject * UserFunction::eval(Environment * environment) {
 
     BytecodeDataSource * data = new BytecodeDataSource(bytecode, length);
-    Enviroment * newEnviroment = new Enviroment(enviroment);
-    Reader * reader = new Reader(data, enviroment);
+    Environment * newEnvironment = new Environment(environment);
+    Reader * reader = new Reader(data, environment);
 
     for (int i = 0; i < numberOfArgs; i++) {
-        VmObject * e = arguments[i]->eval(enviroment);
-        newEnviroment->setVariable(argIdentifiers[i], e);
+        VmObject * e = arguments[i]->eval(environment);
+        newEnvironment->setVariable(argIdentifiers[i], e);
     }
     
-    VmObject * result = REPL(reader, newEnviroment);
+    VmObject * result = REPL(reader, newEnvironment);
 
     delete data;
-    delete newEnviroment;
+    delete newEnvironment;
     delete reader;
     
     return result;

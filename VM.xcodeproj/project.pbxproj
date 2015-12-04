@@ -15,7 +15,7 @@
 		ACE808CF1BE808EA00A2D21C /* BuiltinFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808CD1BE808EA00A2D21C /* BuiltinFunctions.cpp */; };
 		ACE808D21BE80A1F00A2D21C /* BinaryOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808D01BE80A1F00A2D21C /* BinaryOperations.cpp */; };
 		ACE808D61BE80E3700A2D21C /* LogicOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808D41BE80E3700A2D21C /* LogicOperations.cpp */; };
-		ACE808D91BE8266900A2D21C /* Enviroment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808D71BE8266900A2D21C /* Enviroment.cpp */; };
+		ACE808D91BE8266900A2D21C /* Environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808D71BE8266900A2D21C /* Environment.cpp */; };
 		ACE808DC1BE8298000A2D21C /* AssignFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808DA1BE8298000A2D21C /* AssignFunctions.cpp */; };
 		ACE808DF1BE8C8EA00A2D21C /* UserFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808DD1BE8C8EA00A2D21C /* UserFunction.cpp */; };
 		ACE808E21BE8CB8C00A2D21C /* Error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808E01BE8CB8C00A2D21C /* Error.cpp */; };
@@ -51,8 +51,8 @@
 		ACE808D31BE80C7600A2D21C /* VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VM.h; sourceTree = "<group>"; };
 		ACE808D41BE80E3700A2D21C /* LogicOperations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogicOperations.cpp; sourceTree = "<group>"; };
 		ACE808D51BE80E3700A2D21C /* LogicOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogicOperations.h; sourceTree = "<group>"; };
-		ACE808D71BE8266900A2D21C /* Enviroment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enviroment.cpp; sourceTree = "<group>"; };
-		ACE808D81BE8266900A2D21C /* Enviroment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enviroment.h; sourceTree = "<group>"; };
+		ACE808D71BE8266900A2D21C /* Environment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Environment.cpp; sourceTree = "<group>"; };
+		ACE808D81BE8266900A2D21C /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = "<group>"; };
 		ACE808DA1BE8298000A2D21C /* AssignFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssignFunctions.cpp; sourceTree = "<group>"; };
 		ACE808DB1BE8298000A2D21C /* AssignFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignFunctions.h; sourceTree = "<group>"; };
 		ACE808DD1BE8C8EA00A2D21C /* UserFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserFunction.cpp; sourceTree = "<group>"; };
@@ -107,8 +107,8 @@
 				ACE808D01BE80A1F00A2D21C /* BinaryOperations.cpp */,
 				ACE808D51BE80E3700A2D21C /* LogicOperations.h */,
 				ACE808D41BE80E3700A2D21C /* LogicOperations.cpp */,
-				ACE808D81BE8266900A2D21C /* Enviroment.h */,
-				ACE808D71BE8266900A2D21C /* Enviroment.cpp */,
+				ACE808D81BE8266900A2D21C /* Environment.h */,
+				ACE808D71BE8266900A2D21C /* Environment.cpp */,
 				ACE808DB1BE8298000A2D21C /* AssignFunctions.h */,
 				ACE808DA1BE8298000A2D21C /* AssignFunctions.cpp */,
 				ACE808E11BE8CB8C00A2D21C /* Error.h */,
@@ -185,7 +185,7 @@
 				ACE808C61BE7E4DD00A2D21C /* Objects.cpp in Sources */,
 				ACE808C21BE7E09B00A2D21C /* Reader.cpp in Sources */,
 				ACE808D21BE80A1F00A2D21C /* BinaryOperations.cpp in Sources */,
-				ACE808D91BE8266900A2D21C /* Enviroment.cpp in Sources */,
+				ACE808D91BE8266900A2D21C /* Environment.cpp in Sources */,
 				ACE8089C1BE7DAAE00A2D21C /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,9 +26,9 @@ void LogicOperation::readArguments(Reader * reader) {
     r = arg1;
 }
 
-VmObject * LogicOperation::eval(Enviroment * enviroment) {
-    VmObject * eval1 = l->eval(enviroment);
-    VmObject * eval2 = r->eval(enviroment);
+VmObject * LogicOperation::eval(Environment * environment) {
+    VmObject * eval1 = l->eval(environment);
+    VmObject * eval2 = r->eval(environment);
     
     if (!eval1 || !eval2) {
         return NULL;

@@ -9,7 +9,7 @@
 #include <sstream>
 
 #include "AssignFunctions.h"
-#include "Enviroment.h"
+#include "Environment.h"
 #include "VM.h"
 #include "CallStack.h"
 #include "Error.h"
@@ -29,17 +29,17 @@ void AssignFunction::readArguments(Reader * reader) {
     identifier = reader->getShortInt();
 }
 
-VmObject * AssignFunction::eval(Enviroment * enviroment) {
+VmObject * AssignFunction::eval(Environment * environment) {
     
-    VmObject * e = value->eval(enviroment);
-    enviroment->setVariable(identifier, e);
+    VmObject * e = value->eval(environment);
+    environment->setVariable(identifier, e);
     
     return VmVoid::VOID();
     //return e;
 }
 
-VmObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
-    VmObject * obj = enviroment->getVariable(identifier);
+VmObject * AssignArithmeticFunction::eval(Environment * environment) {
+    VmObject * obj = environment->getVariable(identifier);
     
     if (!obj) {
         stringstream ss;
@@ -47,7 +47,7 @@ VmObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
         return error(ss.str());
     }
     
-    VmObject * e = value->eval(enviroment);
+    VmObject * e = value->eval(environment);
     
     if (e->getTag() != TAG_NUMBER || obj->getTag() != TAG_NUMBER) {
         return error("both operands must be numbers");
@@ -57,7 +57,7 @@ VmObject * AssignArithmeticFunction::eval(Enviroment * enviroment) {
     VmNumber * r = (VmNumber *) e;
     
     VmNumber * newValue = countNewValue(l, r);
-    enviroment->setVariable(identifier, newValue);
+    environment->setVariable(identifier, newValue);
     
     //return VmVoid::VOID();
     return newValue;

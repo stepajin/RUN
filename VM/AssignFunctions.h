@@ -20,14 +20,14 @@ protected:
 public:
     AssignFunction();
     virtual void readArguments(Reader * reader);
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
 };
 
 class AssignArithmeticFunction : public AssignFunction {
     virtual VmNumber * countNewValue(VmNumber * l, VmNumber * r) = 0;
 
 public:
-    virtual VmObject * eval(Enviroment * enviroment);
+    virtual VmObject * eval(Environment * environment);
 };
 
 class AssignPlusFunction : public AssignArithmeticFunction {

@@ -1,13 +1,13 @@
 //
-//  Enviroment.h
+//  Environment.h
 //  VM
 //
 //  Created by Štěpánek Jindřich on 03/11/15.
 //  Copyright (c) 2015 stepajin. All rights reserved.
 //
 
-#ifndef __Vm__Enviroment__
-#define __Vm__Enviroment__
+#ifndef __Vm__Environment__
+#define __Vm__Environment__
 
 #include "Objects.h"
 #include <map>
@@ -16,9 +16,9 @@ using namespace std;
 
 class VmObject;
 
-class Enviroment {
+class Environment {
     
-    Enviroment * parentEnviroment;
+    Environment * parentEnvironment;
     
     map<int, VmObject *> * variableStore;
     map<int, VmObject *> * userFunctionStore;
@@ -31,9 +31,9 @@ class Enviroment {
 public:
     int level; // just for debug
 
-    Enviroment();
-    Enviroment(Enviroment * parent);
-    ~Enviroment();
+    Environment();
+    Environment(Environment * parent);
+    ~Environment();
     
     void setVariable(int key, VmObject * value);
     VmObject * getVariable(int key);
@@ -47,4 +47,4 @@ public:
 
 };
 
-#endif /* defined(__Vm__Enviroment__) */
+#endif /* defined(__Vm__Environment__) */
