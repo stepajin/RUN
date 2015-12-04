@@ -27,6 +27,10 @@ string BuiltinFunction::getName() {
     return name;
 }
 
+string BuiltinFunction::toString() {
+    return getName();
+}
+
 /**************
  
  Print

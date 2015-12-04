@@ -37,8 +37,7 @@ public:
     void addMark();
     void returnToLastMark();
     
-    //void setStackPointer(int stackPointer);
-    //int getStackPointer();
+    void markChildren();
     
     void printStack();
 };

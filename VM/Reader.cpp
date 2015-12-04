@@ -182,7 +182,6 @@ VmObject * Reader::getObject() {
     }
     
     if (byte == BC_REWIND) {
-       // cout << "rewind" << endl;
         VmMoveBuffer * move = new VmMoveBuffer();
         move->setDirection(BACK);
         move->readArguments(this);

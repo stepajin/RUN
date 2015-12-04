@@ -24,12 +24,14 @@ class Enviroment;
 class VmObject {
     VmObjectTag tag;
     
-    int markFlag;
+    bool markFlag;
     
 protected:
     VmObject(VmObjectTag tag);
     
     static VmObject * EOF_INSTANCE;
+
+    bool retainFlag;
     
 public:
     VmObjectTag getTag();
@@ -45,6 +47,7 @@ public:
     void mark();
     void unmark();
     bool isMarked();
+    bool isRetained();
 };
 
 class VmReturn : public VmObject {
@@ -55,6 +58,7 @@ public:
     
     virtual void readArguments(Reader * reader);
     virtual VmObject * eval(Enviroment * enviroment);
+    virtual string toString();
 };
 
 class VmVoid : public VmObject {

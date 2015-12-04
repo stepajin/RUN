@@ -106,3 +106,7 @@ void CallStack::printStack() {
     }
     cout << "---" << endl;
 }
+
+void CallStack::markChildren() {
+
+}

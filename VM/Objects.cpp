@@ -39,6 +39,7 @@ VmObject::VmObject(VmObjectTag tag) {
     this->tag = tag;
     
     this->markFlag = false;
+    this->retainFlag = false;
 }
 
 void VmObject::readArguments(Reader * reader) {
@@ -69,6 +70,10 @@ bool VmObject::isMarked() {
     return markFlag;
 }
 
+bool VmObject::isRetained() {
+    return retainFlag;
+}
+
 /************
  
  Return
@@ -90,6 +95,10 @@ VmObject * VmReturn::eval(Enviroment * enviroment) {
     return value->eval(enviroment);
 }
 
+string VmReturn::toString() {
+    return "return";
+};
+
 /************
  
  Void
@@ -106,7 +115,9 @@ VmVoid * VmVoid::VOID() {
     return INSTANCE;
 }
 
-VmVoid::VmVoid() : VmObject(TAG_VOID) {}
+VmVoid::VmVoid() : VmObject(TAG_VOID) {
+    this->retainFlag = true;
+}
 
 string VmVoid::toString() {
     return "void";
@@ -200,6 +211,7 @@ void VmString::readArguments(Reader * reader) {
 
 VmBoolean::VmBoolean(bool value) : VmObject(TAG_BOOLEAN) {
     this->value = value;
+    this->retainFlag = true;
 }
 
 VmBoolean * VmBoolean::YES_INSTANCE;

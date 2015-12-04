@@ -23,6 +23,7 @@ public:
     
     virtual VmObject * eval(Enviroment * enviroment) = 0;
     virtual void readArguments(Reader * reader) = 0;
+    virtual string toString();
 };
 
 class PrintFunction : public BuiltinFunction {

@@ -13,9 +13,11 @@
 #include "Enviroment.h"
 
 #include <set>
+#include <vector>
 
 class Heap {
     int size;
+    const int maxSize = 4;
     
     Heap();
     
@@ -23,13 +25,19 @@ class Heap {
     
     set<Enviroment *> * rootSet;
     
+    vector<VmObject *> * heap;
+    
+    void collect();
+    
 public:
     static Heap * INSTANCE();
 
     void alloc(VmObject * obj);
 
     void addEnviroment(Enviroment * enviroment);
-    void removeEnviroment(Enviroment * enviroment);    
+    void removeEnviroment(Enviroment * enviroment);
+    
+    void collectIfNeeded();
 };
 
 #endif /* VmHeap_h */

@@ -22,11 +22,14 @@ Heap::Heap() {
     size = 0;
     
     rootSet = new set<Enviroment *>();
+    heap = new vector<VmObject *>();
 }
 
 void Heap::alloc(VmObject * obj) {
-
-
+    cout << "alloc " << obj->toString() << endl;
+    
+    heap->push_back(obj);
+    size++; // TODO: actual size
 }
 
 void Heap::addEnviroment(Enviroment * enviroment) {
@@ -36,4 +39,16 @@ void Heap::addEnviroment(Enviroment * enviroment) {
 void Heap::removeEnviroment(Enviroment * enviroment) {
     rootSet->erase(enviroment);
 }
+
+void Heap::collect() {
+    cout << "tralala" << endl;
+}
+
+void Heap::collectIfNeeded() {
+    if (size >= maxSize) {
+        collect();
+    }
+}
+
+
 
