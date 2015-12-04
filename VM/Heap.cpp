@@ -27,6 +27,13 @@ Heap::Heap() {
 }
 
 Heap::~Heap() {
+    vector<VmObject *>::iterator it = heap->begin();
+    while(it != heap->end()) {
+        VmObject * obj = *it;
+        it = heap->erase(it);
+        delete obj;
+    }
+
     delete rootSet;
     delete heap;
 }
