@@ -68,7 +68,7 @@ void Heap::forceCollect() {
 }
 
 void Heap::collect() {
-    bool print = true;
+    bool print = false;// true;
     
     if (print) {
         cout << endl<< "COLLECT" << endl;

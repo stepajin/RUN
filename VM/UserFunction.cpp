@@ -39,11 +39,11 @@ VmObject * UserFunction::eval(Enviroment * enviroment) {
         newEnviroment->setVariable(argIdentifiers[i], e);
     }
     
-    //int stackPointer = CallStack::INSTANCE()->getStackPointer();
-    
     VmObject * result = REPL(reader, newEnviroment);
 
-//    CallStack::INSTANCE()->setStackPointer(stackPointer);
+    delete data;
+    delete newEnviroment;
+    delete reader;
     
     return result;
 }
