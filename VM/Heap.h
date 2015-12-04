@@ -39,7 +39,7 @@ public:
     
     void collectIfNeeded();
     
-    void printHeap(bool printMark);
+    void printHeap();
 };
 
 #endif /* VmHeap_h */

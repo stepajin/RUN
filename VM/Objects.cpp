@@ -12,7 +12,7 @@
 #include "CallStack.h"
 #include "VM.h"
 #include "Error.h"
-
+#include "Heap.h"
 
 using namespace std;
 
@@ -40,6 +40,8 @@ VmObject::VmObject(VmObjectTag tag) {
     
     this->markFlag = false;
     this->retainFlag = false;
+    
+    Heap::INSTANCE()->alloc(this);
 }
 
 void VmObject::readArguments(Reader * reader) {

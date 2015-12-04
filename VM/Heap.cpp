@@ -39,7 +39,7 @@ void Heap::removeEnviroment(Enviroment * enviroment) {
     rootSet->erase(enviroment);
 }
 
-void Heap::printHeap(bool printMark) {
+void Heap::printHeap() {
     vector<VmObject *>::iterator it;
     
     cout << "----- heap" << endl;
@@ -47,8 +47,11 @@ void Heap::printHeap(bool printMark) {
         VmObject * obj = *it;
         
         cout << obj->toString();
-        if (printMark && obj->isMarked())
+        if (obj->isMarked())
             cout << "(x)";
+        if (obj->isRetained())
+            cout << "(R)";
+        
         cout << ", ";
     }
     cout << endl << "-----" << endl;
@@ -64,7 +67,7 @@ void Heap::collectIfNeeded() {
 
 void Heap::collect() {
     cout << endl<< "COLLECT" << endl;
-    printHeap(true);
+    printHeap();
     if (CallStack::INSTANCE()->getSize() > 0)
         CallStack::INSTANCE()->printStack();
     
@@ -77,7 +80,7 @@ void Heap::collect() {
     
     CallStack::INSTANCE()->markChildren();
     
-    printHeap(true);
+    printHeap();
     
     // Sweep
     vector<VmObject *>::iterator it = heap->begin();
@@ -85,7 +88,7 @@ void Heap::collect() {
     while(it != heap->end()) {
         VmObject * obj = *it;
         
-        if(!obj->isMarked()) {
+        if(!obj->isMarked() && !obj->isRetained()) {
             it = heap->erase(it);
             delete obj;
             size--;
@@ -95,5 +98,5 @@ void Heap::collect() {
         }
     }
     
-    printHeap(true);
+    printHeap();
 }

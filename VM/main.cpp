@@ -35,9 +35,9 @@ VmObject * REPL(Reader * reader, Enviroment * enviroment) {
             exit(1);
         }
         
-        if (!obj->isRetained()) {
-            Heap::INSTANCE()->alloc(obj);
-        }
+//        if (!obj->isRetained()) {
+//            Heap::INSTANCE()->alloc(obj);
+//        }
         
         // EVAL
         

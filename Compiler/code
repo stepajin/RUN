@@ -8,12 +8,17 @@ print "zacatek"
 
 = a "b"
 
+= b no
+
 = b "c"
 
 = a "d"
 
 = a "e"
 
+print a
+print b
+print c
 
 return 0
 
