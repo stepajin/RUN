@@ -579,7 +579,8 @@ bool isBoolean(string str) {
 }
 
 double toNumber(string str) {
-    return stod(str);
+    return atof(str.c_str());
+//    return stod(str);
 }
 
 string toString(int i) {

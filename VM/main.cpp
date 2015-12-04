@@ -78,7 +78,7 @@ int main(int argc, const char * argv[]) {
     
     cout << filePath << endl;
     
-    ifstream input(filePath, std::ios::binary );
+    ifstream input(filePath.c_str(), std::ios::binary );
     if (!input.is_open()) {
         cout << "can't open file " << filePath << endl;
     }
