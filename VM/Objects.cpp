@@ -37,7 +37,26 @@ VmObject * VmObject::getEOF() {
 
 VmObject::VmObject(VmObjectTag tag) {
     this->tag = tag;
+
+    this->referenceCnt = 0;
 }
+
+void VmObject::retain() {
+    referenceCnt++;
+    
+    cout << toString() << " -> " << referenceCnt << endl;
+}
+
+void VmObject:: release() {
+    referenceCnt--;
+    cout << toString() << " -> " << referenceCnt << endl;
+    
+    if (referenceCnt == 0) {
+        cout << "deleting " << toString() << endl;
+        delete this;
+    }
+}
+
 
 void VmObject::readArguments(Reader * reader) {
     return;

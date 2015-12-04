@@ -22,6 +22,7 @@ class Enviroment {
     map<int, VmObject *> * variableStore;
     map<int, VmObject *> * userFunctionStore;
 
+    void assignValue(int key, VmObject * value);
     bool changeInParent(int key, VmObject * value);
     bool isVariableSetInThis(int key);
     bool isUserFunctionSetInThis(int key);

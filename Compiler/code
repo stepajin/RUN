@@ -1,3 +1,14 @@
+print "zacatek"
+
+= a 5
+
+= a 10
+
+= a "abc"
+
+return 0
+
+
 func abc i y (
     loop (
         if <= i 0 end
@@ -19,3 +30,17 @@ func abc i y (
 )
 
 abc 5 3
+
+func ggg (
+    func bbb (
+        print "bbb"
+    )
+    = k 999
+    bbb
+)
+
+ggg
+bbb
+print k
+
+= a 42.33

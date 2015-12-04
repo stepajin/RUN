@@ -26,9 +26,23 @@ Enviroment::Enviroment(Enviroment * parent) {
  
  ****************/
 
+void Enviroment::assignValue(int key, VmObject * value) {
+    VmObject * obj = (*variableStore)[key];
+
+    if (obj != NULL && obj != value) {
+        obj->release();
+    }
+    
+    if (obj != value) {
+        value->retain();
+    }
+    
+    (*variableStore)[key] = value;
+}
+
 bool Enviroment::changeInParent(int key, VmObject * value) {
     if (isVariableSetInThis(key)) {
-        (*variableStore)[key] = value;
+        assignValue(key, value);
         return true;
     }
     
@@ -42,7 +56,7 @@ void Enviroment::setVariable(int key, VmObject * value) {
     if (changeInParent(key, value))
         return;
     
-    (*variableStore)[key] = value;
+    assignValue(key, value);
 }
 
 VmObject * Enviroment::getVariable(int key) {

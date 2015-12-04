@@ -30,6 +30,7 @@ void AssignFunction::readArguments(Reader * reader) {
 }
 
 VmObject * AssignFunction::eval(Enviroment * enviroment) {
+    
     VmObject * e = value->eval(enviroment);
     enviroment->setVariable(identifier, e);
     
