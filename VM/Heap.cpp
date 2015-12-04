@@ -27,8 +27,6 @@ Heap::Heap() {
 }
 
 void Heap::alloc(VmObject * obj) {
-    cout << "alloc " << obj->toString() << endl;
-    
     heap->push_back(obj);
     size++; // TODO: actual size
 }
@@ -45,7 +43,6 @@ void Heap::printHeap(bool printMark) {
     vector<VmObject *>::iterator it;
     
     cout << "----- heap" << endl;
-    //cout << "size: " << heap->size() << endl;
     for (it = heap->begin(); it != heap->end(); it++) {
         VmObject * obj = *it;
         
@@ -58,6 +55,8 @@ void Heap::printHeap(bool printMark) {
 }
 
 void Heap::collectIfNeeded() {
+    // TODO: Count also with stack size
+    
     if (size >= maxSize) {
         collect();
     }
@@ -79,7 +78,6 @@ void Heap::collect() {
     CallStack::INSTANCE()->markChildren();
     
     printHeap(true);
-
     
     // Sweep
     vector<VmObject *>::iterator it = heap->begin();
@@ -89,14 +87,13 @@ void Heap::collect() {
         
         if(!obj->isMarked()) {
             it = heap->erase(it);
+            delete obj;
+            size--;
         } else {
+            obj->unmark();
             ++it;
         }
     }
     
     printHeap(true);
 }
-
-
-
-

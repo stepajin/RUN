@@ -44,6 +44,8 @@ public:
     
     virtual VmObject * eval(Enviroment * enviroment);
     
+    virtual void markChildren();
+    
     void mark();
     void unmark();
     bool isMarked();

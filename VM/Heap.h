@@ -17,7 +17,7 @@
 
 class Heap {
     int size;
-    const int maxSize = 17;
+    const int maxSize = 10;
     
     Heap();
     

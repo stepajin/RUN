@@ -60,10 +60,16 @@ VmObject * VmObject::eval(Enviroment * enviroment) {
 
 void VmObject::mark() {
     markFlag = true;
+
+    markChildren();
 }
 
 void VmObject::unmark() {
     markFlag = false;
+}
+
+void VmObject::markChildren() {
+    
 }
 
 bool VmObject::isMarked() {
