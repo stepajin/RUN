@@ -29,17 +29,13 @@ class VmObject {
 protected:
     VmObject(VmObjectTag tag);
     
-    static VmObject * EOF_INSTANCE;
-
     bool retainFlag;
     
 public:
     VmObjectTag getTag();
     
     virtual void readArguments(Reader * reader);
-    
-    static VmObject * getEOF();
-    
+
     virtual string toString();
     
     virtual VmObject * eval(Enviroment * enviroment);
@@ -62,6 +58,17 @@ public:
     virtual VmObject * eval(Enviroment * enviroment);
     virtual string toString();
 };
+
+class VmEOF : public VmObject {
+private:
+    static VmEOF * INSTANCE;
+    VmEOF();
+    
+public:
+    static VmEOF * getEOF();
+    virtual string toString();
+};
+
 
 class VmVoid : public VmObject {
 private:

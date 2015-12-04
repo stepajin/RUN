@@ -27,20 +27,16 @@ VmObject * REPL(Reader * reader, Enviroment * enviroment) {
     while (true) {
         VmObject * obj = reader->getObject();
         
-        if (obj && obj->getTag() == TAG_EOF)
+        if (obj && obj->getTag() == TAG_EOF) {
             break;
+        }
         
         if (obj == NULL) {
             cout << "error repl - read" << endl;
             exit(1);
         }
         
-//        if (!obj->isRetained()) {
-//            Heap::INSTANCE()->alloc(obj);
-//        }
-        
         // EVAL
-        
         VmObject * eval = obj->eval(enviroment);
         
         if (!eval) {

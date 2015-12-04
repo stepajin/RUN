@@ -14,20 +14,9 @@
 #include "Error.h"
 #include "Heap.h"
 
+#include <typeinfo>
+
 using namespace std;
-
-/***************
- 
- Singletons
- 
- ***************/
-
-VmObject * VmObject::EOF_INSTANCE;
-VmObject * VmObject::getEOF() {
-    if (EOF_INSTANCE == NULL)
-        EOF_INSTANCE = new VmObject(TAG_EOF);
-    return EOF_INSTANCE;
-}
 
 /***********
  
@@ -53,7 +42,8 @@ VmObjectTag VmObject::getTag() {
 }
 
 string VmObject::toString() {
-    return "unprintable object";
+    return typeid(*this).name();
+//    return "unprintable object";
 }
 
 VmObject * VmObject::eval(Enviroment * enviroment) {
@@ -61,6 +51,9 @@ VmObject * VmObject::eval(Enviroment * enviroment) {
 }
 
 void VmObject::mark() {
+    if (isMarked())
+        return;
+    
     markFlag = true;
 
     markChildren();
@@ -131,6 +124,30 @@ string VmVoid::toString() {
     return "void";
 }
 
+/************
+ 
+ EOF
+ 
+ ************/
+
+VmEOF * VmEOF::INSTANCE;
+
+VmEOF * VmEOF::getEOF() {
+    if (INSTANCE == NULL) {
+        INSTANCE = new VmEOF();
+    }
+    
+    return INSTANCE;
+}
+
+VmEOF::VmEOF() : VmObject(TAG_EOF) {
+    this->retainFlag = true;
+}
+
+string VmEOF::toString() {
+    return "eof";
+}
+
 /***********
  
  Number
@@ -167,6 +184,7 @@ void VmNumber::readArguments(Reader * reader) {
 }
 
 VmObject * VmNumber::eval(Enviroment * enviroment) {
+
     return this;
 }
 
@@ -177,7 +195,7 @@ VmObject * VmNumber::eval(Enviroment * enviroment) {
  ***************/
 
 VmString::VmString() : VmObject(TAG_STRING) {
-    value = "abc";
+    value = "";
 }
 
 VmString::VmString(string value) : VmObject(TAG_STRING) {
@@ -193,12 +211,12 @@ string VmString::getValue() {
 }
 
 string VmString::toString() {
-    return value;
+//    return value;
     
-//    string s = "'";
-//    s += value;
-//    s += "'";
-//    return s;
+    string s = "'";
+    s += value;
+    s += "'";
+    return s;
 }
 
 void VmString::readArguments(Reader * reader) {

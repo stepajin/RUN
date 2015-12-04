@@ -20,7 +20,7 @@ Heap * Heap::INSTANCE() {
 }
 
 Heap::Heap() {
-    size = 0;
+    countdown = COUNTDOWN_BEGIN;
     
     rootSet = new set<Enviroment *>();
     heap = new vector<VmObject *>();
@@ -28,7 +28,6 @@ Heap::Heap() {
 
 void Heap::alloc(VmObject * obj) {
     heap->push_back(obj);
-    size++; // TODO: actual size
 }
 
 void Heap::addEnviroment(Enviroment * enviroment) {
@@ -58,11 +57,14 @@ void Heap::printHeap() {
 }
 
 void Heap::collectIfNeeded() {
-    // TODO: Count also with stack size
-    
-    if (size >= maxSize) {
+    if (--countdown == 0) {
         collect();
+        countdown = COUNTDOWN_BEGIN;
     }
+}
+
+void Heap::forceCollect() {
+    collect();
 }
 
 void Heap::collect() {
@@ -77,8 +79,9 @@ void Heap::collect() {
     
     // Mark
     for (set<Enviroment *>::iterator it = rootSet->begin(); it != rootSet->end(); ++it) {
-        Enviroment * env = *it;
         
+        Enviroment * env = *it;
+
         env->markChildren();
     }
     
@@ -96,7 +99,6 @@ void Heap::collect() {
         if(!obj->isMarked() && !obj->isRetained()) {
             it = heap->erase(it);
             delete obj;
-            size--;
         } else {
             obj->unmark();
             ++it;

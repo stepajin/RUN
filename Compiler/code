@@ -20,8 +20,6 @@ print a
 print b
 print c
 
-return 0
-
 func abc i y (
     loop (
         if <= i 0 end
@@ -30,11 +28,11 @@ func abc i y (
         print i
         print "..."
 
-        = b y
+        = yy y
         loop (
-            if <= b 0 end
-            print b
-            = b - b 1
+            if <= yy 0 end
+            print yy
+            = yy - yy 1
         )
 
 
@@ -42,18 +40,22 @@ func abc i y (
     )
 )
 
+print "x ABC x"
+
 abc 5 3
 
 func ggg (
     func bbb (
         print "bbb"
+        print "aaa"
+        return 4242
     )
     = k 999
     bbb
+    print "xxx"
 )
 
 ggg
-bbb
-print k
 
 = a 42.33
+print a

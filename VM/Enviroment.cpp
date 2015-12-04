@@ -8,13 +8,25 @@
 
 #include "Enviroment.h"
 
+bool contains(map<int, VmObject *> * store, int key) {
+    if ((*store)[key] != NULL)
+        return true;
+    
+    store->erase(key);
+    return false;
+}
+
 Enviroment::Enviroment() {
+    level = 0;
+    
     variableStore = new map<int, VmObject *>;
     userFunctionStore = new map<int, VmObject *>;
     this->parentEnviroment = NULL;
 }
 
 Enviroment::Enviroment(Enviroment * parent) {
+    level = parent->level + 1;
+    
     variableStore = new map<int, VmObject *>;
     userFunctionStore = new map<int, VmObject *>;
     this->parentEnviroment = parent;
@@ -27,6 +39,8 @@ Enviroment::Enviroment(Enviroment * parent) {
  ****************/
 
 void Enviroment::assignValue(int key, VmObject * value) {
+//    cout << key << " -> " << value->toString() << " level " << level << endl;
+    
     (*variableStore)[key] = value;
 }
 
@@ -50,10 +64,8 @@ void Enviroment::setVariable(int key, VmObject * value) {
 }
 
 VmObject * Enviroment::getVariable(int key) {
-    VmObject * obj = (*variableStore)[key];
-    
-    if (obj) {
-        return obj;
+    if (contains(variableStore, key)) {
+        return (*variableStore)[key];
     }
     
     if (parentEnviroment) {
@@ -64,8 +76,7 @@ VmObject * Enviroment::getVariable(int key) {
 }
 
 bool Enviroment::isVariableSetInThis(int key) {
-    //return false;
-    return (*variableStore)[key] != NULL;
+    return contains(variableStore, key);
 }
 
 bool Enviroment::isVariableSet(int key) {
@@ -83,10 +94,8 @@ void Enviroment::setUserFunction(int key, VmObject * func) {
 }
 
 VmObject * Enviroment::getUserFunction(int key) {
-    VmObject * func = (*userFunctionStore)[key];
-    
-    if (func) {
-        return func;
+    if (contains(userFunctionStore, key)) {
+        return (*userFunctionStore)[key];
     }
     
     if (parentEnviroment) {
@@ -97,7 +106,7 @@ VmObject * Enviroment::getUserFunction(int key) {
 }
 
 bool Enviroment::isUserFunctionSetInThis(int key) {
-    return (*userFunctionStore)[key] != NULL;
+    return contains(userFunctionStore, key);
 }
 
 bool Enviroment::isUserFunctionSet(int key) {
@@ -111,8 +120,16 @@ bool Enviroment::isUserFunctionSet(int key) {
  *******************/
 
 void Enviroment::markChildren() {
-    map<int, VmObject *>::iterator it;
-    for (it = variableStore->begin(); it != variableStore->end(); it++) {
+    for (map<int, VmObject *>::iterator it = variableStore->begin(); it != variableStore->end(); it++) {
+        
+        VmObject * obj = it->second;
+        
+        if (!obj->isMarked()) {
+            obj->mark();
+        }
+    }
+
+    for (map<int, VmObject *>::iterator it = userFunctionStore->begin(); it != userFunctionStore->end(); it++) {
         
         VmObject * obj = it->second;
         

@@ -9,7 +9,6 @@
 #include "UserFunction.h"
 #include "CallStack.h"
 
-
 UserFunction::UserFunction(int numberOfArgs, int * argIdentifiers, int length, BYTE * bytecode) : VmObject(TAG_USER_FUNCTION)
 {
     this->numberOfArgs = numberOfArgs;
@@ -47,4 +46,8 @@ VmObject * UserFunction::eval(Enviroment * enviroment) {
 //    CallStack::INSTANCE()->setStackPointer(stackPointer);
     
     return result;
+}
+
+string UserFunction::toString() {
+    return "func";
 }

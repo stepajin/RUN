@@ -35,7 +35,7 @@ VmObject * Reader::getObject() {
     BYTE byte = getByte();
 
     if (dataSource->isEOF())
-        return VmObject::getEOF();
+        return VmEOF::getEOF();
     
     if (byte == BC_STACK_MARK) {
         CallStack::INSTANCE()->addMark();
@@ -215,8 +215,7 @@ VmObject * Reader::getObject() {
     if (byte == BC_FUNC_CALL) {
         int identifier = getShortInt();
 
-        VmObject * func = enviroment->getUserFunction(identifier);
-        
+        VmObject * func = enviroment->getUserFunction(identifier);        
         func->readArguments(this);
         return func;
     }

@@ -16,8 +16,8 @@
 #include <vector>
 
 class Heap {
-    int size;
-    const int maxSize = 10;
+    const int COUNTDOWN_BEGIN = 20;
+    int countdown;
     
     Heap();
     
@@ -38,6 +38,7 @@ public:
     void removeEnviroment(Enviroment * enviroment);
     
     void collectIfNeeded();
+    void forceCollect();
     
     void printHeap();
 };

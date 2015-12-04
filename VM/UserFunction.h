@@ -20,12 +20,15 @@ class UserFunction : public VmObject {
     
     VmObject ** arguments;
     
-    virtual void readArguments(Reader * reader);
-    virtual VmObject * eval(Enviroment * enviroment);
-
+    
 public:
     UserFunction(int numberOfArgs, int * argIdentifiers, int length, BYTE * bytecode);
 
+
+    virtual void readArguments(Reader * reader);
+    virtual VmObject * eval(Enviroment * enviroment);
+    
+    virtual string toString();
 };
 
 #endif /* defined(__Vm__UserFunction__) */
