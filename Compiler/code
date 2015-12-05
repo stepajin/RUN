@@ -22,3 +22,10 @@ write f "cau
 ahoj
 te pic
 cauky mnauky"
+
+print "1:" print read f
+print "2:" print read f
+print "3:" print read f
+print "4:" print read f
+print "5:" print read f
+print read f

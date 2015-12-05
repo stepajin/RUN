@@ -219,12 +219,12 @@ string VmString::getValue() {
 }
 
 string VmString::toString() {
-//    return value;
+    return value;
     
-    string s = "'";
-    s += value;
-    s += "'";
-    return s;
+//    string s = "'";
+//    s += value;
+//    s += "'";
+//    return s;
 }
 
 void VmString::readArguments(Reader * reader) {

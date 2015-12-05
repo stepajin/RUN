@@ -479,6 +479,12 @@ BYTECODE * compile(string s, ifstream & in) {
         return bc;
     }
     
+    if (s == "read") {
+        bc = compile(readWord(in), in);
+        bc->push_back(BC_READ);
+        return bc;
+    }
+    
     if (isFunction(s)) {
         int code = functionCode(s);
         unsigned char * codeBytes = toBytes(2, code);

@@ -17,12 +17,14 @@
  *************/
 
 VmFile::VmFile() : VmObject(TAG_FILE) {
-    this->name = "";
     this->input = NULL;
     this->output = NULL;
+    this->name = NULL;
 }
 
 VmFile::~VmFile() {
+    delete name;
+    
     if (input) {
         input->close();
         delete input;
@@ -39,6 +41,11 @@ void VmFile::readArguments(Reader * reader) {
 }
 
 VmObject * VmFile::eval(Environment * environment) {
+    if (name) {
+        // already evaled
+        return this;
+    }
+    
     VmObject * e = arg->eval(environment);
     
     if (e->getTag() != TAG_STRING) {
@@ -46,7 +53,7 @@ VmObject * VmFile::eval(Environment * environment) {
     }
     
     VmString * str = (VmString *) e;
-    name = str->getValue();
+    name = new string(str->getValue());
     
     return this;
 }
@@ -60,10 +67,30 @@ void VmFile::write(string s) {
     }
     
     if (!output) {
-        output = new ofstream(name);
+        output = new ofstream(*name);
     }
     
     output->write(s.c_str(), s.length());
+}
+
+VmString * VmFile::read() {
+    if (output) {
+        output->close();
+        delete output;
+        output = NULL;
+    }
+    
+    if (!input) {
+        input = new ifstream(*name);
+    }
+    
+    string line;
+
+    if (std::getline(*input, line)) {
+        return new VmString(line);
+    } else {
+        return new VmString("EOF"); // TODO
+    }
 }
 
 /*************
@@ -92,12 +119,46 @@ VmObject * WriteFunction::eval(Environment * environment) {
     
     string s = obj->toString();
     
-    file->write(s);
+    //cout << "write " << s << endl;
     
+    file->write(s);
     return VmVoid::VOID();
 }
 
 void WriteFunction::readArguments(Reader * reader) {
     arg2 = CallStack::INSTANCE()->pop();
     arg1 = CallStack::INSTANCE()->pop();
+}
+
+
+/*************
+ 
+ Read
+ 
+ *************/
+
+ReadFunction::ReadFunction() : BuiltinFunction("read") {
+    arg = NULL;
+}
+
+VmObject * ReadFunction::eval(Environment * environment) {
+    if (!arg)
+        return error("read: null arg");
+    
+    VmObject * f = arg->eval(environment);
+    
+    if (f->getTag() != TAG_FILE ) {
+        return error("read: not a file");
+    }
+    
+    VmFile * file = (VmFile *) f;
+    VmString * str = file->read();
+    
+    //cout << "read " << str->getValue() << endl;
+    
+    return str;
+}
+
+void ReadFunction::readArguments(Reader * reader) {
+    arg = CallStack::INSTANCE()->pop();
 }

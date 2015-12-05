@@ -15,7 +15,7 @@
 class VmFile : public VmObject {
     VmObject * arg;
     
-    string name;
+    string * name;
     std::ifstream * input;
     std::ofstream * output;
     
@@ -27,6 +27,7 @@ public:
     virtual VmObject * eval(Environment * environment);
     
     void write(string s);
+    VmString * read();
 };
 
 class WriteFunction : public BuiltinFunction {
@@ -35,6 +36,17 @@ class WriteFunction : public BuiltinFunction {
     
 public:
     WriteFunction();
+    
+    virtual VmObject * eval(Environment * environment);
+    virtual void readArguments(Reader * reader);
+};
+
+
+class ReadFunction : public BuiltinFunction {
+    VmObject * arg;
+    
+public:
+    ReadFunction();
     
     virtual VmObject * eval(Environment * environment);
     virtual void readArguments(Reader * reader);

@@ -222,6 +222,12 @@ VmObject * Reader::getObject() {
         return write;
     }
 
+    if (byte == BC_READ) {
+        ReadFunction * read = new ReadFunction();
+        read->readArguments(this);
+        return read;
+    }
+    
     if (byte == BC_FUNC_DEF) {
         int identifier = getShortInt();
         int numberOfArgs = getShortInt();
