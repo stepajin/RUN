@@ -127,7 +127,6 @@ void AtFunction::readArguments(Reader * reader) {
     object = CallStack::INSTANCE()->pop();
 }
 
-
 /*********
  
  Size
@@ -156,5 +155,36 @@ VmObject * SizeFunction::eval(Environment * environment) {
 }
 
 void SizeFunction::readArguments(Reader * reader) {
+    object = CallStack::INSTANCE()->pop();
+}
+
+/*********
+ 
+ Not 
+ 
+ *********/
+
+NotFunction::NotFunction() : BuiltinFunction("not") {
+    object = NULL;
+}
+
+VmObject * NotFunction::eval(Environment * environment) {
+    if (!object)
+        return error("not: null object");
+    
+    if (object->getTag() == TAG_BOOLEAN) {
+        VmBoolean * boo = (VmBoolean *) object;
+        return VmBoolean::INSTANCE(!boo->getValue());
+    }
+    
+    if (object->getTag() == TAG_NUMBER) {
+        VmNumber * number = (VmNumber *)object;
+        return VmBoolean::INSTANCE(number->getValue() != 0);
+    }
+    
+    return error("not: not valid object");
+}
+
+void NotFunction::readArguments(Reader * reader) {
     object = CallStack::INSTANCE()->pop();
 }

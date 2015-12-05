@@ -68,6 +68,16 @@ public:
     virtual void readArguments(Reader * reader);
 };
 
+class NotFunction : public BuiltinFunction {
+    VmObject * object;
+    
+public:
+    NotFunction();
+    
+    virtual VmObject * eval(Environment * environment);
+    virtual void readArguments(Reader * reader);
+};
+
 
 
 

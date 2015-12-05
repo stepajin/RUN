@@ -85,6 +85,12 @@ VmObject * Reader::getObject() {
     if (byte == BC_NO) {
         return VmBoolean::NO();
     }
+
+    if (byte == BC_NOT) {
+        NotFunction * no = new NotFunction();
+        no->readArguments(this);
+        return no;
+    }
     
     if (byte == BC_LIST) {
         VmList * list = new VmList();

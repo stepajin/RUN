@@ -52,6 +52,7 @@ enum BYTE {
     BC_VOID = 228,
     BC_RETURN = 227,
     BC_SIZE = 226,
+    BC_NOT = 225,
     
     FLAG_END = 999
 };
@@ -303,10 +304,15 @@ BYTECODE * compile(string s, ifstream & in) {
         bc->push_back(BC_OR);
         return bc;
     }
+
+    if (s == "not") {
+        bc = compile(readWord(in), in);
+        bc->push_back(BC_NOT);
+        return bc;
+    }
     
     if (s == "print") {
-        BYTECODE * bc1 = compile(readWord(in), in);
-        bc = bc1;
+        bc = compile(readWord(in), in);
         bc->push_back(BC_PRINT);
         return bc;
     }
