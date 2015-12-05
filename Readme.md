@@ -95,10 +95,6 @@
 
 * read f
 
-**Block - last is result**
-
-* ( … )
-
 **Return**
 
 * return 5
@@ -106,8 +102,8 @@
 
 **If**
 
-* if ( yes ) ( … )
-* if yes print “a”
+* if == 10 20 ( … )
+* if yes ( print “a” )
 
 **Loop**
 
@@ -115,9 +111,9 @@
 
 **End Loop**
 
-* loop ( … if == 1 1 end )
+* loop ( … if == 1 1 ( end ) )
 
-**Function def**
+**Function def - last call of block is result **
 
 * func func_name arg1_id … arnN_id ( … )
 
