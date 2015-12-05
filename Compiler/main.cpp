@@ -672,9 +672,17 @@ BYTECODE * append(BYTECODE * bc1, BYTECODE * bc2) {
 }
 
 string readString(string str, ifstream & in) {
-    while (str[str.length() - 1] != str[0] || str.length() == 1) {
-        str += " ";
-        str += readWord(in);
+    char escape = str[0];
+    
+    while (true) {
+        char c = in.get();
+        bool isWhitespace = c == ' ' || c == '\n' || c == '\t' || c == EOF;
+        
+        if (isWhitespace && str.length() >= 2 && str[str.length() - 1] == escape) {
+            break;
+        }
+        
+        str += c;
     }
     
     return str.substr(1, str.length() - 2);
@@ -682,14 +690,9 @@ string readString(string str, ifstream & in) {
 
 unsigned char * toBytes(int length, int number) {
     unsigned char * bytes = new unsigned char[NUMBER_LENGTH];
-    // for (int i = 0; i < 4; i++)
-    //      arrayOfByte[3 - i] = (paramInt >> (i * 8));
     
     for (int i = 0; i < length; i++)
         bytes[length - 1 - i] = (number >> (i * 8));
-    // bytes[1] = number;
-    // bytes[0] = number >> 8;
-    //     cout << (int)bytes[0] << ", " << (int)bytes[1] << endl;
     
     return bytes;
 }
