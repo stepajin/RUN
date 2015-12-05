@@ -1,61 +1,8 @@
-print "zacatek"
-
-= a 5
-
-= b 10
-
-= c "a"
-
-= a "b"
-
-= b no
-
-= b "c"
-
-= a "d"
-
-= a "e"
-
+= a [ 1 2 "a" ]
+= b [ 4 "b" 6 ]
 print a
 print b
+= c + a b
 print c
-
-func abc i y (
-    loop (
-        if <= i 0 end
-
-        print "---"
-        print i
-        print "..."
-
-        = yy y
-        loop (
-            if <= yy 0 end
-            print yy
-            = yy - yy 1
-        )
-
-
-        = i - i 1
-    )
-)
-
-print "x ABC x"
-
-abc 5 3
-
-func ggg (
-    func bbb (
-        print "bbb"
-        print "aaa"
-        return 4242
-    )
-    = k 999
-    bbb
-    print "xxx"
-)
-
-ggg
-
-= a 42.33
-print a
+= c + a "bb"
+print c

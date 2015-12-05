@@ -84,8 +84,15 @@ VmObject * PlusOperation::eval(Environment * environment) {
             list->push(list2->at(i));
         
         return list;
+    } else if (arg1->getTag() == TAG_LIST) {
+        VmList * list = (VmList *) arg1;
+        list->push(arg2);
+        return list;
+    } else if (arg2->getTag() == TAG_LIST) {
+        VmList * list = (VmList *) arg2;
+        list->push(arg1);
+        return list;
     }
-    
     
     return error("plus: uncompatible operands");
 }

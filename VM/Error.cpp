@@ -10,6 +10,6 @@
 
 VmObject * error(string message) {
     cout << "error: " << message << endl;
-    return NULL;
+    exit(1);
 }
 
