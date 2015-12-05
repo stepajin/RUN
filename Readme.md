@@ -1,129 +1,126 @@
 **String**
 
-“text text text”
+* “text text text”
 
 **Number**
 
-42.3
-42
+* 42.3
+* 42
 
 **Bool**
 
-yes
-no
+* yes
+* no
 
 **Void**
 
-void
+* void
 
 **Eof**
 
-eof
+* eof
 
 **List**
 
-[ 1 2 3 “a” [ 5 6 ] yes no 42 ]
+* [ 1 2 3 “a” [ 5 6 ] yes no 42 ]
 
 **Compare**
 
-== 5 3
-== “a” “b”
-== eof “eof”
-== [ 1 2 3 ] [ 1 2 3 ]
->= 1 2
-<= 1 2
-< 1 2
-> 1 2
+* == 5 3
+* == “a” “b”
+* == eof “eof”
+* == [ 1 2 3 ] [ 1 2 3 ]
+* >= 1 2
+* <= 1 2
+* < 1 2
+* > 1 2
 
 **Assign**
 
-= b 1
-+= b 2
--= b 3
-*= b 4
-/= b 5
-= a b
+* = b 1
+* += b 2
+* -= b 3
+* *= b 4
+* /= b 5
+* = a b
 
 **Arithmetic**
 
-+ 1 2
-- 1 2
-* 1 2
-/ 1 2
+* + 1 2
+* - 1 2
+* * 1 2
+* / 1 2
 
 **Logic**
 
-and yes no
-or yes no
-not yes
+* and yes no
+* or yes no
+* not yes
 
 
 **Append**
 
-+ “abcd” “e”
-+ [ “a” “b” “c” 1 2 3 ] “e”
-+ “abcde” “efgh”
-+ [ “a” “b” “c” 1 2 3 ] [ 5 6 7 “g” ]
+* + “abcd” “e”
+* + [ “a” “b” “c” 1 2 3 ] “e”
+* + “abcde” “efgh”
+* + [ “a” “b” “c” 1 2 3 ] [ 5 6 7 “g” ]
 
 
 **Size**
 
-size “abc”
-size [ 1 2 “abc” ]
+* size “abc”
+* size [ 1 2 “abc” ]
 
 **At**
 
-at “abc” 2
-at [ 1 2 “abc” ] 1
+* at “abc” 2
+* at [ 1 2 “abc” ] 1
 
 **Print - any object**
 
-print “abc”
+* print “abc”
 
 **I/O**
 
 **Open file**
 
-= f open “/path/file.txt”
+* = f open “/path/file.txt”
 
 **Write**
 
-write f “text text text”
-write open “/path/file.txt” “text text text”
+* write f “text text text”
+* write open “/path/file.txt” “text text text”
 
 **Read line**
 
-read f
+* read f
 
 **Block - last is result**
 
-( … )
+* ( … )
 
 **Return**
 
-return 5
-return void
+* return 5
+* return void
 
 **If**
 
-if ( yes ) ( … )
-if yes print “a”
+* if ( yes ) ( … )
+* if yes print “a”
 
 **Loop**
 
-loop ( … )
+* loop ( … )
 
 **End Loop**
 
-loop ( 
-…
-if == 1 1 end
-)
+* loop ( … if == 1 1 end )
 
 **Function def**
 
-func func_name arg1_id … arnN_id ( … )
+* func func_name arg1_id … arnN_id ( … )
 
 **Function call**
 
-func_name arg1 … argN
+* func_name arg1 … argN
