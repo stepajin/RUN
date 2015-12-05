@@ -9,3 +9,15 @@ f2
 f3
 
 print "konec"
+
+= r 4
+func rec (
+    if == r 0 ( return 99 )
+
+    print r
+    = r - r 1
+
+    rec
+)
+
+rec

@@ -1,3 +1,7 @@
+# Language specification
+
+## Objects
+
 **String**
 
 * “text text text”
@@ -23,6 +27,8 @@
 **List**
 
 * [ 1 2 3 “a” [ 5 6 ] yes no 42 ]
+
+## Basic operations
 
 **Compare**
 
@@ -65,7 +71,6 @@
 * + “abcde” “efgh”
 * + [ “a” “b” “c” 1 2 3 ] [ 5 6 7 “g” ]
 
-
 **Size**
 
 * size “abc”
@@ -76,11 +81,11 @@
 * at “abc” 2
 * at [ 1 2 “abc” ] 1
 
+## I/O
+
 **Print - any object**
 
 * print “abc”
-
-**I/O**
 
 **Open file**
 
@@ -95,15 +100,17 @@
 
 * read f
 
+## Control flow
+
 **Return**
 
 * return 5
 * return void
 
-**If**
+**If-Else**
 
 * if == 10 20 ( … )
-* if yes ( print “a” )
+* if yes ( print “a” ) else ( ... )
 
 **Loop**
 
@@ -112,6 +119,8 @@
 **End Loop**
 
 * loop ( … if == 1 1 ( end ) )
+
+## User functions
 
 **Function def - last call of block is result**
 
