@@ -51,11 +51,12 @@ public:
 };
 
 class VmReturn : public VmObject {
-    //VmObject * value;
+    VmObject * value;
     
 public:
     VmReturn();
     
+    virtual void readArguments(Reader * reader);
     virtual VmObject * eval(Environment * environment);
     virtual string toString();
 };

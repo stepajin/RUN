@@ -45,8 +45,7 @@ VmObject * UserFunction::eval(Environment * environment) {
         newEnvironment->setVariable(argIdentifiers[i], e);
     }
     
-    REPL(reader, newEnvironment);
-    VmObject * result = CallStack::INSTANCE()->pop();
+    VmObject * result = REPL(reader, newEnvironment);
 
     delete data;
     delete newEnvironment;

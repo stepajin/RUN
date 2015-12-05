@@ -86,14 +86,18 @@ bool VmObject::isRetained() {
  ***********/
 
 VmReturn::VmReturn() : VmObject(TAG_RETURN) {
+    value = NULL;
+}
+
+void VmReturn::readArguments(Reader * reader) {
+    value = CallStack::INSTANCE()->pop();
 }
 
 VmObject * VmReturn::eval(Environment * environment) {
-    VmObject * res = CallStack::INSTANCE()->pop();
-    CallStack::INSTANCE()->returnToLastMark();
-    CallStack::INSTANCE()->push(res);
-
-    return this;
+    if (!value)
+        return NULL;
+    
+    return value->eval(environment);
 }
 
 string VmReturn::toString() {

@@ -39,8 +39,8 @@ enum BYTECODES {
     BC_LESS = 233,
     BC_EQ_LESS = 232,
     BC_REWIND = 231,
-    BC_BLOCK = 230,
-    BC_BLOCK_RETURN = 229,
+    BC_STACK_MARK = 230,
+    BC_STACK_MARK_RETURN = 229,
     BC_VOID = 228,
     BC_RETURN = 227,
     BC_SIZE = 226,
@@ -78,6 +78,6 @@ class VmObject;
 class Reader;
 class Environment;
 
-void REPL(Reader * reader, Environment * environment);
+VmObject * REPL(Reader * reader, Environment * environment);
 
 #endif
