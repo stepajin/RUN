@@ -47,7 +47,8 @@ enum BYTECODES {
     BC_NOT = 225,
     BC_OPEN = 224,
     BC_WRITE = 223,
-    BC_READ = 222
+    BC_READ = 222,
+    BC_EOF_STRING = 221
 };
 
 enum VmObjectTag {

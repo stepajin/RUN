@@ -56,6 +56,7 @@ enum BYTE {
     BC_OPEN = 224,
     BC_WRITE = 223,
     BC_READ = 222,
+    BC_EOF_STRING = 221,
     
     FLAG_END = 999
 };
@@ -182,6 +183,11 @@ BYTECODE * compile(string s, ifstream & in) {
             bc->push_back(str[i]);
         }
         
+        return bc;
+    }
+    
+    if (s == "eof") {
+        bc->push_back(BC_EOF_STRING);
         return bc;
     }
     

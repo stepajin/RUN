@@ -98,10 +98,15 @@ public:
 };
 
 class VmString : public VmObject {
+    static VmString * EOF_STRING_INSTANCE;
+
     string value;
+    
 public:
     VmString();
     VmString(string value);
+    
+    static VmString * EOF_STRING();
     
     void setValue(string value);
     string getValue();

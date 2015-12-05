@@ -63,6 +63,10 @@ VmObject * Reader::getObject() {
         return str;
     }
     
+    if (byte == BC_EOF_STRING) {
+        return VmString::EOF_STRING();
+    }
+    
     if (byte == BC_VOID) {
         return VmVoid::VOID();
     }

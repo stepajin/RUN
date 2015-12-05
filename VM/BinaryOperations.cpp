@@ -41,7 +41,16 @@ VmObject * EqualsOperation::eval(Environment * environment) {
     }
     
     if (arg1->getTag() == TAG_STRING && arg2->getTag() == TAG_STRING) {
-        bool b = ((VmString *)arg1)->getValue() == ((VmString *)arg2)->getValue();
+        
+        VmString * str1 = (VmString *)arg1;
+        VmString * str2 = (VmString *)arg2;
+        
+        if (str1 == VmString::EOF_STRING() || str2 == VmString::EOF_STRING()) {
+            // compare pointers
+            return VmBoolean::INSTANCE(str1 == str2);
+        }
+        
+        bool b = (str1)->getValue() == (str2)->getValue();
         return VmBoolean::INSTANCE(b);
     }
     

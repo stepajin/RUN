@@ -116,6 +116,7 @@ void Heap::collect() {
             ++it;
         }
     }
+    
     if (print)
         printHeap();
 }

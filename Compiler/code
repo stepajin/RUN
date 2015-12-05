@@ -28,4 +28,9 @@ print "2:" print read f
 print "3:" print read f
 print "4:" print read f
 print "5:" print read f
-print read f
+
+print == read f eof
+print == "tralala" eof
+print == eof eof
+print == "eof" eof
+print == "-1" eof

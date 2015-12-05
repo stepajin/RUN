@@ -198,12 +198,27 @@ VmObject * VmNumber::eval(Environment * environment) {
  
  ***************/
 
+
 VmString::VmString() : VmObject(TAG_STRING) {
     value = "";
 }
 
 VmString::VmString(string value) : VmObject(TAG_STRING) {
     this->value = value;
+}
+
+VmString * VmString::EOF_STRING_INSTANCE;
+VmString * VmString::EOF_STRING() {
+    if (EOF_STRING_INSTANCE == NULL) {
+        EOF_STRING_INSTANCE = new VmString("EOF");
+        EOF_STRING_INSTANCE->retainFlag = true;
+        
+        stringstream ss;
+        ss << EOF;
+        ss >> EOF_STRING_INSTANCE->value;
+    }
+    
+    return EOF_STRING_INSTANCE;
 }
 
 void VmString::setValue(string value) {

@@ -89,7 +89,7 @@ VmString * VmFile::read() {
     if (std::getline(*input, line)) {
         return new VmString(line);
     } else {
-        return new VmString("EOF"); // TODO
+        return VmString::EOF_STRING();
     }
 }
 
