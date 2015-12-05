@@ -96,28 +96,23 @@ BYTECODE * compileBlock(ifstream & in) {
     while (true) {
         s = readWord(in);
         if (s == ")") {
-            return bc;
+            break;
         }
         
         BYTECODE * bc2 = compile(s, in);
         bc = append(bc, bc2);
     }
+
+    bc->insert(bc->begin(), BC_STACK_MARK);
+    bc->push_back(BC_STACK_MARK_RETURN);
     
     return bc;
 }
 
 BYTECODE * compileLoop(ifstream & in) {
-//    string s = readWord(in);
-//    if (s != "(") {
-//        cout << "loop has to be a block" << endl;
-//        exit(1);
-//    }
-//    
     BYTECODE * bc = new BYTECODE;
-    bc->push_back(BC_STACK_MARK);
     BYTECODE * block = compileBlock(in);
     bc = append(bc, block);
-    bc->push_back(BC_STACK_MARK_RETURN);
     
     int toRewind = bc->size() + 3;
     unsigned char * toRewindBytes = toBytes(2, toRewind);
@@ -445,8 +440,6 @@ BYTECODE * compile(string s, ifstream & in) {
         setNumberOfArguments(name, args.size());
 
         BYTECODE * block = compileBlock(in);
-        block->insert(block->begin(), BC_STACK_MARK);
-        block->push_back(BC_STACK_MARK_RETURN);
         
         unsigned char * codeBytes = toBytes(2, code);
         unsigned char * blockSizeBytes = toBytes(2, block->size());

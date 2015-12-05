@@ -39,12 +39,10 @@ func jedna ( "jedna" )
 
 = konec 5
 loop (
-    print jedna
     print konec
 
     if == konec 0
         ( print "konec" end )
-    else ( print "nekonec" )
 
     = konec - konec 1
 )
