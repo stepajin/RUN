@@ -113,7 +113,7 @@
 
 * loop ( … if == 1 1 ( end ) )
 
-**Function def - last call of block is result **
+**Function def - last call of block is result**
 
 * func func_name arg1_id … arnN_id ( … )
 
