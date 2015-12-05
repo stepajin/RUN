@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 
+#define DEBUG false
+
 using namespace std;
 
 vector<string> * symbols(string s) {
@@ -49,7 +51,8 @@ string multiply(string a, string b) {
 		}
 	}
 
-	cout << "multiply '" << a << "' '" << b << "' -> " << s << endl;
+	if (DEBUG)
+		cout << "multiply '" << a << "' '" << b << "' -> " << s << endl;
 	return s;
 }
 
@@ -60,7 +63,8 @@ string append(string a, string b) {
 	}
 	r += b;
 
-	cout << "append '" << a << "' '" << b << "' -> " << r << endl;
+	if (DEBUG)
+		cout << "append '" << a << "' '" << b << "' -> " << r << endl;
 	return r;
 }
 
@@ -101,20 +105,22 @@ string parse(string s, int start, int & end) {
 		res = append(res, focus);
 	}
 
-	cout << "return " << res << endl;
+	if (DEBUG)
+		cout << "return " << res << endl;
+	
 	return res;
 }
 
 int main(int args, char ** argv) {
 	//string a = (string)argv[1];
 
-	string a = "a+b+c(d+e)+f+g(j+k(i+l))";
+	string a = "a+!b+c(d+e)+f+!g(j+k(i+l))";
 	string b = "a(e+b)(c(j+k)+d)f";
 
-//	string c = multiply("a+b+c", "d+e");
 	int end;
-	string c = parse(b, 0, end);
-	cout << c << endl;
+
+	cout << parse(a, 0, end) << endl;
+	cout << parse(b, 0, end) << endl;
 
 	return 0;
 }

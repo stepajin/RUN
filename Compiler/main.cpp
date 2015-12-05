@@ -47,8 +47,8 @@ enum BYTE {
     BC_LESS = 233,
     BC_EQ_LESS = 232,
     BC_REWIND = 231,
-    BC_STACK_MARK = 230,
-    BC_STACK_MARK_RETURN = 229,
+    BC_BLOCK = 230,
+    BC_BLOCK_RETURN = 229,
     BC_VOID = 228,
     BC_RETURN = 227,
     BC_SIZE = 226,
@@ -91,6 +91,8 @@ BYTECODE * compileBlock(ifstream & in) {
     while (true) {
         s = readWord(in);
         if (s == ")") {
+            bc->insert(bc->begin(), BC_BLOCK);
+            bc->push_back(BC_BLOCK_RETURN);
             return bc;
         }
         
@@ -109,10 +111,10 @@ BYTECODE * compileLoop(ifstream & in) {
     }
     
     BYTECODE * bc = new BYTECODE;
-    bc->push_back(BC_STACK_MARK);
+    bc->push_back(BC_BLOCK);
     BYTECODE * block = compileBlock(in);
     bc = append(bc, block);
-    bc->push_back(BC_STACK_MARK_RETURN);
+    bc->push_back(BC_BLOCK_RETURN);
     
     int toRewind = bc->size() + 3;
     unsigned char * toRewindBytes = toBytes(2, toRewind);
@@ -333,7 +335,8 @@ BYTECODE * compile(string s, ifstream & in) {
     }
 
     if (s == "(") {
-        return compileBlock(in);
+        bc = compileBlock(in);
+        return bc;
     }
     
     if (s == "if") {
@@ -437,8 +440,6 @@ BYTECODE * compile(string s, ifstream & in) {
         setNumberOfArguments(name, args.size());
 
         BYTECODE * block = compileBlock(in);
-        block->insert(block->begin(), BC_STACK_MARK);
-        block->push_back(BC_STACK_MARK_RETURN);
         
         unsigned char * codeBytes = toBytes(2, code);
         unsigned char * blockSizeBytes = toBytes(2, block->size());

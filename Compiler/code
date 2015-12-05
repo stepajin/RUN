@@ -34,3 +34,12 @@ print == "tralala" eof
 print == eof eof
 print == "eof" eof
 print == "-1" eof
+
+print == 1 ( 2 2 2 2 )
+
+func fce ( 0 1 2 3 8 )
+
+= res fce
+print res
+
+

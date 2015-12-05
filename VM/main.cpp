@@ -19,7 +19,7 @@
 
 using namespace std;
 
-VmObject * REPL(Reader * reader, Environment * environment) {
+void REPL(Reader * reader, Environment * environment) {
     Heap::INSTANCE()->addEnvironment(environment);
     
     VmObject * result = VmVoid::VOID();
@@ -45,7 +45,6 @@ VmObject * REPL(Reader * reader, Environment * environment) {
         }
         
         if (obj->getTag() == TAG_RETURN) {
-            result = eval;
             break;
         }
 
@@ -66,13 +65,9 @@ VmObject * REPL(Reader * reader, Environment * environment) {
         }
     
         Heap::INSTANCE()->collectIfNeeded();
-
-        result = eval;
     }
     
     Heap::INSTANCE()->removeEnvironment(environment);
-    
-    return result;
 }
 
 
@@ -96,11 +91,12 @@ int main(int argc, const char * argv[]) {
 
     Reader * reader = new Reader(dataSource, environment);
     
-    VmObject * result = REPL(reader, environment);
+    REPL(reader, environment);
     
+    VmObject * result = CallStack::INSTANCE()->pop();
     if (result)
         cout << "result: " << result->toString() << endl;
-    
+        
     delete dataSource;
     delete environment;
     delete reader;

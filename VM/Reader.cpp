@@ -41,13 +41,16 @@ VmObject * Reader::getObject() {
     if (dataSource->isEOF())
         return VmEOF::getEOF();
     
-    if (byte == BC_STACK_MARK) {
+    if (byte == BC_BLOCK) {
         CallStack::INSTANCE()->addMark();
         return getObject();
     }
     
-    if (byte == BC_STACK_MARK_RETURN) {
+    if (byte == BC_BLOCK_RETURN) {
+        VmObject * top = CallStack::INSTANCE()->pop();
         CallStack::INSTANCE()->returnToLastMark();
+        CallStack::INSTANCE()->push(top);
+        
         return getObject();
     }
     
@@ -342,14 +345,16 @@ int toInt(int length, unsigned char * bytes) {
 BytecodeDataSource::BytecodeDataSource(BYTE * bytecode, int length) {
     this->bytecode = bytecode;
     this->length = length;
-    position = 0;
+    position = -1;
 }
 
 BYTE BytecodeDataSource::getByte() {
+    ++position;
+    
     if (isEOF())
         return 0;
-    
-    return bytecode[position++];
+        
+    return bytecode[position];
 }
 
 bool BytecodeDataSource::isEOF() {
