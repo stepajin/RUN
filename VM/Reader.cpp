@@ -342,14 +342,16 @@ int toInt(int length, unsigned char * bytes) {
 BytecodeDataSource::BytecodeDataSource(BYTE * bytecode, int length) {
     this->bytecode = bytecode;
     this->length = length;
-    position = 0;
+    position = -1;
 }
 
 BYTE BytecodeDataSource::getByte() {
+    ++position;
+    
     if (isEOF())
         return 0;
     
-    return bytecode[position++];
+    return bytecode[position];
 }
 
 bool BytecodeDataSource::isEOF() {
