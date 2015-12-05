@@ -72,6 +72,8 @@ VmObject * REPL(Reader * reader, Environment * environment) {
     
     Heap::INSTANCE()->removeEnvironment(environment);
     
+    //CallStack::INSTANCE()->printStack();
+    
     return result;
 }
 

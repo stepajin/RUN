@@ -1,48 +1,11 @@
-= a [ 1 2 "a" ]
-= b [ 4 "b" 6 ]
-print a
-print b
-= c + a b
-print c
-= c + a "bb"
-print c
+func f1 ( print "f1" 1 2 3 4 5 )
 
-print size "abcdefghi"
+func f2 ( print "f2" 1 2 if yes ( if yes ( return 3  4  5 ) 6 ) 4 5 )
 
-print not == 7 7
-print not yes
-print not 42
-print not 0
+func f3 ( print "f3" )
 
-= f open "/Users/stepanek/School/RUN/ahoj.txt"
-write f "nazdarek"
-write f " zdarek "
-write f "cau
- cau
-ahoj
-te pic
-cauky mnauky"
+f1
+f2
+f3
 
-print "1:" print read f
-print "2:" print read f
-print "3:" print read f
-print "4:" print read f
-print "5:" print read f
-
-print == read f eof
-print == "tralala" eof
-print == eof eof
-print == "eof" eof
-print == "-1" eof
-
-func jedna ( "jedna" )
-
-= konec 5
-loop (
-    print konec
-
-    if == konec 0
-        ( print "konec" end )
-
-    = konec - konec 1
-)
+print "konec"

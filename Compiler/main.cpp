@@ -15,6 +15,7 @@
 
 #include <map>
 #include <vector>
+#include <stack>
 
 using namespace std;
 
@@ -61,6 +62,12 @@ enum BYTE {
     FLAG_END = 999
 };
 
+enum EMBED_TYPE {
+    EMBED_FUNC = 1,
+    EMBED_COND = 2,
+    EMBED_LOOP = 3
+};
+
 bool isNumber(string str);
 bool isBoolean(string str);
 double toNumber(string str);
@@ -84,12 +91,41 @@ void rewind();
 void printBuffer();
 void printVector(BYTECODE * v);
 
-BYTECODE * compileBlock(ifstream & in) {
+
+vector<EMBED_TYPE> EMBED_STACK;
+
+BYTECODE * stackMarkReturn(EMBED_TYPE embedType) {
+    BYTECODE * bc = new BYTECODE;
+
+    unsigned long i = EMBED_STACK.size() - 1;
+    int returns = 1;
+    
+    while (true) {
+        if (EMBED_STACK[i] == embedType) {
+            break;
+        }
+        
+        returns++;
+        i--;
+    }
+    
+   // cout << "return " << returns << " levels" << endl;
+    for (i = 0; i < returns; i++) {
+        bc->push_back(BC_STACK_MARK_RETURN);
+    }
+
+    return bc;
+}
+
+BYTECODE * compileBlock(ifstream & in, EMBED_TYPE embedType) {
     string s = readWord(in);
     if (s != "(") {
         cout << "block expected" << endl;
         exit(1);
     }
+    
+    EMBED_STACK.push_back(embedType);
+ //   cout << "embed level " << EMBED_STACK.size() << endl;
         
     BYTECODE * bc = new BYTECODE;
     
@@ -104,14 +140,18 @@ BYTECODE * compileBlock(ifstream & in) {
     }
 
     bc->insert(bc->begin(), BC_STACK_MARK);
-    bc->push_back(BC_STACK_MARK_RETURN);
+    
+    BYTECODE * returns = stackMarkReturn(embedType);
+    bc = append(bc, returns);
+    
+    EMBED_STACK.pop_back();
     
     return bc;
 }
 
 BYTECODE * compileLoop(ifstream & in) {
     BYTECODE * bc = new BYTECODE;
-    BYTECODE * block = compileBlock(in);
+    BYTECODE * block = compileBlock(in, EMBED_LOOP);
     bc = append(bc, block);
     
     int toRewind = bc->size() + 3;
@@ -327,7 +367,9 @@ BYTECODE * compile(string s, ifstream & in) {
     }
     
     if (s == "return") {
-        bc = compile(readWord(in), in);
+        bc = stackMarkReturn(EMBED_FUNC);
+        BYTECODE * res = compile(readWord(in), in);
+        bc = append(bc, res);
         bc->push_back(BC_RETURN);
         return bc;
     }
@@ -339,13 +381,13 @@ BYTECODE * compile(string s, ifstream & in) {
     
     if (s == "if") {
         BYTECODE * cond = compile(readWord(in), in);
-        BYTECODE * ifBlock = compileBlock(in);
+        BYTECODE * ifBlock = compileBlock(in, EMBED_COND);
         
         int elseBlockLength = 0;
         BYTECODE * elseBlock = NULL;
         
         if (readWord(in) == "else") {
-            elseBlock = compileBlock(in);
+            elseBlock = compileBlock(in, EMBED_COND);
             elseBlockLength = elseBlock->size();
         } else {
             rewind();
@@ -439,7 +481,7 @@ BYTECODE * compile(string s, ifstream & in) {
         
         setNumberOfArguments(name, args.size());
 
-        BYTECODE * block = compileBlock(in);
+        BYTECODE * block = compileBlock(in, EMBED_FUNC);
         
         unsigned char * codeBytes = toBytes(2, code);
         unsigned char * blockSizeBytes = toBytes(2, block->size());
@@ -466,6 +508,7 @@ BYTECODE * compile(string s, ifstream & in) {
     }
     
     if (s == "end") {
+        bc = stackMarkReturn(EMBED_LOOP);
         bc->push_back(FLAG_END);
         bc->push_back(0);
         bc->push_back(0);
