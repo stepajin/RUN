@@ -58,6 +58,16 @@ public:
     virtual void readArguments(Reader * reader);
 };
 
+class SizeFunction : public BuiltinFunction {
+    VmObject * object;
+    
+public:
+    SizeFunction();
+    
+    virtual VmObject * eval(Environment * environment);
+    virtual void readArguments(Reader * reader);
+};
+
 
 
 

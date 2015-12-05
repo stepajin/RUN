@@ -42,7 +42,8 @@ enum BYTECODES {
     BC_STACK_MARK = 230,
     BC_STACK_MARK_RETURN = 229,
     BC_VOID = 228,
-    BC_RETURN = 227
+    BC_RETURN = 227,
+    BC_SIZE = 226
 };
 
 enum VmObjectTag {

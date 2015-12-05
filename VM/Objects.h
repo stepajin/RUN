@@ -105,6 +105,7 @@ public:
     
     void setValue(string value);
     string getValue();
+    unsigned long size();
     
     virtual string toString();
     virtual void readArguments(Reader * reader);

@@ -210,6 +210,10 @@ void VmString::setValue(string value) {
     this->value = value;
 }
 
+unsigned long VmString::size() {
+    return getValue().size();
+}
+
 string VmString::getValue() {
     return value;
 }

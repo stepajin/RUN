@@ -98,6 +98,12 @@ VmObject * Reader::getObject() {
         return at;
     }
     
+    if (byte == BC_SIZE) {
+        SizeFunction * size = new SizeFunction();
+        size->readArguments(this);
+        return size;
+    }
+    
     if (byte == BC_EQ) {
         EqualsOperation * eq = new EqualsOperation();
         eq->readArguments(this);

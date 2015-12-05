@@ -126,3 +126,35 @@ void AtFunction::readArguments(Reader * reader) {
     idx = reader->getShortInt();
     object = CallStack::INSTANCE()->pop();
 }
+
+
+/*********
+ 
+ Size
+ 
+ *********/
+
+SizeFunction::SizeFunction() : BuiltinFunction("size") {
+    object = NULL;
+}
+
+VmObject * SizeFunction::eval(Environment * environment) {
+    if (!object)
+        return error("size: null object");
+    
+    if (object->getTag() == TAG_STRING) {
+        VmString * str = (VmString *) object;
+        return new VmNumber(str->size());
+    }
+    
+    if (object->getTag() == TAG_LIST) {
+        VmList * list = (VmList *)object;
+        return new VmNumber(list->size());
+    }
+    
+    return error("at: not valid object");
+}
+
+void SizeFunction::readArguments(Reader * reader) {
+    object = CallStack::INSTANCE()->pop();
+}

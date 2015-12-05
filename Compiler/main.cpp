@@ -51,6 +51,7 @@ enum BYTE {
     BC_STACK_MARK_RETURN = 229,
     BC_VOID = 228,
     BC_RETURN = 227,
+    BC_SIZE = 226,
     
     FLAG_END = 999
 };
@@ -387,6 +388,11 @@ BYTECODE * compile(string s, ifstream & in) {
         return bc;
     }
     
+    if (s == "size") {
+        bc = compile(readWord(in), in);
+        bc->push_back(BC_SIZE);
+        return bc;
+    }
     
     if (s == "func") {
         string name = readWord(in);
