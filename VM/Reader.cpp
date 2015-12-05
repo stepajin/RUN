@@ -14,6 +14,7 @@
 #include "LogicOperations.h"
 #include "AssignFunctions.h"
 #include "UserFunction.h"
+#include "IOOperations.h"
 #include "CallStack.h"
 
 using namespace std;
@@ -207,6 +208,18 @@ VmObject * Reader::getObject() {
         VmReturn * ret = new VmReturn();
         ret->readArguments(this);
         return ret;
+    }
+    
+    if (byte == BC_OPEN) {
+        VmFile * file = new VmFile();
+        file->readArguments(this);
+        return file;
+    }
+
+    if (byte == BC_WRITE) {
+        WriteFunction * write = new WriteFunction();
+        write->readArguments(this);
+        return write;
     }
 
     if (byte == BC_FUNC_DEF) {

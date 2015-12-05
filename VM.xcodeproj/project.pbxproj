@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ACAE77CE1C11ED6D00857F49 /* Heap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACAE77CD1C11ED6D00857F49 /* Heap.cpp */; };
+		ACAE77D41C12FF7D00857F49 /* IOOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACAE77D21C12FF7D00857F49 /* IOOperations.cpp */; };
 		ACE8089C1BE7DAAE00A2D21C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE8089B1BE7DAAE00A2D21C /* main.cpp */; };
 		ACE808C21BE7E09B00A2D21C /* Reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808C01BE7E09B00A2D21C /* Reader.cpp */; };
 		ACE808C61BE7E4DD00A2D21C /* Objects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808C41BE7E4DD00A2D21C /* Objects.cpp */; };
@@ -36,6 +37,8 @@
 /* Begin PBXFileReference section */
 		ACAE77CC1C11ECCE00857F49 /* Heap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Heap.h; sourceTree = "<group>"; };
 		ACAE77CD1C11ED6D00857F49 /* Heap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Heap.cpp; sourceTree = "<group>"; };
+		ACAE77D21C12FF7D00857F49 /* IOOperations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOOperations.cpp; sourceTree = "<group>"; };
+		ACAE77D31C12FF7D00857F49 /* IOOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOOperations.h; sourceTree = "<group>"; };
 		ACE808981BE7DAAE00A2D21C /* VM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = VM; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE8089B1BE7DAAE00A2D21C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		ACE808C01BE7E09B00A2D21C /* Reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Reader.cpp; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 				ACE808D71BE8266900A2D21C /* Environment.cpp */,
 				ACE808DB1BE8298000A2D21C /* AssignFunctions.h */,
 				ACE808DA1BE8298000A2D21C /* AssignFunctions.cpp */,
+				ACAE77D31C12FF7D00857F49 /* IOOperations.h */,
+				ACAE77D21C12FF7D00857F49 /* IOOperations.cpp */,
 				ACE808E11BE8CB8C00A2D21C /* Error.h */,
 				ACE808E01BE8CB8C00A2D21C /* Error.cpp */,
 				ACAE77CC1C11ECCE00857F49 /* Heap.h */,
@@ -183,6 +188,7 @@
 				ACE808CF1BE808EA00A2D21C /* BuiltinFunctions.cpp in Sources */,
 				ACE808DC1BE8298000A2D21C /* AssignFunctions.cpp in Sources */,
 				ACE808C61BE7E4DD00A2D21C /* Objects.cpp in Sources */,
+				ACAE77D41C12FF7D00857F49 /* IOOperations.cpp in Sources */,
 				ACE808C21BE7E09B00A2D21C /* Reader.cpp in Sources */,
 				ACE808D21BE80A1F00A2D21C /* BinaryOperations.cpp in Sources */,
 				ACE808D91BE8266900A2D21C /* Environment.cpp in Sources */,

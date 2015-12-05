@@ -53,6 +53,9 @@ enum BYTE {
     BC_RETURN = 227,
     BC_SIZE = 226,
     BC_NOT = 225,
+    BC_OPEN = 224,
+    BC_WRITE = 223,
+    BC_READ = 222,
     
     FLAG_END = 999
 };
@@ -459,6 +462,20 @@ BYTECODE * compile(string s, ifstream & in) {
         bc->push_back(FLAG_END);
         bc->push_back(0);
         bc->push_back(0);
+        return bc;
+    }
+    
+    if (s == "open") {
+        bc = compile(readWord(in), in);
+        bc->push_back(BC_OPEN);
+        return bc;
+    }
+
+    if (s == "write") {
+        BYTECODE * file = compile(readWord(in), in);
+        BYTECODE * obj = compile(readWord(in), in);
+        bc = append(file, obj);
+        bc->push_back(BC_WRITE);
         return bc;
     }
     

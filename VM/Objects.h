@@ -175,4 +175,5 @@ public:
     virtual void readArguments(Reader * reader);
 };
 
+
 #endif /* defined(__Vm__Objects__) */

@@ -44,7 +44,10 @@ enum BYTECODES {
     BC_VOID = 228,
     BC_RETURN = 227,
     BC_SIZE = 226,
-    BC_NOT = 225
+    BC_NOT = 225,
+    BC_OPEN = 224,
+    BC_WRITE = 223,
+    BC_READ = 222
 };
 
 enum VmObjectTag {
@@ -58,7 +61,8 @@ enum VmObjectTag {
     TAG_VOID,
     TAG_LIST,
     TAG_RETURN,
-    TAG_MOVE_BUFFER
+    TAG_MOVE_BUFFER,
+    TAG_FILE
 };
 
 #define FORWARD true

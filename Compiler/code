@@ -13,3 +13,9 @@ print not == 7 7
 print not yes
 print not 42
 print not 0
+
+= f open "/Users/stepanek/School/RUN/ahoj.txt"
+write f "nazdarek"
+write f "zdarek"
+write f "cau
+cau"
