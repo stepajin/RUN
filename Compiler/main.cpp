@@ -85,9 +85,14 @@ void printBuffer();
 void printVector(BYTECODE * v);
 
 BYTECODE * compileBlock(ifstream & in) {
+    string s = readWord(in);
+    if (s != "(") {
+        cout << "block expected" << endl;
+        exit(1);
+    }
+        
     BYTECODE * bc = new BYTECODE;
     
-    string s;
     while (true) {
         s = readWord(in);
         if (s == ")") {
@@ -102,12 +107,12 @@ BYTECODE * compileBlock(ifstream & in) {
 }
 
 BYTECODE * compileLoop(ifstream & in) {
-    string s = readWord(in);
-    if (s != "(") {
-        cout << "loop has to be a block" << endl;
-        exit(1);
-    }
-    
+//    string s = readWord(in);
+//    if (s != "(") {
+//        cout << "loop has to be a block" << endl;
+//        exit(1);
+//    }
+//    
     BYTECODE * bc = new BYTECODE;
     bc->push_back(BC_STACK_MARK);
     BYTECODE * block = compileBlock(in);
@@ -333,18 +338,19 @@ BYTECODE * compile(string s, ifstream & in) {
     }
 
     if (s == "(") {
-        return compileBlock(in);
+        cout << "Block not expected here" << endl;
+        exit(1);
     }
     
     if (s == "if") {
         BYTECODE * cond = compile(readWord(in), in);
-        BYTECODE * ifBlock = compile(readWord(in), in);
+        BYTECODE * ifBlock = compileBlock(in);
         
         int elseBlockLength = 0;
         BYTECODE * elseBlock = NULL;
         
         if (readWord(in) == "else") {
-            elseBlock = compile(readWord(in), in);
+            elseBlock = compileBlock(in);
             elseBlockLength = elseBlock->size();
         } else {
             rewind();
@@ -422,8 +428,10 @@ BYTECODE * compile(string s, ifstream & in) {
         
         while(true) {
             arg = readWord(in);
-            if (arg == "(")
+            if (arg == "(") {
+                rewind();
                 break;
+            }
             
             if (!validIdentifier(arg)) {
                 cout << "wrong name to argument " << endl;
