@@ -58,6 +58,10 @@ enum BYTE {
     BC_WRITE = 223,
     BC_READ = 222,
     BC_EOF_STRING = 221,
+    BC_ASSIGN_PLUS = 220,
+    BC_ASSIGN_MINUS = 219,
+    BC_ASSIGN_DIVIDE = 218,
+    BC_ASSIGN_MULTIPLY = 217,
     
     FLAG_END = 999
 };
@@ -291,7 +295,14 @@ BYTECODE * compile(string s, ifstream & in) {
         return bc;
     }
 
-    if (s == "=") {
+    if (s == "=" || s == "+=" || s == "-=" || s == "*=" || s == "/=") {
+        BYTE bcOperation =
+            (s == "=") ? BC_ASSIGN :
+            (s == "+=") ? BC_ASSIGN_PLUS :
+            (s == "-=") ? BC_ASSIGN_MINUS :
+            (s == "*=") ? BC_ASSIGN_MULTIPLY :
+            BC_ASSIGN_DIVIDE;
+        
         string id = readWord(in);
         if (!validIdentifier(id))
             exit(1);
@@ -300,7 +311,7 @@ BYTECODE * compile(string s, ifstream & in) {
         
         BYTECODE * val = compile(readWord(in), in);
         bc = append(bc, val);
-        bc->push_back(BC_ASSIGN);
+        bc->push_back(bcOperation);
         bc->push_back(idBytes[0]);
         bc->push_back(idBytes[1]);
         return bc;
@@ -563,6 +574,12 @@ BYTECODE * compile(string s, ifstream & in) {
         bc->push_back(bytes[0]);
         bc->push_back(bytes[1]);
         return bc;
+    }
+    
+    if (!in.eof()) {
+        cout << "invalid operation " << s << endl;
+        exit(1);
+
     }
     
     return NULL;

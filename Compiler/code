@@ -50,3 +50,14 @@ loop (
 
     = cnt - cnt 1
 )
+
+= qqq 10
++= qqq 4
+print qqq
+-= qqq 5
+print qqq
+*= qqq 2
+print qqq
+/= qqq 4
+print qqq
+

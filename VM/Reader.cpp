@@ -77,6 +77,30 @@ VmObject * Reader::getObject() {
         return assign;
     }
     
+    if (byte == BC_ASSIGN_PLUS) {
+        AssignPlusFunction * assign = new AssignPlusFunction();
+        assign->readArguments(this);
+        return assign;
+    }
+
+    if (byte == BC_ASSIGN_MINUS) {
+        AssignMinusFunction * assign = new AssignMinusFunction();
+        assign->readArguments(this);
+        return assign;
+    }
+
+    if (byte == BC_ASSIGN_DIVIDE) {
+        AssignDivideFunction * assign = new AssignDivideFunction();
+        assign->readArguments(this);
+        return assign;
+    }
+    
+    if (byte == BC_ASSIGN_MULTIPLY) {
+        AssignMultiplyFunction * assign = new AssignMultiplyFunction();
+        assign->readArguments(this);
+        return assign;
+    }
+
     if (byte == BC_LOAD) {
         LoadFunction * load = new LoadFunction();
         load->readArguments(this);
