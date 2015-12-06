@@ -74,10 +74,11 @@ VmObject * PlusOperation::eval(Environment * environment) {
         return new VmNumber(d);
     }
     
-    if (arg1->getTag() == TAG_STRING && arg2->getTag() == TAG_STRING) {
-        string s = "";
-        s += ((VmString *)arg1)->getValue();
-        s += ((VmString *)arg2)->getValue();
+    if ((arg1->getTag() == TAG_STRING || arg1->getTag() == TAG_NUMBER) &&
+        (arg2->getTag() == TAG_STRING || arg2->getTag() == TAG_NUMBER))
+    {
+        string s = arg1->toString();
+        s += arg2->toString();
         return new VmString(s);
     }
     

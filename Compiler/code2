@@ -1,61 +1,23 @@
-print "zacatek"
+func f1 ( print "f1" 1 2 3 4 5 )
 
-= a 5
+func f2 ( print "f2" 1 2 if yes ( if yes ( return 3  4  5 ) 6 ) 4 5 )
 
-= b 10
+func f3 ( print "f3" )
 
-= c "a"
+f1
+f2
+f3
 
-= a "b"
+print "konec"
 
-= b no
+= r 4
+func rec (
+    if == r 0 ( return 99 )
 
-= b "c"
+    print r
+    = r - r 1
 
-= a "d"
-
-= a "e"
-
-print a
-print b
-print c
-
-func abc i y (
-    loop (
-        if <= i 0 end
-
-        print "---"
-        print i
-        print "..."
-
-        = yy y
-        loop (
-            if <= yy 0 end
-            print yy
-            = yy - yy 1
-        )
-
-
-        = i - i 1
-    )
+    rec
 )
 
-print "x ABC x"
-
-abc 5 3
-
-func ggg (
-    func bbb (
-        print "bbb"
-        print "aaa"
-        return 4242
-    )
-    = k 999
-    bbb
-    print "xxx"
-)
-
-ggg
-
-= a 42.33
-print a
+rec
