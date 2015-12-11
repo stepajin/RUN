@@ -345,13 +345,13 @@ bool SAT(const string & s) {
     cout << dnf << endl;
     cout << "---" << endl;
 
-    bool res = true;
+    bool res = false;
     
     vector<string> * conjuntions = conjunctions_list(dnf);
     
     for (long i = 0; i < conjuntions->size(); i++) {
-        if (!evaluate_conjunction(conjuntions->at(i))) {
-            res = false;
+        if (evaluate_conjunction(conjuntions->at(i))) {
+            res = true;
             break;
         }
     }
@@ -359,13 +359,16 @@ bool SAT(const string & s) {
     string str = res ? "TRUE" : "FALSE";
     cout << str << endl << "---" << endl;
 
-    return true;
+    return res;
 }
 
 int main(int args, char ** argv) {
     SAT("a . ! b + ! ( ( c . d . ! d ) + u . v ) + ! e . f");
     
     SAT("aaa.( bbb + ccc ).!bbb");
+    
+    //  {q ⇒ r, r ⇒ p, ¬(q ⇒ p)}
+    SAT("(!q + r).(!r + p).!(!q + p)");
     
     return 0;
 }
