@@ -310,8 +310,8 @@ bool evaluate_conjunction(string s) {
     vector<string> positive;
     vector<string> negative;
     
-    for (long i = 0; i < size; i++) {
-        if (s[i] == '.' || i == size - 1) {
+    for (long i = 0; i <= size; i++) {
+        if (s[i] == '.' || i == size) {
             if (element[0] == '!') {
                 element = element.substr(1, element.size() - 1);
                 
