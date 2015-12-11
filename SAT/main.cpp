@@ -363,12 +363,26 @@ bool SAT(const string & s) {
 }
 
 int main(int args, char ** argv) {
+    // JO
     SAT("a . ! b + ! ( ( c . d . ! d ) + u . v ) + ! e . f");
     
-    SAT("aaa.( bbb + ccc ).!bbb");
+    // NE
+    SAT("aaa.( bbb + ccc ).!bbb.!ccc");
     
-    //  {q ⇒ r, r ⇒ p, ¬(q ⇒ p)}
+    // a) T = {(p ⇒ q) ∧ r, q ∧ r, r ⇒ s, p ∧ ¬s} NE
+    SAT("((!p+q).r) . (q.r) . (!r.s) . (p.!s)");
+    
+    // b) F = {(p ∧ q ∧ r) ⇒ [(s ∧ ¬t) ∨ (¬s ∧ t)], q ∧ r, ¬s, ¬t, p} NE
+    SAT("( !(p + q + r) + (s.!t + !s.t) ) . (q+r) . (!s) . (!t) . (p)");
+    
+    // c) G = {q ⇒ r, r ⇒ p, q ⇒ p} JO
+    SAT("(!q + r) . (!r + p) . (!q + p)");
+    
+    // d) Y = {q ⇒ r, r ⇒ p, ¬(q ⇒ p)} NE
     SAT("(!q + r).(!r + p).!(!q + p)");
     
+    // e) Z = {(p ∨ q) ⇔ r, r, ¬p, q} JO
+    SAT("((p+q).r + !(p+q).!r) . (r) . (!p) . (q)");
+        
     return 0;
 }
