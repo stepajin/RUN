@@ -278,18 +278,18 @@ string parse_dnf(vector<string> * postfix) {
             stack.push_back(neg);
             
         } else if (token == ".") {
-            string op1 = stack.back();
-            stack.pop_back();
             string op2 = stack.back();
+            stack.pop_back();
+            string op1 = stack.back();
             stack.pop_back();
             
             string conj = conjunction(op1, op2);
             stack.push_back(conj);
             
         } else if (token == "+") {
-            string op1 = stack.back();
-            stack.pop_back();
             string op2 = stack.back();
+            stack.pop_back();
+            string op1 = stack.back();
             stack.pop_back();
             
             string disj = disjunction(op1, op2);
