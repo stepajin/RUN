@@ -171,6 +171,7 @@ string negation(string s) {
         cout << "negation " << s << " -> " << result << endl;
     }
     
+    delete conjunctions;
     return result;
 }
 
@@ -355,6 +356,7 @@ bool SAT(const string & s) {
     string str = res ? "TRUE" : "FALSE";
     cout << str << endl << "---" << endl;
     
+    delete conjuntions;
     delete postfix;
     return res;
 }
