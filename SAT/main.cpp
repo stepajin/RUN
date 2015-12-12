@@ -372,7 +372,7 @@ int main(int args, char ** argv) {
     SAT("((!p+q).r) . (q.r) . (!r.s) . (p.!s)");
     
     // b) F = {(p ∧ q ∧ r) ⇒ [(s ∧ ¬t) ∨ (¬s ∧ t)], q ∧ r, ¬s, ¬t, p} NE
-    SAT("( !(p + q + r) + (s.!t + !s.t) ) . (q+r) . (!s) . (!t) . (p)");
+    SAT("( !(p.q.r) + (s.!t + !s.t) ) . (q.r) . (!s) . (!t) . (p)");
     
     // c) G = {q ⇒ r, r ⇒ p, q ⇒ p} JO
     SAT("(!q + r) . (!r + p) . (!q + p)");
