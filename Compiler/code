@@ -1,3 +1,13 @@
+= a [ 2 3 4 ]
+push a 42
+print at a 1
+print at a 2
+print at a 3
+= pp pop a
+print pp
+
+return 99
+
 = a [ 1 2 "a" ]
 = b [ 4 "b" 6 ]
 print a

@@ -10,16 +10,6 @@
 		ACE808B11BE7DBBC00A2D21C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE808B01BE7DBBC00A2D21C /* main.cpp */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		AC9CA3331C1C2C3F0029C2FC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AC9CA32F1C1C2C3F0029C2FC /* SAT.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = AC6EFC021C1B1D4600AD6199;
-			remoteInfo = SAT;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		ACE808AB1BE7DBBC00A2D21C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -33,7 +23,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AC9CA32F1C1C2C3F0029C2FC /* SAT.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SAT.xcodeproj; sourceTree = "<group>"; };
 		ACE808AD1BE7DBBC00A2D21C /* Compiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Compiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE808B01BE7DBBC00A2D21C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		ACE808BE1BE7DCF400A2D21C /* code */ = {isa = PBXFileReference; lastKnownFileType = text; path = code; sourceTree = "<group>"; };
@@ -51,18 +40,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AC9CA3301C1C2C3F0029C2FC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AC9CA3341C1C2C3F0029C2FC /* SAT */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		ACE808A41BE7DBBC00A2D21C = {
 			isa = PBXGroup;
 			children = (
-				AC9CA32F1C1C2C3F0029C2FC /* SAT.xcodeproj */,
 				ACE808AF1BE7DBBC00A2D21C /* Compiler */,
 				ACE808AE1BE7DBBC00A2D21C /* Products */,
 			);
@@ -130,28 +110,12 @@
 			mainGroup = ACE808A41BE7DBBC00A2D21C;
 			productRefGroup = ACE808AE1BE7DBBC00A2D21C /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = AC9CA3301C1C2C3F0029C2FC /* Products */;
-					ProjectRef = AC9CA32F1C1C2C3F0029C2FC /* SAT.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				ACE808AC1BE7DBBC00A2D21C /* Compiler */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		AC9CA3341C1C2C3F0029C2FC /* SAT */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = SAT;
-			remoteRef = AC9CA3331C1C2C3F0029C2FC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ACE808A91BE7DBBC00A2D21C /* Sources */ = {

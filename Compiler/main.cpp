@@ -62,6 +62,8 @@ enum BYTE {
     BC_ASSIGN_MINUS = 219,
     BC_ASSIGN_DIVIDE = 218,
     BC_ASSIGN_MULTIPLY = 217,
+    BC_PUSH = 216,
+    BC_POP = 215,
     
     FLAG_END = 999
 };
@@ -100,6 +102,8 @@ vector<EMBED_TYPE> EMBED_STACK;
 
 BYTECODE * stackMarkReturn(EMBED_TYPE embedType) {
     BYTECODE * bc = new BYTECODE;
+    if (EMBED_STACK.empty())
+        return bc;
 
     unsigned long i = EMBED_STACK.size() - 1;
     int returns = 1;
@@ -435,6 +439,21 @@ BYTECODE * compile(string s, ifstream & in) {
         bc->push_back(BC_LIST);
         bc->push_back(lengthBytes[0]);
         bc->push_back(lengthBytes[1]);
+        return bc;
+    }
+    
+    if (s == "push") {
+        BYTECODE * list = compile(readWord(in), in);
+        BYTECODE * obj = compile(readWord(in), in);
+        bc = append(list, obj);
+        bc->push_back(BC_PUSH);
+        return bc;
+    }
+    
+    if (s == "pop") {
+        BYTECODE * list = compile(readWord(in), in);
+        bc = list;
+        bc->push_back(BC_POP);
         return bc;
     }
     
