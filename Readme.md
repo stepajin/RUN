@@ -2,6 +2,10 @@
 
 ## Objects
 
+**Comment**
+
+* # .........
+
 **String**
 
 * “text text text”
@@ -80,6 +84,14 @@
 
 * at “abc” 2
 * at [ 1 2 “abc” ] 1
+
+**Push**
+
+* push list 42
+
+**Pop**
+
+* pop list
 
 ## I/O
 
