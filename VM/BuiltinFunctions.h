@@ -15,7 +15,6 @@ class BuiltinFunction : public VmObject {
 protected:
     string name;
     
-    //BuiltinFunction();
     BuiltinFunction(string name);
     
 public:
@@ -53,6 +52,27 @@ class AtFunction : public BuiltinFunction {
     
 public:
     AtFunction();
+    
+    virtual VmObject * eval(Environment * environment);
+    virtual void readArguments(Reader * reader);
+};
+
+class PushFunction : public BuiltinFunction {
+    VmObject * arg1;
+    VmObject * arg2;
+    
+public:
+    PushFunction();
+    
+    virtual VmObject * eval(Environment * environment);
+    virtual void readArguments(Reader * reader);
+};
+
+class PopFunction : public BuiltinFunction {
+    VmObject * arg1;
+    
+public:
+    PopFunction();
     
     virtual VmObject * eval(Environment * environment);
     virtual void readArguments(Reader * reader);

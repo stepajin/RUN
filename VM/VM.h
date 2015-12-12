@@ -52,7 +52,9 @@ enum BYTECODES {
     BC_ASSIGN_PLUS = 220,
     BC_ASSIGN_MINUS = 219,
     BC_ASSIGN_DIVIDE = 218,
-    BC_ASSIGN_MULTIPLY = 217
+    BC_ASSIGN_MULTIPLY = 217,
+    BC_PUSH = 216,
+    BC_POP = 215
 };
 
 enum VmObjectTag {

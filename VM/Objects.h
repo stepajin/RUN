@@ -142,7 +142,9 @@ public:
     
     VmObject * at(int idx);
     unsigned long size();
+    
     void push(VmObject * obj);
+    VmObject * pop();
     
     virtual void readArguments(Reader * reader);
 

@@ -1,10 +1,13 @@
-= a [ 2 3 4 ]
+func getlist ( return [ 2 3 4 ] )
+
+= a getlist
 push a 42
 print at a 1
 print at a 2
 print at a 3
 = pp pop a
 print pp
+print at a 3
 
 return 99
 

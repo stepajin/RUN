@@ -324,6 +324,13 @@ void VmList::push(VmObject * obj) {
     list->push_back(obj);
 }
 
+VmObject * VmList::pop() {
+    VmObject * obj = list->back();
+    list->pop_back();
+    
+    return obj;
+}
+
 void VmList::readArguments(Reader * reader) {
     int size = reader->getShortInt();
     

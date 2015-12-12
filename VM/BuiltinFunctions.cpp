@@ -127,6 +127,68 @@ void AtFunction::readArguments(Reader * reader) {
     object = CallStack::INSTANCE()->pop();
 }
 
+/***********
+ 
+ Push
+ 
+ ***********/
+
+PushFunction::PushFunction() : BuiltinFunction("push") {
+    arg1 = NULL;
+    arg2 = NULL;
+}
+
+void PushFunction::readArguments(Reader * reader) {
+    arg2 = CallStack::INSTANCE()->pop();
+    arg1 = CallStack::INSTANCE()->pop();
+}
+
+VmObject * PushFunction::eval(Environment * environment) {
+    VmObject * listEval = arg1->eval(environment);
+    VmObject * obj = arg2->eval(environment);
+    
+    if (listEval->getTag() != TAG_LIST) {
+        return error("push: first argument has to be list");
+    }
+    
+    VmList * list = (VmList *) listEval;
+    list->push(obj);
+    
+    return VmVoid::VOID();
+}
+
+/*********
+ 
+ Pop
+ 
+**********/
+
+PopFunction::PopFunction() : BuiltinFunction("pop") {
+    arg1 = NULL;
+}
+
+void PopFunction::readArguments(Reader *reader) {
+    arg1 = CallStack::INSTANCE()->pop();
+}
+
+VmObject * PopFunction::eval(Environment *environment) {
+    VmObject * listEval = arg1->eval(environment);
+    
+    if (listEval->getTag() != TAG_LIST) {
+        return error("pop: argument has to be list");
+    }
+    
+    VmList * list = (VmList *) listEval;
+    
+    if (list->size() == 0) {
+        return error("pop: empty list");
+    }
+    
+    VmObject * obj = list->pop();
+    
+    return obj;
+}
+
 /*********
  
  Size

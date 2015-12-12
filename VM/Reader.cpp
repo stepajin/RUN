@@ -133,6 +133,18 @@ VmObject * Reader::getObject() {
         return at;
     }
     
+    if (byte == BC_PUSH) {
+        PushFunction * push = new PushFunction();
+        push->readArguments(this);
+        return push;
+    }
+    
+    if (byte == BC_POP) {
+        PopFunction * pop = new PopFunction();
+        pop->readArguments(this);
+        return pop;
+    }
+    
     if (byte == BC_SIZE) {
         SizeFunction * size = new SizeFunction();
         size->readArguments(this);
