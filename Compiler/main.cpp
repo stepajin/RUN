@@ -615,14 +615,38 @@ BYTECODE * compile(string s, ifstream & in) {
 
 
 int main(int argc, char ** argv) {
-    string fileName = "/Users/stepanek/School/RUN/Compiler/code";
+    string inputFile;
+    
     if (argc >= 2) {
-        fileName = argv[1];
+        inputFile = argv[1];
+    } else {
+        cout << "no argument given" << endl;
+        exit(1);
     }
     
-    ifstream in(fileName);
+    string outputFile;
+    if (argc >= 3) {
+        outputFile = argv[2];
+    } else {
+        string folder;
+        string temp = "";
+        for (int i = 0; i < inputFile.length(); i++) {
+            temp += inputFile[i];
+            
+            if (inputFile[i] == '/') {
+                folder += temp;
+                temp = "";
+            }
+        }
+        
+        outputFile = folder + "BC.out";
+    }
     
-    ofstream out("/Users/stepanek/School/RUN/Compiler/BC.out", ios::out|ios::binary);
+    cout << "input: " << inputFile << endl;
+    cout << "output: " << outputFile << endl;
+
+    ifstream in(inputFile);
+    ofstream out(outputFile, ios::out|ios::binary);
     
     if (!in.is_open()) {
         cout << "blbej file" << endl;
