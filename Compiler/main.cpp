@@ -459,20 +459,9 @@ BYTECODE * compile(string s, ifstream & in) {
     
     if (s == "at") {
         BYTECODE * obj = compile(readWord(in), in);
-        string idxStr = readWord(in);
-        
-        if (!isNumber(idxStr)) {
-            cout << "at: " << idxStr << ": index has to be a number" << endl;
-            exit(1);
-        }
-
-        int idx = atoi(idxStr.c_str());
-        unsigned char * idxBytes = toBytes(2, idx);
-        
-        bc = obj;
+        BYTECODE * idx = compile(readWord(in), in);
+        bc = append(obj, idx);
         bc->push_back(BC_AT);
-        bc->push_back(idxBytes[0]);
-        bc->push_back(idxBytes[1]);
         return bc;
     }
     

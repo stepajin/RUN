@@ -88,13 +88,22 @@ void LoadFunction::readArguments(Reader * reader) {
  *********/
 
 AtFunction::AtFunction() : BuiltinFunction("at") {
-    object = NULL;
-    idx = 0;
+    arg1 = NULL;
+    arg2 = NULL;
 }
 
 VmObject * AtFunction::eval(Environment * environment) {
+    VmObject * object = arg1->eval(environment);
+    VmObject * index = arg2->eval(environment);
+    
+    if (index->getTag() != TAG_NUMBER) {
+        return error("at: index is not a number");
+    }
+    
+    int idx = ((VmNumber *) index)->getValue();
+    
     stringstream outOfBounds;
-    outOfBounds << "index out of bounds: " << idx;
+    outOfBounds << "at: index out of bounds: " << idx;
     
     if (!object)
         return error("at: not valid object");
@@ -123,8 +132,8 @@ VmObject * AtFunction::eval(Environment * environment) {
 }
 
 void AtFunction::readArguments(Reader * reader) {
-    idx = reader->getShortInt();
-    object = CallStack::INSTANCE()->pop();
+    arg2 = CallStack::INSTANCE()->pop();
+    arg1 = CallStack::INSTANCE()->pop();
 }
 
 /***********

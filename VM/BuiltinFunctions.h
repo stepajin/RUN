@@ -47,8 +47,8 @@ public:
 };
 
 class AtFunction : public BuiltinFunction {
-    VmObject * object;
-    int idx;
+    VmObject * arg1;
+    VmObject * arg2;
     
 public:
     AtFunction();
