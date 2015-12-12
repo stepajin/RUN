@@ -7,4 +7,7 @@
    <FileRef
       location = "group:Compiler.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:SAT.xcodeproj">
+   </FileRef>
 </Workspace>
