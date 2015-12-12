@@ -77,10 +77,13 @@ VmObject * REPL(Reader * reader, Environment * environment) {
 
 
 int main(int argc, const char * argv[]) {
-    string filePath = "/Users/stepanek/School/RUN/Compiler/BC.out";
+    string filePath;
     
     if (argc >= 2) {
         filePath = argv[1];
+    } else {
+        cout << "no argument given" << endl;
+        exit(1);
     }
     
     cout << filePath << endl;
