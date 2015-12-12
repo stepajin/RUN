@@ -1,6 +1,6 @@
 print "SAT"
 
-func contains lst obj (
+func contain_s lst obj (
     = len size list
     print "hledam"
     print len
@@ -24,6 +24,6 @@ func contains lst obj (
 
 = list [ 1 2 3 4 5 ]
 
-print contains list 3
+print contain_s list 3
 
 return "ahoj"

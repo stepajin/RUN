@@ -738,7 +738,7 @@ bool validIdentifier(string str) {
         if (c >= 'A' && c <= 'Z')
             continue;
         
-        if (i > 0 && (c == '?' || c == '!'))
+        if (i > 0 && (c == '?' || c == '!' || c == '_'))
             continue;
         
         if (i > 0 && (c >= '0' && c <= '9'))
