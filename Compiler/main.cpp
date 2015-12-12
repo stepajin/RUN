@@ -842,7 +842,17 @@ string readWord(ifstream & in) {
     }
     
     string s;
-    in >> s;
+
+    while (true) {
+        in >> s;
+        
+        if (s == "#") {
+            string temp;
+            getline(in, temp);
+        } else {
+            break;
+        }
+    }
     
     buffer[bufferPos] = s;
     bufferPos = (bufferPos + 1) % BUFFER_SIZE;

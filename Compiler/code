@@ -1,18 +1,14 @@
 print "SAT"
 
-func contain_s lst obj (
-    = len size list
-    print "hledam"
-    print len
-    print obj
-
+func contains lst obj (
+    = len size lst
     = idx 0
+
     loop (
         if == idx len ( end )
 
-        = elem at list idx
+        = elem at lst idx
         if == elem obj (
-            print "nalezeno na " print idx
             return yes
         )
 
@@ -22,8 +18,66 @@ func contain_s lst obj (
     return no
 )
 
+func is_operator str (
+    or or == str "+" == str "." == str "!"
+)
+
+func is_parenthesis str (
+    or == str "(" == str ")"
+)
+
+func is_symbol str (
+    or is_operator str is_parenthesis str
+)
+
+func is_element str (
+    if > size str 1 ( return yes )
+
+    = c at str 0
+    not is_symbol c
+)
+
+func priority op (
+    if == op "!" ( return 3 )
+    if == op "." ( return 2 )
+    if == op "+" ( return 1 )
+
+    0
+)
+
+print "contains"
 = list [ 1 2 3 4 5 ]
+print contains list 4
+print contains list 6
 
-print contain_s list 3
+print "is operator"
+print is_operator "+"
+print is_operator "."
+print is_operator "!"
+print is_operator "?"
 
-return "ahoj"
+print "is parenthesis"
+print is_parenthesis "("
+print is_parenthesis ")"
+print is_parenthesis "!"
+print is_parenthesis "av"
+
+print "is symbol"
+print is_symbol "abc"
+print is_symbol "("
+print is_symbol "!"
+print is_symbol "?"
+
+print "is element"
+print is_element "abc"
+print is_element "("
+print is_element "!"
+print is_element "?"
+
+print "priority"
+print priority "..."
+print priority "."
+print priority "!"
+print priority "+"
+
+return 0
