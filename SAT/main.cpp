@@ -113,6 +113,9 @@ string conjunction(string a, string b) {
             s += "(" + *it1 + "." + *it2 + ")";
         }
     }
+    
+    delete conjunctions1;
+    delete conjunctions2;
 
     if (DEBUG)
         cout << "conjunction '" << a << "' && '" << b << "' -> " << s << endl;
@@ -218,20 +221,16 @@ vector<string> * build_postfix(const string & expression) {
     
     for (int i = 0; i < tokens.size(); i++) {
         
-        if (is_element(tokens[i]))
-        {
+        if (is_element(tokens[i])) {
             postfix->push_back(tokens[i]);
         }
         
-        if (tokens[i] == "(")
-        {
+        if (tokens[i] == "(") {
             stack.push_back(tokens[i]);
         }
         
-        if (tokens[i] == ")")
-        {
-            while(!stack.empty() && stack.back() != "(")
-            {
+        if (tokens[i] == ")") {
+            while(!stack.empty() && stack.back() != "(") {
                 postfix->push_back(stack.back());
                 stack.pop_back();
             }
@@ -239,10 +238,8 @@ vector<string> * build_postfix(const string & expression) {
             stack.pop_back();
         }
         
-        if (is_operator(tokens[i]) == true)
-        {
-            while(!stack.empty() && priority(stack.back()) >= priority(tokens[i]))
-            {
+        if (is_operator(tokens[i])) {
+            while(!stack.empty() && priority(stack.back()) >= priority(tokens[i])) {
                 postfix->push_back(stack.back());
                 stack.pop_back();
             }
@@ -252,8 +249,7 @@ vector<string> * build_postfix(const string & expression) {
         
     }
     
-    while(!stack.empty())
-    {
+    while(!stack.empty()) {
         postfix->push_back(stack.back());
         stack.pop_back();
     }
@@ -358,7 +354,8 @@ bool SAT(const string & s) {
     
     string str = res ? "TRUE" : "FALSE";
     cout << str << endl << "---" << endl;
-
+    
+    delete postfix;
     return res;
 }
 
@@ -383,6 +380,6 @@ int main(int args, char ** argv) {
     
     // e) Z = {(p ∨ q) ⇔ r, r, ¬p, q} JO
     SAT("((p+q).r + !(p+q).!r) . (r) . (!p) . (q)");
-        
+    
     return 0;
 }
