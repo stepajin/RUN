@@ -222,7 +222,7 @@ VmObject * SizeFunction::eval(Environment * environment) {
         return new VmNumber(list->size());
     }
     
-    return error("at: not valid object");
+    return error("size: not valid object");
 }
 
 void SizeFunction::readArguments(Reader * reader) {

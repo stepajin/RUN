@@ -1,5 +1,3 @@
-print "SAT"
-
 func contains lst obj (
     = len size lst
     = idx 0
@@ -16,6 +14,23 @@ func contains lst obj (
     )
 
     return no
+)
+
+func substr str start length (
+    = result ""
+    = i start
+    = over + start length
+
+    loop (
+        if >= i over ( end )
+
+        = c at str i
+        = result + result c
+
+        += i 1
+    )
+
+    result
 )
 
 func is_operator str (
@@ -45,39 +60,393 @@ func priority op (
     0
 )
 
-print "contains"
-= list [ 1 2 3 4 5 ]
-print contains list 4
-print contains list 6
+func conjunctions_list str (
+    = lst [ ]
 
-print "is operator"
-print is_operator "+"
-print is_operator "."
-print is_operator "!"
-print is_operator "?"
+    = conj ""
+    = i 0
+    = len size str
 
-print "is parenthesis"
-print is_parenthesis "("
-print is_parenthesis ")"
-print is_parenthesis "!"
-print is_parenthesis "av"
+    loop (
+        if >= i len ( end )
 
-print "is symbol"
-print is_symbol "abc"
-print is_symbol "("
-print is_symbol "!"
-print is_symbol "?"
+        = c at str i
 
-print "is element"
-print is_element "abc"
-print is_element "("
-print is_element "!"
-print is_element "?"
+        if and == c "+" not == conj "" (
+            push lst conj
+            = conj ""
+        ) else (
+            if not is_parenthesis c (
+                = conj + conj c
+            )
+        )
 
-print "priority"
-print priority "..."
-print priority "."
-print priority "!"
-print priority "+"
+        += i 1
+    )
 
-return 0
+    if not == conj "" (
+        push lst conj
+    )
+
+    lst
+)
+
+func disjunction str1 str2 (
+    = result + "" str1
+
+    if and not == str1 "" not == str2 "" (
+        = result + result "+"
+    )
+
+    = result + result str2
+
+    result
+)
+
+func conjunction str1 str2 (
+    if == str1 "" ( return str2 )
+    if == str2 "" ( return str1 )
+
+    = conjunctions1 conjunctions_list str1
+    = conjunctions2 conjunctions_list str2
+
+    = result ""
+    = length1 size conjunctions1
+    = length2 size conjunctions2
+
+    = i 0
+    loop (
+        if >= i length1 ( end )
+
+        = k 0
+        loop (
+            if >= k length2 ( end )
+
+            if not == result "" (
+                = result + result "+"
+            )
+
+            = result + result "("
+            = result + result at conjunctions1 i
+            = result + result "."
+            = result + result at conjunctions2 k
+            = result + result ")"
+
+            += k 1
+        )
+
+        += i 1
+    )
+
+    result
+)
+
+func negate_conjunction str (
+    = result ""
+    = length size str
+    = position 0
+    = first yes
+
+    loop (
+        if >= position length ( end )
+
+        = c at str position
+
+        if == c "." (
+            = result + result "+"
+            = first yes
+        ) else (
+            if first (
+                if not == c "!" (
+                    = result + result "!"
+                    = result + result c
+                )
+
+                = first no
+            ) else (
+                = result + result c
+            )
+        )
+
+        += position 1
+    )
+
+    result
+)
+
+func negation str (
+    = result ""
+
+    = conjunctions conjunctions_list str
+    = length size conjunctions
+    = i 0
+
+    loop (
+        if >= i length ( end )
+
+        = conj at conjunctions i
+        = neg negate_conjunction conj
+
+        = result conjunction result neg
+
+        += i 1
+    )
+
+    result
+)
+
+func read_token str start (
+    = i start
+    = len size str
+    = token ""
+
+    loop (
+        = c at str i
+
+        if and is_symbol c == token "" (
+            = token c
+            = last i
+            end
+        )
+
+        if is_symbol c (
+            = last - i 1
+            end
+        )
+
+        if not == c " " (
+            = token + token c
+        )
+
+        += i 1
+
+        if >= i len (
+            = last - i 1
+            end
+        )
+    )
+
+    [ token last ]
+)
+
+func build_postfix expression (
+    = position 0
+    = tokens [ ]
+    = length size expression
+
+    loop (
+        = lst read_token expression position
+        = token at lst 0
+        = last at lst 1
+        = position + last 1
+
+        push tokens token
+
+        if >= position length (
+            end
+        )
+    )
+
+    = postfix [ ]
+    = stack [ ]
+    = tokens_length size tokens
+
+    = i 0
+
+    loop (
+        = token at tokens i
+
+        if is_element token (
+            push postfix token
+        )
+
+        if == token "(" (
+            push stack token
+        )
+
+        if == token ")" (
+            loop (
+                = stack_size size stack
+                if == stack_size 0 ( end )
+
+                = back at stack - stack_size 1
+                if == back "(" ( end )
+
+                push postfix back
+                pop stack
+            )
+
+            pop stack
+        )
+
+        if is_operator token (
+            loop (
+                = stack_size size stack
+                if == stack_size 0 ( end )
+
+                = back at stack - stack_size 1
+
+                if < priority back priority token ( end )
+
+                push postfix back
+                pop stack
+            )
+
+
+            push stack token
+        )
+
+        += i 1
+        if == i tokens_length ( end )
+    )
+
+    loop (
+        = stack_size size stack
+        if == stack_size 0 ( end )
+
+        push postfix pop stack
+    )
+
+    postfix
+)
+
+func parse_dnf postfix (
+    = stack [ ]
+    = length size postfix
+    = i 0
+
+    loop (
+        if >= i length ( end )
+
+        = token at postfix i
+
+        if == token "!" (
+            = op pop stack
+            = neg negation op
+            push stack neg
+        )
+
+        if == token "." (
+            = op2 pop stack
+            = op1 pop stack
+
+            = conj conjunction op1 op2
+            push stack conj
+        )
+
+        if == token "+" (
+            = op2 pop stack
+            = op1 pop stack
+
+            = disj disjunction op1 op2
+            push stack disj
+        )
+
+        if is_element token (
+            push stack token
+        )
+
+        += i 1
+    )
+
+    pop stack
+)
+
+func evaluate_conjunction str (
+    = positive [ ]
+    = negative [ ]
+
+    = element ""
+    = length size str
+    = i 0
+
+    loop (
+        if > i length ( end )
+
+        if < i length (
+            = c at str i
+        ) else (
+            = c ""
+        )
+
+        if or == c "." == i length (
+            = first at element 0
+
+            if == first "!" (
+                = element substr element 1 - size element 1
+
+                if contains positive element ( return no )
+
+                push negative element
+            ) else (
+                if contains negative element ( return no )
+
+                push positive element
+            )
+
+            = element ""
+        ) else (
+            = element + element c
+        )
+
+        += i 1
+    )
+
+    yes
+)
+
+func SAT expression (
+    print expression
+
+    = postfix build_postfix expression
+    print postfix
+
+    = dnf parse_dnf postfix
+    print dnf
+
+
+    = conjunctions conjunctions_list dnf
+    = i 0
+    = length size conjunctions
+    = result no
+
+    loop (
+        if >= i length ( end )
+
+        = conj at conjunctions i
+
+        if evaluate_conjunction conj (
+            = result yes
+            end
+        )
+
+        += i 1
+    )
+
+    print "-----"
+    print result
+    print "-----"
+
+    result
+)
+
+# JO
+SAT "a . ! b + ! ( ( c . d . ! d ) + u . v ) + ! e . f"
+
+# NE
+SAT "aaa.( bbb + ccc ).!bbb.!ccc"
+
+# a) T = {(p ⇒ q) ∧ r, q ∧ r, r ⇒ s, p ∧ ¬s} NE
+SAT "((!p+q).r) . (q.r) . (!r.s) . (p.!s)"
+
+# b) F = {(p ∧ q ∧ r) ⇒ [(s ∧ ¬t) ∨ (¬s ∧ t)], q ∧ r, ¬s, ¬t, p} NE
+SAT "( !(p + q + r) + (s.!t + !s.t) ) . (q+r) . (!s) . (!t) . (p)"
+
+# c) G = {q ⇒ r, r ⇒ p, q ⇒ p} JO
+SAT "(!q + r) . (!r + p) . (!q + p)"
+
+# d) Y = {q ⇒ r, r ⇒ p, ¬(q ⇒ p)} NE
+SAT "(!q + r).(!r + p).!(!q + p)"
+
+# e) Z = {(p ∨ q) ⇔ r, r, ¬p, q} JO
+SAT "((p+q).r + !(p+q).!r) . (r) . (!p) . (q)"

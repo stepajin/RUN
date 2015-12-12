@@ -25,6 +25,12 @@ Environment::Environment() {
 }
 
 Environment::Environment(Environment * parent) {
+//  hotfix - allow only 2 levels
+//  TODO: ...
+    while (parent->parentEnvironment) {
+        parent = parent->parentEnvironment;
+    }
+
     level = parent->level + 1;
     
     variableStore = new map<int, VmObject *>;

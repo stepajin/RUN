@@ -289,7 +289,7 @@ VmObject * Reader::getObject() {
     if (byte == BC_FUNC_CALL) {
         int identifier = getShortInt();
 
-        VmObject * func = environment->getUserFunction(identifier);        
+        VmObject * func = environment->getUserFunction(identifier);
         func->readArguments(this);
         return func;
     }

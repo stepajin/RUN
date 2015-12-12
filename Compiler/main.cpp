@@ -660,7 +660,7 @@ int main(int argc, char ** argv) {
     
     printVector(v);
     
-    char buffer[1024];
+    char buffer[4096];
     for (int i = 0; i < v->size(); i++) {
         buffer[i] = v->at(i);
     }

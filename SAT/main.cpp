@@ -344,10 +344,10 @@ bool SAT(const string & s) {
 
     bool res = false;
     
-    vector<string> * conjuntions = conjunctions_list(dnf);
+    vector<string> * conjunctions = conjunctions_list(dnf);
     
-    for (long i = 0; i < conjuntions->size(); i++) {
-        if (evaluate_conjunction(conjuntions->at(i))) {
+    for (long i = 0; i < conjunctions->size(); i++) {
+        if (evaluate_conjunction(conjunctions->at(i))) {
             res = true;
             break;
         }
@@ -356,7 +356,7 @@ bool SAT(const string & s) {
     string str = res ? "TRUE" : "FALSE";
     cout << str << endl << "---" << endl;
     
-    delete conjuntions;
+    delete conjunctions;
     delete postfix;
     return res;
 }
