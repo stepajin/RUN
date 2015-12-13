@@ -660,12 +660,26 @@ int main(int argc, char ** argv) {
     
     printVector(v);
     
-    char buffer[4096];
+    int outputBufferSize = 512;
+    char outputBuffer[512];
+    int cnt = 0;
+
     for (int i = 0; i < v->size(); i++) {
-        buffer[i] = v->at(i);
+        outputBuffer[cnt] = v->at(i);
+        cnt++;
+        
+        if (cnt == outputBufferSize) {
+            out.write(outputBuffer, outputBufferSize);
+            cnt = 0;
+        }
     }
     
-    out.write(buffer, v->size());
+    if (cnt > 0) {
+        out.write(outputBuffer, cnt);
+    }
+    
+    out.close();
+    in.close();
     
     return 0;
 }
