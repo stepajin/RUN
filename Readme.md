@@ -34,7 +34,8 @@
 
 **Closure**
 
-* { ...code... }
+* = cl { ... }
+* cl # execute
 
 ## Basic operations
 
