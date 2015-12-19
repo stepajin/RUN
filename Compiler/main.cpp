@@ -64,6 +64,7 @@ enum BYTE {
     BC_ASSIGN_MULTIPLY = 217,
     BC_PUSH = 216,
     BC_POP = 215,
+    BC_CLOSURE = 214,
     
     FLAG_END = 999
 };
@@ -153,6 +154,22 @@ BYTECODE * compileBlock(ifstream & in, EMBED_TYPE embedType) {
     bc = append(bc, returns);
     
     EMBED_STACK.pop_back();
+    
+    return bc;
+}
+
+BYTECODE * compileClosure(ifstream & in) {
+    BYTECODE * bc = new BYTECODE;
+    
+    while (true) {
+        string s = readWord(in);
+        if (s == "}") {
+            break;
+        }
+        
+        BYTECODE * bc2 = compile(s, in);
+        bc = append(bc, bc2);
+    }
     
     return bc;
 }
@@ -392,6 +409,18 @@ BYTECODE * compile(string s, ifstream & in) {
     if (s == "(") {
         cout << "Block not expected here" << endl;
         exit(1);
+    }
+    
+    if (s == "{") {
+        BYTECODE * closure = compileClosure(in);
+        unsigned char * closureLength = toBytes(2, closure->size());
+        
+        bc->push_back(BC_CLOSURE);
+        bc->push_back(closureLength[0]);
+        bc->push_back(closureLength[1]);
+        
+        bc = append(bc, closure);
+        return bc;
     }
     
     if (s == "if") {

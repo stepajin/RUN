@@ -1,16 +1,3 @@
-= i 10
-= arg 66
-
-func aaa arg (
-    print i
-    print arg
-)
-
-func bbb arg (
-    = k 32
-    aaa 42
-    print arg
-)
-
-bbb 55
-
+= i 42
+= a { print i }
+a
