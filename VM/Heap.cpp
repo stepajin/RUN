@@ -46,10 +46,6 @@ void Heap::addEnvironment(Environment * environment) {
     environments->insert(environment);
 }
 
-//void Heap::removeEnvironment(Environment * environment) {
-//    environments->erase(environment);
-//}
-
 void Heap::printHeap() {
     vector<VmObject *>::iterator it;
     
@@ -87,6 +83,23 @@ void Heap::collect() {
         printHeap();
         if (CallStack::INSTANCE()->getSize() > 0)
             CallStack::INSTANCE()->printStack();
+    }
+    
+    if (print) {
+        cout << environments->size() << " environments" << endl;
+    }
+    
+    // Remove released environments (roots)
+    set<Environment *>::iterator e = environments->begin();
+    while (e != environments->end()) {
+        Environment * env = *e;
+    
+        if (env->REFERENCES_CNT <= 0) {
+            e = environments->erase(e);
+            delete env;
+        } else {
+            ++e;
+        }
     }
     
     // Mark

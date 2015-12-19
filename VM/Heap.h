@@ -16,7 +16,7 @@
 #include <vector>
 
 class Heap {
-    const int COUNTDOWN_BEGIN = 20;
+    const int COUNTDOWN_BEGIN = 1;
     int countdown;
     
     Heap();
@@ -37,7 +37,6 @@ public:
     void alloc(VmObject * obj);
 
     void addEnvironment(Environment * environment);
-//    void removeEnvironment(Environment * environment);
     
     void collectIfNeeded();
     void forceCollect();
