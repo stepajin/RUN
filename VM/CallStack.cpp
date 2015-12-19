@@ -66,8 +66,8 @@ void CallStack::push(VmObject * obj) {
         size++;
     
    // cout << "stack size " << size << endl;
-    //cout << "push " << obj->toString() << endl;
-    //printStack();
+   // cout << "push " << obj->toString() << endl;
+   // printStack();
     
 }
 

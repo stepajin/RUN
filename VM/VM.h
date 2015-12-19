@@ -54,7 +54,8 @@ enum BYTECODES {
     BC_ASSIGN_DIVIDE = 218,
     BC_ASSIGN_MULTIPLY = 217,
     BC_PUSH = 216,
-    BC_POP = 215
+    BC_POP = 215,
+    BC_CLOSURE = 214
 };
 
 enum VmObjectTag {
@@ -69,7 +70,8 @@ enum VmObjectTag {
     TAG_LIST,
     TAG_RETURN,
     TAG_MOVE_BUFFER,
-    TAG_FILE
+    TAG_FILE,
+    TAG_CLOSURE
 };
 
 #define FORWARD true

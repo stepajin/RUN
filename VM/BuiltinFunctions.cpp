@@ -12,6 +12,7 @@
 #include "CallStack.h"
 #include "BuiltinFunctions.h"
 #include "Error.h"
+#include "Closure.h"
 
 /*************
 
@@ -74,7 +75,14 @@ LoadFunction::LoadFunction() : BuiltinFunction("load") {
 }
 
 VmObject * LoadFunction::eval(Environment * environment) {
-    return environment->getVariable(identifier);
+    VmObject * load = environment->getVariable(identifier);
+    if (load->getTag() != TAG_CLOSURE) {
+        return load;
+    }
+
+    // closure
+    VmClosure * closure = (VmClosure *)load;
+    return closure->execute();
 }
 
 void LoadFunction::readArguments(Reader * reader) {

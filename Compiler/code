@@ -1,3 +1,5 @@
 = i 42
 = a { print i }
 a
+a
+a

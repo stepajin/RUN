@@ -16,6 +16,7 @@
 #include "UserFunction.h"
 #include "IOOperations.h"
 #include "CallStack.h"
+#include "Closure.h"
 
 using namespace std;
 
@@ -266,6 +267,18 @@ VmObject * Reader::getObject() {
         ReadFunction * read = new ReadFunction();
         read->readArguments(this);
         return read;
+    }
+    
+    if (byte == BC_CLOSURE) {
+        int bcLength = getShortInt();
+        
+        BYTE * bytecode = new BYTE[bcLength];
+        for (int i = 0; i < bcLength; i++)
+            bytecode[i] = getByte();
+        
+        VmClosure * closure = new VmClosure(bcLength, bytecode, environment);
+        
+        return closure;
     }
     
     if (byte == BC_FUNC_DEF) {
