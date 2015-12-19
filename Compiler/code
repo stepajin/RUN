@@ -1,5 +1,14 @@
-= i 42
-= a { print i }
-a
-a
-a
+func abc cl (
+    print "abc"
+    cl
+)
+
+abc { print "closure" }
+
+func getClosure (
+    = local 666
+    { print local }
+)
+
+= closure getClosure
+closure
