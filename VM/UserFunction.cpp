@@ -9,7 +9,7 @@
 #include "UserFunction.h"
 #include "CallStack.h"
 
-UserFunction::UserFunction(int numberOfArgs, int * argIdentifiers, int length, BYTE * bytecode) : VmObject(TAG_USER_FUNCTION)
+UserFunction::UserFunction(int numberOfArgs, int * argIdentifiers, int length, BYTE * bytecode, Environment * parentEnvironment) : VmObject(TAG_USER_FUNCTION)
 {
     this->numberOfArgs = numberOfArgs;
     this->argIdentifiers = argIdentifiers;
@@ -18,6 +18,7 @@ UserFunction::UserFunction(int numberOfArgs, int * argIdentifiers, int length, B
     
     this->length = length;
     this->bytecode = bytecode;
+    this->parentEnvironment = parentEnvironment;
 }
 
 UserFunction::~UserFunction() {
@@ -37,11 +38,12 @@ void UserFunction::readArguments(Reader * reader) {
 VmObject * UserFunction::eval(Environment * environment) {
 
     BytecodeDataSource * data = new BytecodeDataSource(bytecode, length);
-    Environment * newEnvironment = new Environment(environment);
-    Reader * reader = new Reader(data, environment);
+    
+    Environment * newEnvironment = new Environment(parentEnvironment);
+    Reader * reader = new Reader(data, newEnvironment);
 
     for (int i = 0; i < numberOfArgs; i++) {
-        VmObject * e = arguments[i]->eval(environment);
+        VmObject * e = arguments[i]->eval(parentEnvironment);
         newEnvironment->setVariable(argIdentifiers[i], e);
     }
     

@@ -280,7 +280,8 @@ VmObject * Reader::getObject() {
         for (int i = 0; i < bcLength; i++)
             bytecode[i] = getByte();
         
-        UserFunction * func = new UserFunction(numberOfArgs, args, bcLength, bytecode);
+        UserFunction * func = new UserFunction(numberOfArgs, args, bcLength, bytecode, environment);
+        
         environment->setUserFunction(identifier, func);
         
         return VmVoid::VOID();

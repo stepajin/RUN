@@ -19,10 +19,11 @@ class UserFunction : public VmObject {
     int length;
     
     VmObject ** arguments;
-    
+    Environment * parentEnvironment;
     
 public:
-    UserFunction(int numberOfArgs, int * argIdentifiers, int length, BYTE * bytecode);
+    UserFunction(int numberOfArgs, int * argIdentifiers, int length, BYTE * bytecode, Environment * parentEnvironment);
+    
     virtual ~UserFunction();
 
     virtual void readArguments(Reader * reader);
