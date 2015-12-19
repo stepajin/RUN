@@ -32,6 +32,10 @@
 
 * [ 1 2 3 “a” [ 5 6 ] yes no 42 ]
 
+**Closure**
+
+* { ...code... }
+
 ## Basic operations
 
 **Compare**
