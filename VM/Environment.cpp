@@ -7,6 +7,7 @@
 //
 
 #include "Environment.h"
+#include "Heap.h"
 
 bool contains(map<int, VmObject *> * store, int key) {
     if ((*store)[key] != NULL)
@@ -22,6 +23,9 @@ Environment::Environment() {
     variableStore = new map<int, VmObject *>;
     userFunctionStore = new map<int, VmObject *>;
     this->parentEnvironment = NULL;
+    
+    this->REFERENCES_CNT = 0;
+    Heap::INSTANCE()->addEnvironment(this);
 }
 
 Environment::Environment(Environment * parent) {
@@ -36,11 +40,22 @@ Environment::Environment(Environment * parent) {
     variableStore = new map<int, VmObject *>;
     userFunctionStore = new map<int, VmObject *>;
     this->parentEnvironment = parent;
+    
+    this->REFERENCES_CNT = 0;
+    Heap::INSTANCE()->addEnvironment(this);
 }
 
 Environment::~Environment() {
     delete variableStore;
     delete userFunctionStore;
+}
+
+void Environment::retain() {
+    this->REFERENCES_CNT++;
+}
+
+void Environment::release() {
+    this->REFERENCES_CNT--;
 }
 
 /*****************

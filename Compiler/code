@@ -1,14 +1,16 @@
 = i 10
+= arg 66
 
 func aaa arg (
     print i
     print arg
 )
 
-func bbb (
+func bbb arg (
     = k 32
     aaa 42
+    print arg
 )
 
-bbb
+bbb 55
 

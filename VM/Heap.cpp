@@ -22,7 +22,7 @@ Heap * Heap::INSTANCE() {
 Heap::Heap() {
     countdown = COUNTDOWN_BEGIN;
     
-    rootSet = new set<Environment *>();
+    environments = new set<Environment *>();
     heap = new vector<VmObject *>();
 }
 
@@ -34,7 +34,7 @@ Heap::~Heap() {
         delete obj;
     }
 
-    delete rootSet;
+    delete environments;
     delete heap;
 }
 
@@ -43,12 +43,12 @@ void Heap::alloc(VmObject * obj) {
 }
 
 void Heap::addEnvironment(Environment * environment) {
-    rootSet->insert(environment);
+    environments->insert(environment);
 }
 
-void Heap::removeEnvironment(Environment * environment) {
-    rootSet->erase(environment);
-}
+//void Heap::removeEnvironment(Environment * environment) {
+//    environments->erase(environment);
+//}
 
 void Heap::printHeap() {
     vector<VmObject *>::iterator it;
@@ -90,7 +90,7 @@ void Heap::collect() {
     }
     
     // Mark
-    for (set<Environment *>::iterator it = rootSet->begin(); it != rootSet->end(); ++it) {
+    for (set<Environment *>::iterator it = environments->begin(); it != environments->end(); ++it) {
         
         Environment * env = *it;
 

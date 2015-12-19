@@ -17,7 +17,6 @@ using namespace std;
 class VmObject;
 
 class Environment {
-    
     Environment * parentEnvironment;
     
     map<int, VmObject *> * variableStore;
@@ -29,11 +28,16 @@ class Environment {
     bool isUserFunctionSetInThis(int key);
     
 public:
+    int REFERENCES_CNT;
+
     int level; // just for debug
 
     Environment();
     Environment(Environment * parent);
     ~Environment();
+    
+    void retain();
+    void release();
     
     void setVariable(int key, VmObject * value);
     VmObject * getVariable(int key);

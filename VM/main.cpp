@@ -20,7 +20,7 @@
 using namespace std;
 
 VmObject * REPL(Reader * reader, Environment * environment) {
-    Heap::INSTANCE()->addEnvironment(environment);
+    //Heap::INSTANCE()->addEnvironment(environment);
     
     VmObject * result = VmVoid::VOID();
     
@@ -68,7 +68,7 @@ VmObject * REPL(Reader * reader, Environment * environment) {
         result = eval;
     }
     
-    Heap::INSTANCE()->removeEnvironment(environment);
+    //Heap::INSTANCE()->removeEnvironment(environment);
     
     //CallStack::INSTANCE()->printStack();
     
@@ -96,7 +96,8 @@ int main(int argc, const char * argv[]) {
     FileDataSource * dataSource = new FileDataSource(&input);
     
     Environment * environment = new Environment();
-
+    environment->retain();
+    
     Reader * reader = new Reader(dataSource, environment);
     
     VmObject * result = REPL(reader, environment);

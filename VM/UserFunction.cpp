@@ -40,6 +40,8 @@ VmObject * UserFunction::eval(Environment * environment) {
     BytecodeDataSource * data = new BytecodeDataSource(bytecode, length);
     
     Environment * newEnvironment = new Environment(parentEnvironment);
+    newEnvironment->retain();
+    
     Reader * reader = new Reader(data, newEnvironment);
 
     for (int i = 0; i < numberOfArgs; i++) {
@@ -48,9 +50,9 @@ VmObject * UserFunction::eval(Environment * environment) {
     }
     
     VmObject * result = REPL(reader, newEnvironment);
-
+    newEnvironment->release();
+    
     delete data;
-    delete newEnvironment;
     delete reader;
     
     return result;

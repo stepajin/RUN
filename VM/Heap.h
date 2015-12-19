@@ -23,7 +23,7 @@ class Heap {
     
     static Heap * INST;
     
-    set<Environment *> * rootSet;
+    set<Environment *> * environments;
     
     vector<VmObject *> * heap;
     
@@ -37,7 +37,7 @@ public:
     void alloc(VmObject * obj);
 
     void addEnvironment(Environment * environment);
-    void removeEnvironment(Environment * environment);
+//    void removeEnvironment(Environment * environment);
     
     void collectIfNeeded();
     void forceCollect();
