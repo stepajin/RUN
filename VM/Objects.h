@@ -48,6 +48,7 @@ public:
     void unmark();
     bool isMarked();
     bool isRetained();
+    void setRetained(bool retained);
 };
 
 class VmReturn : public VmObject {

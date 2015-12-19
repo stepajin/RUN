@@ -128,6 +128,10 @@ VmObject * Reader::getObject() {
         return list;
     }
     
+    if (byte == BC_ARGS) {
+        return ARGUMENTS;
+    }
+    
     if (byte == BC_AT) {
         AtFunction * at = new AtFunction();
         at->readArguments(this);

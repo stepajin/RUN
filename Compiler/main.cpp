@@ -65,6 +65,7 @@ enum BYTE {
     BC_PUSH = 216,
     BC_POP = 215,
     BC_CLOSURE = 214,
+    BC_ARGS = 213,
     
     FLAG_END = 999
 };
@@ -580,6 +581,11 @@ BYTECODE * compile(string s, ifstream & in) {
     if (s == "read") {
         bc = compile(readWord(in), in);
         bc->push_back(BC_READ);
+        return bc;
+    }
+    
+    if (s == "args") {
+        bc->push_back(BC_ARGS);
         return bc;
     }
     

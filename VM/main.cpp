@@ -75,12 +75,21 @@ VmObject * REPL(Reader * reader, Environment * environment) {
     return result;
 }
 
+VmList * ARGUMENTS;
 
 int main(int argc, const char * argv[]) {
     string filePath;
+    ARGUMENTS = new VmList();
+    ARGUMENTS->setRetained(true);
     
     if (argc >= 2) {
         filePath = argv[1];
+        
+        for (int i = 2; i < argc; i++) {
+            VmString * str = new VmString(argv[i]);
+            str->setRetained(true);
+            ARGUMENTS->push(str);
+        }
     } else {
         cout << "no argument given" << endl;
         exit(1);

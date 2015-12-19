@@ -66,6 +66,10 @@
             argument = "/Users/stepanek/School/RUN/Compiler/BC.out"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "tralala"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

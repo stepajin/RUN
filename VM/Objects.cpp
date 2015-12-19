@@ -79,6 +79,10 @@ bool VmObject::isRetained() {
     return retainFlag;
 }
 
+void VmObject::setRetained(bool retained) {
+    retainFlag = retained;
+}
+
 /************
  
  Return

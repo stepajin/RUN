@@ -12,3 +12,5 @@ func getClosure (
 
 = closure getClosure
 closure
+
+print at args 0

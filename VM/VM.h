@@ -55,7 +55,8 @@ enum BYTECODES {
     BC_ASSIGN_MULTIPLY = 217,
     BC_PUSH = 216,
     BC_POP = 215,
-    BC_CLOSURE = 214
+    BC_CLOSURE = 214,
+    BC_ARGS = 213
 };
 
 enum VmObjectTag {
@@ -85,6 +86,9 @@ enum VmObjectTag {
 class VmObject;
 class Reader;
 class Environment;
+class VmList;
+
+extern VmList * ARGUMENTS;
 
 VmObject * REPL(Reader * reader, Environment * environment);
 
