@@ -23,10 +23,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AC299D151C3F233400FA790B /* SAT.mirun */ = {isa = PBXFileReference; lastKnownFileType = text; name = SAT.mirun; path = ../../example/SAT.mirun; sourceTree = "<group>"; };
 		ACE808AD1BE7DBBC00A2D21C /* Compiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Compiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE808B01BE7DBBC00A2D21C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		ACE808BE1BE7DCF400A2D21C /* code */ = {isa = PBXFileReference; lastKnownFileType = text; path = code; sourceTree = "<group>"; };
-		ACE808BF1BE7DEFB00A2D21C /* BC.out */ = {isa = PBXFileReference; lastKnownFileType = file; path = BC.out; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +58,7 @@
 		ACE808AF1BE7DBBC00A2D21C /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
-				ACE808BF1BE7DEFB00A2D21C /* BC.out */,
-				ACE808BE1BE7DCF400A2D21C /* code */,
+				AC299D151C3F233400FA790B /* SAT.mirun */,
 				ACE808B01BE7DBBC00A2D21C /* main.cpp */,
 			);
 			path = Compiler;

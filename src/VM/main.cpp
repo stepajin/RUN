@@ -20,8 +20,6 @@
 using namespace std;
 
 VmObject * REPL(Reader * reader, Environment * environment) {
-    //Heap::INSTANCE()->addEnvironment(environment);
-    
     VmObject * result = VmVoid::VOID();
     
     while (true) {
@@ -81,9 +79,7 @@ int main(int argc, const char * argv[]) {
     string filePath;
     ARGUMENTS = new VmList();
     ARGUMENTS->setRetained(true);
-    
-    cout << "argc " << argc << endl;
-    
+        
     if (argc >= 2) {
         filePath = argv[1];
         
@@ -96,9 +92,6 @@ int main(int argc, const char * argv[]) {
         cout << "no argument given" << endl;
         exit(1);
     }
-    
-    cout << ARGUMENTS->toString() << endl;
-    cout << filePath << endl;
     
     ifstream input(filePath.c_str(), std::ios::binary );
     if (!input.is_open()) {

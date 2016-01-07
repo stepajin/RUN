@@ -12,7 +12,6 @@
 #include "Objects.h"
 #include "Environment.h"
 
-#include <set>
 #include <vector>
 
 class Heap {
@@ -23,7 +22,7 @@ class Heap {
     
     static Heap * INST;
     
-    set<Environment *> * environments;
+    vector<Environment *> * environments;
     
     vector<VmObject *> * heap;
     

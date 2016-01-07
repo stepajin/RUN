@@ -668,14 +668,11 @@ int main(int argc, char ** argv) {
         outputFile = folder + "BC.out";
     }
     
-    cout << "input: " << inputFile << endl;
-    cout << "output: " << outputFile << endl;
-
-    ifstream in(inputFile);
-    ofstream out(outputFile, ios::out|ios::binary);
+    ifstream in(inputFile.c_str());
+    ofstream out(outputFile.c_str(), ios::out|ios::binary);
     
     if (!in.is_open()) {
-        cout << "blbej file" << endl;
+        cout << "wrong input file" << endl;
         return 1;
     }
     

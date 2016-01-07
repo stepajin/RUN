@@ -108,7 +108,7 @@ VmObject * AtFunction::eval(Environment * environment) {
         return error("at: index is not a number");
     }
     
-    int idx = ((VmNumber *) index)->getValue();
+    int idx = (int)((VmNumber *) index)->getValue();
     
     stringstream outOfBounds;
     outOfBounds << "at: index out of bounds: " << idx;

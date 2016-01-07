@@ -67,7 +67,7 @@ void VmFile::write(string s) {
     }
     
     if (!output) {
-        output = new ofstream(*name);
+        output = new ofstream((*name).c_str());
     }
     
     output->write(s.c_str(), s.length());
@@ -81,7 +81,7 @@ VmString * VmFile::read() {
     }
     
     if (!input) {
-        input = new ifstream(*name);
+        input = new ifstream((*name).c_str());
     }
     
     string line;
