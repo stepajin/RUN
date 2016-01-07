@@ -22,6 +22,8 @@ using namespace std;
 #define BYTECODE vector<short>
 #define NUMBER_LENGTH 2
 
+#define DEBUG false
+
 enum BYTE {
     BC_NUMBER = 255,
     BC_STRING = 254,
@@ -692,8 +694,8 @@ int main(int argc, char ** argv) {
         //printVector(v);
     }
     
-    
-    printVector(v);
+    if (DEBUG)
+        printVector(v);
     
     int outputBufferSize = 512;
     char outputBuffer[512];

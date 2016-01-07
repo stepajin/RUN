@@ -16,7 +16,7 @@
 #include <vector>
 
 class Heap {
-    const int COUNTDOWN_BEGIN = 50;
+    static const int COUNTDOWN_BEGIN = 50;
     int countdown;
     
     Heap();

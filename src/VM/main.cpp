@@ -82,6 +82,8 @@ int main(int argc, const char * argv[]) {
     ARGUMENTS = new VmList();
     ARGUMENTS->setRetained(true);
     
+    cout << "argc " << argc << endl;
+    
     if (argc >= 2) {
         filePath = argv[1];
         
@@ -95,12 +97,14 @@ int main(int argc, const char * argv[]) {
         exit(1);
     }
     
+    cout << ARGUMENTS->toString() << endl;
     cout << filePath << endl;
     
     ifstream input(filePath.c_str(), std::ios::binary );
     if (!input.is_open()) {
         cout << "can't open file " << filePath << endl;
     }
+    
     
     FileDataSource * dataSource = new FileDataSource(&input);
     

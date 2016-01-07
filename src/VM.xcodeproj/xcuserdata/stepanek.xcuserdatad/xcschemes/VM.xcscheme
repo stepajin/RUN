@@ -63,7 +63,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/stepanek/School/RUN/Compiler/BC.out"
+            argument = "/Users/stepanek/School/RUN/src/Compiler/BC.out"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
