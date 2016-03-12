@@ -1,0 +1,12 @@
+func abcde arg1 arg2 arg3 (
+
+print "abc"
+
+return 888
+
+)
+
+abcde 44 55 66
+
+= abc + 567 [ 1 2 3 ]
+print abc

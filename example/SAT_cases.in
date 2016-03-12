@@ -1,0 +1,7 @@
+a . ! b + ! ( ( c . d . ! d ) + u . v ) + ! e . f
+aaa.( bbb + ccc ).!bbb.!ccc
+((!p+q).r) . (q.r) . (!r.s) . (p.!s)
+( !(p.q.r) + (s.!t + !s.t) ) . (q.r) . (!s) . (!t) . (p)
+(!q + r) . (!r + p) . (!q + p)
+(!q + r).(!r + p).!(!q + p)
+((p+q).r + !(p+q).!r) . (r) . (!p) . (q)

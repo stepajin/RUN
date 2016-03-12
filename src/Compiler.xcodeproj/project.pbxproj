@@ -24,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		AC299D151C3F233400FA790B /* SAT.mirun */ = {isa = PBXFileReference; lastKnownFileType = text; name = SAT.mirun; path = ../../example/SAT.mirun; sourceTree = "<group>"; };
+		ACC093D51C48D96C00BD760F /* code */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = code; sourceTree = "<group>"; };
 		ACE808AD1BE7DBBC00A2D21C /* Compiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Compiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE808B01BE7DBBC00A2D21C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,6 +61,7 @@
 			children = (
 				AC299D151C3F233400FA790B /* SAT.mirun */,
 				ACE808B01BE7DBBC00A2D21C /* main.cpp */,
+				ACC093D51C48D96C00BD760F /* code */,
 			);
 			path = Compiler;
 			sourceTree = "<group>";

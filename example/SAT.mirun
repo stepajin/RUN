@@ -430,23 +430,17 @@ func SAT expression (
     result
 )
 
-# JO
-SAT "a . ! b + ! ( ( c . d . ! d ) + u . v ) + ! e . f"
+if not == size args 1 ( print "no argument given" )
 
-# NE
-SAT "aaa.( bbb + ccc ).!bbb.!ccc"
+= file_name at args 0
+print file_name
 
-# a) T = {(p ⇒ q) ∧ r, q ∧ r, r ⇒ s, p ∧ ¬s} NE
-SAT "((!p+q).r) . (q.r) . (!r.s) . (p.!s)"
+= file open file_name
 
-# b) F = {(p ∧ q ∧ r) ⇒ [(s ∧ ¬t) ∨ (¬s ∧ t)], q ∧ r, ¬s, ¬t, p} NE
-SAT "( !(p.q.r) + (s.!t + !s.t) ) . (q.r) . (!s) . (!t) . (p)"
+loop (
+    = case read file
 
-# c) G = {q ⇒ r, r ⇒ p, q ⇒ p} JO
-SAT "(!q + r) . (!r + p) . (!q + p)"
+    if == case eof ( end )
 
-# d) Y = {q ⇒ r, r ⇒ p, ¬(q ⇒ p)} NE
-SAT "(!q + r).(!r + p).!(!q + p)"
-
-# e) Z = {(p ∨ q) ⇔ r, r, ¬p, q} JO
-SAT "((p+q).r + !(p+q).!r) . (r) . (!p) . (q)"
+    SAT case
+)
